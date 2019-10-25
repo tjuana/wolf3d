@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 15:17:47 by tjuana            #+#    #+#             */
-/*   Updated: 2019/10/24 17:46:16 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/10/25 14:36:33 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ int			write_map(t_map *map, t_list *lst)
 			map->map[wr.y * map->m_wid + wr.x] = ft_atoi(wr.s[wr.x]);
 			//printf("%d ", map->map[wr.y * map->m_wid + wr.x]);
 			///change textures
-			map->map[wr.y * map->m_wid + wr.x] > 77 ? ft_error("map is failed") : 0;
-			if (map->map[wr.y * map->m_wid + wr.x] >= 77 && map->map[wr.y * map->m_wid + wr.x] <= 77)
+			map->map[wr.y * map->m_wid + wr.x] > 22 ? ft_error("map is failed") : 0;
+			if (map->map[wr.y * map->m_wid + wr.x] >= 20 && map->map[wr.y * map->m_wid + wr.x] <= 22)
 				wr.s_count++;
 		}
 		//printf("\n");

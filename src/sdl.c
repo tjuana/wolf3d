@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/10/24 18:42:15 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/10/25 14:33:55 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ t_sdl		*sdl_init(t_sdl *sdl)
 	SDL_Init(SDL_INIT_AUDIO);
 	SDL_Init(SDL_INIT_VIDEO);
 	SDL_CreateWindowAndRenderer(WIN_WIDTH, WIN_HEIGHT, 0, &sdl->win, &sdl->renderer);
-	sdl->text = SDL_CreateTexture(sdl->renderer, SDL_PIXELFORMAT_ABGR8888, SDL_TEXTUREACCESS_STREAMING, WIN_WIDTH, WIN_HEIGHT);
+	sdl->text = SDL_CreateTexture(sdl->renderer, SDL_PIXELFORMAT_ABGR8888, \
+		SDL_TEXTUREACCESS_STREAMING, WIN_WIDTH, WIN_HEIGHT);
 	if(!sdl->text)
 		ft_error("SDL non textures");
 	sdl->running = 1;
@@ -63,4 +64,24 @@ void		ft_we_need_more_init(t_wolf3d *w)
 	w->arr[2] = 0;
 	w->arr[3] = 0;
 	w->arr[4] = 0;
+}
+
+void		ft_init_multi_wolf(t_threads_help *w, t_wolf3d *head)
+{
+	w->sdl = head->sdl;
+	w->map.map = head->map.map;
+	//w->map.sprite = head->map.sprite;
+	//w->map.sprite_ord = head->map.sprite_ord;
+	//w->map.spr_dst = head->map.spr_dst;
+	w->map.m_wid = head->map.m_wid;
+	w->map.m_hei = head->map.m_wid;
+	w->pl.pos.x = head->pl.pos.x;
+	w->pl.pos.y = head->pl.pos.y;
+	w->pl.dir.x = head->pl.dir.x;
+	w->pl.dir.y = head->pl.dir.y;
+	w->pl.plane.x = head->pl.plane.x;
+	w->pl.plane.y = head->pl.plane.y;
+	w->z_buffer = head->z_buffer;
+	w->half_height = head->c.half_height;
+	w->camera_x_cnst = head->c.camera_x_cnst;
 }

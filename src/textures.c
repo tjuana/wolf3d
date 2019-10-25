@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 18:54:20 by tjuana            #+#    #+#             */
-/*   Updated: 2019/10/24 18:58:33 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/10/25 14:54:02 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,4 @@ void	ft_load_textures(t_wolf3d *w)
 	w->sdl->textures[20] = ft_sdl_load_bmp("Textures/greenlight.bmp");
 	w->sdl->textures[21] = ft_sdl_load_bmp("Textures/pillar.bmp");
 	w->sdl->textures[22] = ft_sdl_load_bmp("Textures/barrel.bmp");
-}
-
-void		renderer(t_wolf3d *wolf)
-{
-	//ft_animation_play(wolf);
-	ft_bzero(wolf->sdl->text_buf, 4 * WIN_WIDTH * WIN_HEIGHT);
-	SDL_SetRenderDrawColor(wolf->sdl->renderer, 0x00, 0x00, 0x00, 0x00);
-	SDL_RenderClear(wolf->sdl->renderer);
-	//ft_multithreading(wolf);
-	//ft_draw_animation(wolf);
-	SDL_UpdateTexture(wolf->sdl->text, 0, wolf->sdl->text_buf, WIN_WIDTH * 4);
-	SDL_RenderCopy(wolf->sdl->renderer, wolf->sdl->text, NULL, NULL);
-	SDL_RenderPresent(wolf->sdl->renderer);
 }

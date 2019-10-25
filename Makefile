@@ -6,78 +6,125 @@
 #    By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 11:40:58 by tjuana            #+#    #+#              #
-#    Updated: 2019/10/24 18:55:25 by tjuana           ###   ########.fr        #
+#    Updated: 2019/10/25 14:54:34 by tjuana           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= wolf3d
+NAME = wolf3d
 
-# src / obj files
-SRC		=	main.c \
-			sdl.c \
-			help.c \
-			read_map.c \
-			textures.c \
-											
+FLAGS = -g -O3
+CC = gcc
+LIBRARIES = -lft -L$(LIBFT_DIRECTORY) -F SDL2/Frameworks   -lSDL2 -L$(SDL_DIRECTORY) -lSDL2main -L$(SDL_DIRECTORY) -lSDL2-2.0.0 -L$(SDL_DIRECTORY)
+INCLUDES = -I$(HEADERS_DIRECTORY) -I$(LIBFT_HEADERS) -I$(SDL_HEADERS)
 
-OBJ		= $(addprefix $(OBJDIR),$(SRC:.c=.o))
+LIBFT = $(addprefix $(LIBFT_DIRECTORY),libft.a)
+LIBFT_DIRECTORY = ./libft/
+LIBFT_HEADERS = ./libft/includes
+SDL_HEADERS = include/
 
-# compiler
-CC		= gcc -g 
-CFLAGS	= -Ofast -flto -march=native
+HEADERS_DIRECTORY = ./includes/
+HEADERS_LIST = wolf3d.h
+HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
-# mlx library
-SDL_INC	= -I ~/Library/Frameworks/SDL2.framework/Versions/A/Headers
-SDL_FRW = -F ~/Library/Frameworks/ 
-SDL_LNK = -framework SDL2  
+DIRECTORY =  $(shell pwd)
 
+SDL_DIRECTORY = $(DIRECTORY)/lib
+SDL_MAKE = $(DIRECTORY)/SDL2
 
-# ft library
-FT		= ./libft/
-FT_LIB	= $(addprefix $(FT),libft.a)
-FT_INC	= -I ./libft/includes
-FT_LNK	= -L ./libft -l ft
+LIB_LIST =	libSDL2.a\
+			libSDL2.la\
+			libSDL2_test.la\
+			libSDL2main.la\
+			libSDL2-2.0.0.dylib\
+			libSDL2.dylib\
+			libSDL2_test.a\
+			libSDL2main.a
 
-# directories
-SRCDIR	= ./src/
-INCDIR	= ./includes/
-OBJDIR	= ./obj/
+SRCS_DIRECTORY = ./src/
+SRCS_LIST = main.c\
+			help.c\
+			read_map.c\
+			sdl.c\
+			textures.c\
+			events.c\
+			threads.c\
+			draw_walls.c\
+			sdl_render.c\
+			move.c\
+			ray_casting.c\
+			
+	
 
-# colors
-RED=\033[1;31m
-GRE=\033[1;32m
-LCY=\033[1;36m
-LYE=\033[1;33m
-NC=\033[0m
+OBJS_DIRECTORY = objects/
+OBJS_LIST = $(patsubst %.c, %.o, $(SRCS_LIST))
+OBJS = $(addprefix $(OBJS_DIRECTORY), $(OBJS_LIST))
+SDL_LIBS = $(addprefix $(DIRECTORY)/lib/, $(LIB_LIST))
 
-.PHONY: all, clean, fclean, re
+LIBFT = libft/libft.a
+LIBSDL_EXIST = 0
+err = no
 
-all: obj $(FT_LIB) $(NAME)
+GREEN = \033[0;32m
+RED = \033[0;31m
+RESET = \033[0m
 
-obj:
-	@mkdir -p $(OBJDIR)
+.PHONY: all clean fclean re
 
-$(OBJDIR)%.o:$(SRCDIR)%.c
-	@$(CC) $(CFLAGS) $(SDL_FRW) $(SDL_INC) $(FT_INC) -I $(INCDIR) -o $@ -c $<
-	@echo "${LCY} ┣╸ ${NC}$<" | sed 's/\.c/\.o/g'
+all: $(NAME)
 
-$(FT_LIB):
-	@make -C $(FT)
-	@echo "${GRE}(✓) Libft${NC}"
+$(NAME): $(LIBFT) $(OBJS_DIRECTORY) $(OBJS)
+	$(foreach p,$(SDL_LIBS),$(if $(wildcard $(p)),,$(info $(p) does not exist!) $(MAKE) sdl))
+	@$(CC) $(FLAGS) $(LIBRARIES) $(INCLUDES) $(OBJS) -o $(NAME)
+	@echo "\n$(NAME): $(GREEN)object files were created$(RESET)"
+	@echo "$(NAME): $(GREEN)$(NAME) was created$(RESET)"
 
-$(NAME): $(OBJ)
-	@$(CC) $(OBJ) $(SDL_FRW) $(SDL_LNK) $(FT_LNK) -lm -o $(NAME)
-	@echo "${LYE}(✓) $(NAME)"
+$(OBJS_DIRECTORY):
+	@mkdir -p $(OBJS_DIRECTORY)
+	@echo "$(NAME): $(GREEN)$(OBJS_DIRECTORY) was created$(RESET)"
+
+$(OBJS_DIRECTORY)%.o : $(SRCS_DIRECTORY)%.c $(HEADERS)
+	@$(CC) $(FLAGS) -c $(INCLUDES) $< -o $@
+	@echo "$(GREEN).$(RESET)\c"
+
+sdl:
+	@echo "sad"
+	cd SDL2; ./configure --prefix=$(DIRECTORY); make;
+	$(MAKE) -sC $(DIRECTORY)/SDL2 install
+
+$(SDL_LIBS):
+	cd SDL2; ./configure --prefix=$(DIRECTORY); make;
+	$(MAKE) -sC $(SDL_MAKE) install
+
+$(LIBFT):
+	@echo "$(NAME): $(GREEN)Creating $(LIBFT)...$(RESET)"
+	@$(MAKE) -sC $(LIBFT_DIRECTORY)
 
 clean:
-	@rm -rf $(OBJDIR)
-	@make -C $(FT) clean
-	
-	@echo "${RED}(✗) Objects${NC}"
+	@$(MAKE) -sC $(LIBFT_DIRECTORY) clean
+	@rm -rf $(OBJS_DIRECTORY)
+	@echo "$(NAME): $(RED)$(OBJS_DIRECTORY) was deleted$(RESET)"
+	@echo "$(NAME): $(RED)object files were deleted$(RESET)"
+	@$(MAKE) -sC $(SDL_MAKE) clean
+	@echo "$(SDL_MAKE): $(RED)object files were deleted$(RESET)"
+
+dd:
+	rm $(NAME)
 
 fclean: clean
-	@rm -rf $(NAME)
-	@make -C $(FT) fclean
-	@echo "${RED}(✗) $(NAME)${NC}"
+	@rm -r $(LIBFT)
+	@echo "$(NAME): $(RED)$(LIBFT) was deleted$(RESET)"
+	@rm -f $(NAME)
+	@echo "$(NAME): $(RED)$(NAME) was deleted$(RESET)"
+	@rm -f $(DIRECTORY)/bin/sdl2-config
+	@rm -f $(DIRECTORY)/lib/libSDL2.la
+	@rm -f $(DIRECTORY)/lib/libSDL2main.la
+	@rm -f $(DIRECTORY)/lib/libSDL2_test.la
+	@rm -f $(DIRECTORY)/share/aclocal/sdl2.m4
+	@rm -f $(DIRECTORY)/lib/pkgconfig/sdl2.pc
+	@rm -f $(DIRECTORY)/lib/cmake/SDL2/sdl2-config.cmake
+	@rm -rf lib bin share
+	@echo "$(SDL_MAKE): $(RED)was unistalled$(RESET)"
 
-re: fclean all
+re:
+	@$(MAKE) fclean
+	@$(MAKE) all

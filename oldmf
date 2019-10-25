@@ -1,0 +1,98 @@
+NAME	= wolf3d
+
+# src / obj files
+SRC		=	main.c \
+			sdl.c \
+			help.c \
+			read_map.c \
+			textures.c \
+											
+
+OBJ		= $(addprefix $(OBJDIR),$(SRC:.c=.o))
+
+# compiler
+CC		= gcc -g -O3
+CFLAGS	= -Ofast -flto -march=native
+
+# mlx library
+SDL_INC	= -I ~/Library/Frameworks/SDL2.framework/Versions/A/Headers
+SDL_FRW = -F ~/Library/Frameworks/ 
+SDL_LNK = -framework SDL2  
+
+SDL_HEADERS = include/
+
+
+# ft library
+FT		= ./libft/
+FT_LIB	= $(addprefix $(FT),libft.a)
+FT_INC	= -I ./libft/includes -I$(INCDIR) -I$(SDL_HEADERS)
+LIBRARIES	= -L ./libft -lft -F SDL2/Frameworks   -lSDL2 -L$(SDL_DIRECTORY) -lSDL2main -L$(SDL_DIRECTORY) -lSDL2-2.0.0 -L$(SDL_DIRECTORY)
+
+HEADERS_LIST = wolf3d.h
+HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
+
+# directories
+SRCDIR	= ./src/
+INCDIR	= ./includes/
+OBJDIR	= ./obj/
+
+DIRECTORY =  $(shell pwd)
+
+SDL_DIRECTORY = $(DIRECTORY)/lib
+SDL_MAKE = $(DIRECTORY)/SDL2
+
+LIB_LIST =	libSDL2.a\
+			libSDL2.la\
+			libSDL2_test.la\
+			libSDL2main.la\
+			libSDL2-2.0.0.dylib\
+			libSDL2.dylib\
+			libSDL2_test.a\
+			libSDL2main.a
+
+SDL_LIBS = $(addprefix $(DIRECTORY)/lib/, $(LIB_LIST))
+
+LIBFT = libft/libft.a
+LIBSDL_EXIST = 0
+err = no
+
+
+# colors
+RED=\033[1;31m
+GRE=\033[1;32m
+LCY=\033[1;36m
+LYE=\033[1;33m
+NC=\033[0m
+
+
+.PHONY: all, clean, fclean, re
+
+all: obj $(FT_LIB) $(NAME)
+
+obj:
+	@mkdir -p $(OBJDIR)
+
+$(OBJDIR)%.o:$(SRCDIR)%.c
+	@$(CC) $(CFLAGS) $(SDL_FRW) $(SDL_INC) $(FT_INC) -I $(INCDIR) -o $@ -c $<
+	@echo "${LCY} ┣╸ ${NC}$<" | sed 's/\.c/\.o/g'
+
+$(FT_LIB):
+	@make -C $(FT)
+	@echo "${GRE}(✓) Libft${NC}"
+
+$(NAME): $(OBJ)
+	@$(CC) $(OBJ) $(SDL_FRW) $(SDL_LNK) $(FT_LNK) -lm -o $(NAME)
+	@echo "${LYE}(✓) $(NAME)"
+
+clean:
+	@rm -rf $(OBJDIR)
+	@make -C $(FT) clean
+	
+	@echo "${RED}(✗) Objects${NC}"
+
+fclean: clean
+	@rm -rf $(NAME)
+	@make -C $(FT) fclean
+	@echo "${RED}(✗) $(NAME)${NC}"
+
+re: fclean all
