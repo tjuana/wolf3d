@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 18:56:26 by tjuana            #+#    #+#             */
-/*   Updated: 2019/10/24 15:56:27 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/10/28 14:17:19 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,4 +109,5 @@ size_t				ft_line_len(const char *s);
 size_t				ft_countwords(char *str, char sep);
 void				ft_lstrev(t_list **l);
 size_t				ft_lstcount(t_list *lst);
+int					ft_2arrclean(char ***dst);
 #endif

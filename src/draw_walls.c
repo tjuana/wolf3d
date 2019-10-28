@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:01:59 by tjuana            #+#    #+#             */
-/*   Updated: 2019/10/25 14:04:15 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/10/25 18:00:00 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ void				ft_draw_walls(t_threads *a)
 	while (a->w.y < a->w.draw_end)
 	{
 		a->w.temp = (a->w.y << 8) - (WIN_HEIGHT << 7) + (a->w.line_height << 7);
-		a->w.text_y = (((a->w.temp * THREADS) / a->w.line_height) >> 8);
+		a->w.text_y = (((a->w.temp * TEX_H) / a->w.line_height) >> 8);
 		a->w.tex_col = &((Uint8*)(a->w.sdl->textures\
-		[a->w.texture_num]->pixels))[THREADS * 3 * a->w.text_y + a->w.text_x * 3];
+		[a->w.texture_num]->pixels))[TEX_H * 3 * a->w.text_y + a->w.text_x * 3];
 		a->w.color = *(Uint32*)(a->w.tex_col);
 		if (a->w.pl.side == 1)
 			a->w.color = (a->w.color >> 1) & 8355711;

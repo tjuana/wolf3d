@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 15:17:47 by tjuana            #+#    #+#             */
-/*   Updated: 2019/10/25 14:36:33 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/10/28 14:57:29 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int			write_map(t_map *map, t_list *lst)
 				wr.s_count++;
 		}
 		//printf("\n");
-		//clean 2d array
+		ft_2arrclean(&wr.s);
 		wr.lst = wr.lst->next;
 	}
 	ft_cleanmem(&lst);

@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/10/25 14:33:55 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/10/28 15:01:02 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ t_sdl		*sdl_init(t_sdl *sdl)
 	sdl = ft_my_malloc(sizeof(t_sdl));
 	sdl->text_buf = ft_my_malloc((sizeof(Uint32) * WIN_HEIGHT) * WIN_WIDTH);
 	SDL_Init(SDL_INIT_AUDIO);
-	SDL_Init(SDL_INIT_VIDEO);
+	//SDL_Init(SDL_INIT_VIDEO);
 	SDL_CreateWindowAndRenderer(WIN_WIDTH, WIN_HEIGHT, 0, &sdl->win, &sdl->renderer);
-	sdl->text = SDL_CreateTexture(sdl->renderer, SDL_PIXELFORMAT_ABGR8888, \
+	sdl->text = SDL_CreateTexture(sdl->renderer, SDL_PIXELFORMAT_ARGB8888, \
 		SDL_TEXTUREACCESS_STREAMING, WIN_WIDTH, WIN_HEIGHT);
 	if(!sdl->text)
 		ft_error("SDL non textures");

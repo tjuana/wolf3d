@@ -6,7 +6,7 @@
 #    By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 11:40:58 by tjuana            #+#    #+#              #
-#    Updated: 2019/10/25 14:54:34 by tjuana           ###   ########.fr        #
+#    Updated: 2019/10/28 12:50:49 by tjuana           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRCS_LIST = main.c\
 			sdl_render.c\
 			move.c\
 			ray_casting.c\
+			fpc.c\
 			
 	
 

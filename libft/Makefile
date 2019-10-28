@@ -6,7 +6,7 @@
 #    By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 18:51:09 by tjuana            #+#    #+#              #
-#    Updated: 2019/10/24 15:57:51 by tjuana           ###   ########.fr        #
+#    Updated: 2019/10/28 14:17:51 by tjuana           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRCS = ft_putchar.c ft_putchar_fd.c ft_atoi.c ft_strcmp.c ft_strdup.c \
 		ft_lstmap.c ft_iswsp.c ft_count_words.c ft_swap.c ft_strclen.c \
 		ft_strndup.c ft_strcdup.c ft_strnlen.c get_next_line.c \
 		ft_intsplitstr.c ft_putdbl.c ft_count_lines.c ft_line_len.c \
-		ft_countwords.c ft_lst_rev.c ft_lstcount.c
+		ft_countwords.c ft_lst_rev.c ft_lstcount.c ft_2arrclean.c
 
 
 
@@ -46,7 +46,7 @@ OBJECTS = ft_putchar.o ft_putchar_fd.o ft_atoi.o ft_strcmp.o ft_strdup.o \
 		ft_lstmap.o ft_iswsp.o ft_count_words.o ft_swap.o ft_strclen.o \
 		ft_strndup.o ft_strcdup.o ft_strnlen.o get_next_line.o \
 		ft_intsplitstr.o ft_putdbl.o ft_count_lines.o ft_line_len.o \
-		ft_countwords.o ft_lst_rev.o ft_lstcount.o
+		ft_countwords.o ft_lst_rev.o ft_lstcount.o ft_2arrclean.o
 
 
 INCLUDES=./

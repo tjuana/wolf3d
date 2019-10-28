@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:33:34 by tjuana            #+#    #+#             */
-/*   Updated: 2019/10/25 12:56:42 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/10/28 12:52:53 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,14 @@ int	main(int c, char **v)
 	w.sdl = sdl_init(w.sdl);
 	ft_init_wolf(&w);
 	ft_load_textures(&w);
+	fpsinit();
 	while (w.sdl->running)
 	{
 		renderer(&w);
 		ft_handle_events(&w);
 		ft_use_events(&w);
+		fpsthink();
+		
 	}
 	ft_clean_sdl(&w);
 	return (0);

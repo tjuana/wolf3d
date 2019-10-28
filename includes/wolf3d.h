@@ -42,6 +42,15 @@ typedef struct	s_player
 	int			side;
 }				t_player;
 
+typedef struct s_write
+{
+	t_list		*lst;
+	char		**s;
+	int			x;
+	int			y;
+	int			s_count;
+}				t_write;
+
 
 typedef struct  s_sdl
 {
@@ -58,14 +67,6 @@ typedef struct  s_sdl
 	unsigned char		i;
 }				t_sdl;
 
-typedef struct s_write
-{
-	t_list		*lst;
-	char		**s;
-	int			x;
-	int			y;
-	int			s_count;
-}				t_write;
 
 
 typedef struct	s_map
@@ -81,6 +82,16 @@ typedef struct	s_map
 	double		*s_dst;
 }				t_map;
 
+typedef struct		s_const
+{
+	double	crs;
+	double	srs;
+	double	mcrs;
+	double	msrs;
+	double	camera_x_cnst;
+	int		half_height;
+}					t_const;
+
 typedef struct		s_time
 {
 	Uint32			time;
@@ -93,18 +104,6 @@ typedef struct		s_time
 	Uint32			sound_sum_time;
 	unsigned char	flag;
 }					t_time;
-
-typedef struct		s_const
-{
-	double	crs;
-	double	srs;
-	double	mcrs;
-	double	msrs;
-	double	camera_x_cnst;
-	int		half_height;
-}					t_const;
-
-
 
 typedef struct	s_wolf3d
 {
@@ -169,6 +168,7 @@ int					write_map(t_map *map, t_list *lst);
 t_sdl				*sdl_init(t_sdl *sdl);
 void				ft_init_wolf(t_wolf3d *w);
 void				ft_we_need_more_init(t_wolf3d *w);
+void				ft_init_multi_wolf(t_threads_help *w, t_wolf3d *head);
 
 void				ft_load_textures(t_wolf3d *w);
 void				renderer(t_wolf3d *wolf);
@@ -189,4 +189,6 @@ int					ft_step_back_check(t_wolf3d *w, unsigned char flag);
 int					ft_step_forward_check(t_wolf3d *w, unsigned char flag);
 void				ft_ray_dir_calculations(t_threads *a);
 
+void fpsthink();
+void fpsinit();
 #endif
