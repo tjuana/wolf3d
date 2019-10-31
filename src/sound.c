@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 15:42:06 by tjuana            #+#    #+#             */
-/*   Updated: 2019/10/31 16:54:03 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/10/31 17:03:35 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ void	ft_play_shot(t_wolf3d *w)
 
 void	ft_play_music(t_wolf3d *w)
 {
-	if (w->t.flag1 == 1)
+	if (w->arr[5] == 1)
 	{
 		SDL_QueueAudio(w->sdl->audio_device[2], w->sdl->wav_buff[2],
 		w->sdl->wav_len[2]);
 		SDL_PauseAudioDevice(w->sdl->audio_device[2], 0);
-		w->t.flag1 = 0;
+		w->arr[5] = 0;
 	}	
 }

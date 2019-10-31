@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/10/31 16:32:00 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/10/31 16:57:45 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void		ft_init_wolf(t_wolf3d *w)
 	w->weapon_texture = ft_my_malloc(sizeof(SDL_Surface));
 	w->sdl->textures = ft_my_malloc(sizeof(SDL_Surface *) * TEXTURES_NUMBER);
 	w->t.flag = 1;
-	w->t.flag1 = 1;
 	ft_we_need_more_init(w);
 }
 

@@ -134,7 +134,6 @@ typedef struct		s_time
 	Uint32			play_time;
 	Uint32			sound_sum_time;
 	unsigned char	flag;
-	unsigned char	flag1;
 }					t_time;
 
 typedef struct	s_wolf3d
