@@ -57,7 +57,7 @@ typedef struct  s_sdl
     int					running;
 	SDL_Window			*win;
 	SDL_Renderer		*renderer;
-	Uint32				*text_buf;
+	Uint32				*pixels;
 	SDL_Texture			*text;
 	SDL_Surface			**textures;
 	SDL_AudioSpec		*wav_spect;

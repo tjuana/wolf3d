@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/10/28 15:01:02 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/10/30 18:42:37 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,19 @@
 t_sdl		*sdl_init(t_sdl *sdl)
 {
 	sdl = ft_my_malloc(sizeof(t_sdl));
-	sdl->text_buf = ft_my_malloc((sizeof(Uint32) * WIN_HEIGHT) * WIN_WIDTH);
-	SDL_Init(SDL_INIT_AUDIO);
-	//SDL_Init(SDL_INIT_VIDEO);
-	SDL_CreateWindowAndRenderer(WIN_WIDTH, WIN_HEIGHT, 0, &sdl->win, &sdl->renderer);
-	sdl->text = SDL_CreateTexture(sdl->renderer, SDL_PIXELFORMAT_ARGB8888, \
-		SDL_TEXTUREACCESS_STREAMING, WIN_WIDTH, WIN_HEIGHT);
-	if(!sdl->text)
+	sdl->pixels = ft_my_malloc((sizeof(Uint32) * WIN_HEIGHT) * WIN_WIDTH);
+	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+	{
+		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't initialize SDL: %s", SDL_GetError());
+		return 0;
+	}
+	if (SDL_CreateWindowAndRenderer(WIN_WIDTH, WIN_HEIGHT, 0, &sdl->win, &sdl->renderer) < 0)
+	{
+		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create window and renderer: %s", SDL_GetError());
+		return 0;
+	}
+	if (!(sdl->text = SDL_CreateTexture(sdl->renderer, SDL_PIXELFORMAT_ARGB8888, \
+		SDL_TEXTUREACCESS_STREAMING, WIN_WIDTH, WIN_HEIGHT)))
 		ft_error("SDL non textures");
 	sdl->running = 1;
 	return (sdl);
@@ -29,8 +35,8 @@ t_sdl		*sdl_init(t_sdl *sdl)
 
 void		ft_init_wolf(t_wolf3d *w)
 {
-	w->pl.pos.x = 5;
-	w->pl.pos.y = 5;
+	w->pl.pos.x = 5.5;
+	w->pl.pos.y = 5.5;
 	w->pl.dir.x = -1;
 	w->pl.dir.y = 0;
 	w->pl.plane.x = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjuana <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 15:56:10 by tjuana            #+#    #+#             */
-/*   Updated: 2019/04/12 16:07:22 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/10/30 16:34:51 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,22 @@
 
 void	ft_bzero(void *s, size_t n)
 {
-	ft_memset(s, 0, n);
+	int delta;
+
+	delta = 1;
+	while (n)
+	{
+		if (n >= 16)
+		{
+			*(__uint128_t *)s = 0;
+			delta = 16;
+		}
+		else if (n >= 1)
+		{
+			*(char *)s = 0;
+			delta = 1;
+		}
+		n = n - delta;
+		s = ((char *)s) + delta;
+	}
 }
