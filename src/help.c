@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 14:10:50 by tjuana            #+#    #+#             */
-/*   Updated: 2019/10/31 15:51:00 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/10/31 16:36:26 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void			ft_clean_sdl(t_wolf3d *w)
 	SDL_FreeWAV(w->sdl->wav_buff[0]);
 	SDL_CloseAudioDevice(w->sdl->audio_device[1]);
 	SDL_FreeWAV(w->sdl->wav_buff[1]);
+	SDL_CloseAudioDevice(w->sdl->audio_device[2]);
+	SDL_FreeWAV(w->sdl->wav_buff[2]);
 	free(w->sdl->wav_buff);
 	free(w->sdl->wav_spect);
 	free(w->sdl->wav_len);

@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/10/31 16:00:16 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/10/31 16:33:13 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void			ft_handle_events(t_wolf3d *w)
 			e.key.keysym.scancode == SDL_SCANCODE_A ? w->arr[2] = 1 : 0;
 			e.key.keysym.scancode == SDL_SCANCODE_D ? w->arr[3] = 1 : 0;
 			e.key.keysym.scancode == SDL_SCANCODE_SPACE ? w->arr[4] = 1 : 0;
+			e.key.keysym.scancode == SDL_SCANCODE_Q ? w->arr[5] = 1 : 0;
 		}
 		if (e.type == SDL_KEYUP)
 		{

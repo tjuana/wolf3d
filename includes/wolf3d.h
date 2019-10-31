@@ -241,4 +241,5 @@ void				ft_init_sound(t_wolf3d *w);
 void				ft_load_sound(t_wolf3d *w);
 void				ft_play_shot(t_wolf3d *w);
 void				ft_play_music(t_wolf3d *w);
+
 #endif
