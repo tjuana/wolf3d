@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/10/30 18:42:37 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/10/31 16:06:43 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,17 @@ t_sdl		*sdl_init(t_sdl *sdl)
 		ft_error("SDL non textures");
 	sdl->running = 1;
 	return (sdl);
+}
+
+int			ft_init_anim(t_wolf3d *wolf)
+{
+	wolf->anim.start_am = 0;
+	wolf->anim.frame = 0;
+	wolf->anim.pframe.size = (t_coord){512, 512};
+	wolf->anim.pframe.cd = (t_coord){0, 0};
+	wolf->anim.place = (t_coord){WIN_WIDTH / 2 - 512 / 2, WIN_HEIGHT - 512};
+	wolf->anim.frames = 0;
+	return (0);
 }
 
 void		ft_init_wolf(t_wolf3d *w)
@@ -70,6 +81,7 @@ void		ft_we_need_more_init(t_wolf3d *w)
 	w->arr[2] = 0;
 	w->arr[3] = 0;
 	w->arr[4] = 0;
+	w->arr[5] = 0;
 }
 
 void		ft_init_multi_wolf(t_threads_help *w, t_wolf3d *head)

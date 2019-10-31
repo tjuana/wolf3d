@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 14:10:50 by tjuana            #+#    #+#             */
-/*   Updated: 2019/10/30 16:46:12 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/10/31 15:51:00 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int				ft_cleanmem(t_list **lst)
 
 void			ft_clean_sdl(t_wolf3d *w)
 {
-	/*SDL_CloseAudioDevice(w->sdl->audio_device[0]);
+	SDL_CloseAudioDevice(w->sdl->audio_device[0]);
 	SDL_FreeWAV(w->sdl->wav_buff[0]);
 	SDL_CloseAudioDevice(w->sdl->audio_device[1]);
 	SDL_FreeWAV(w->sdl->wav_buff[1]);
@@ -67,7 +67,6 @@ void			ft_clean_sdl(t_wolf3d *w)
 	free(w->sdl->wav_spect);
 	free(w->sdl->wav_len);
 	free(w->sdl->audio_device);
-	*/
 	free(w->sdl->textures);
 	free(w->sdl->pixels);
 	

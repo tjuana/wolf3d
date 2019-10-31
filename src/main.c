@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:33:34 by tjuana            #+#    #+#             */
-/*   Updated: 2019/10/28 12:52:53 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/10/31 15:50:46 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	main(int c, char **v)
 	w.sdl = sdl_init(w.sdl);
 	ft_init_wolf(&w);
 	ft_load_textures(&w);
+	ft_init_anim(&w);
+	ft_init_sound(&w);
 	fpsinit();
 	while (w.sdl->running)
 	{

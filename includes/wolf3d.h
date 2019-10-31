@@ -6,6 +6,8 @@
 # define THREADS 10
 # define TEX_W 64
 # define TEX_H 64
+# define ONE_ANIM 20
+# define FULL_ANIM ONE_ANIM * 4 - 4
 
 # include "SDL2/SDL.h"
 # include "SDL2/SDL_thread.h"
@@ -23,6 +25,22 @@ typedef struct	s_coord
 	double		x;
 	double		y;
 }				t_coord;
+
+typedef struct	s_rect
+{
+	t_coord		size;
+	t_coord		cd;
+}				t_rect;
+
+
+typedef struct	s_anime
+{
+	int			start_am;
+	int			frame;
+	t_rect		pframe;
+	t_coord		place;
+	int			frames;
+}				t_anime;
 
 
 typedef struct	s_player
@@ -65,6 +83,7 @@ typedef struct  s_sdl
 	Uint8				**wav_buff;
 	SDL_AudioDeviceID	*audio_device;
 	unsigned char		i;
+	
 }				t_sdl;
 
 
@@ -92,6 +111,18 @@ typedef struct		s_const
 	int		half_height;
 }					t_const;
 
+typedef struct		s_floor
+{
+	double	xwall;
+	double	ywall;
+	double	cur_dst;
+	double	weight;
+	double	cur_x;
+	double	cur_y;
+	int		text_x;
+	int		text_y;
+}					t_floor;
+
 typedef struct		s_time
 {
 	Uint32			time;
@@ -103,6 +134,7 @@ typedef struct		s_time
 	Uint32			play_time;
 	Uint32			sound_sum_time;
 	unsigned char	flag;
+	unsigned char	flag1;
 }					t_time;
 
 typedef struct	s_wolf3d
@@ -113,6 +145,8 @@ typedef struct	s_wolf3d
 	t_const			c;
 	t_player		pl;
 	SDL_Surface		*weapon_texture;
+	t_anime			anim;
+	t_floor			flr;
 	int				temp;
 	int				fd;
 	int				x;
@@ -121,14 +155,17 @@ typedef struct	s_wolf3d
 	double			*z_buffer;
 	double			ms;
 	double			rs;
-	unsigned char	arr[5];	
+	unsigned char	arr[6];
+	void			*tex_col;
+	Uint32			color;
+
 }				t_wolf3d;
 
 typedef struct	s_thread_help
 {
 	t_player	pl;
 	t_map		map;
-	//t_floor		flr;
+	t_floor		flr;
 	t_sdl		*sdl;
 	void		*tex_col;
 	double		*z_buffer;
@@ -165,10 +202,12 @@ void				read_file(int fd, t_map *map);
 int					get_lines(int fd, t_list **lst);
 void				get_map(t_map *m, int width, int height);
 int					write_map(t_map *map, t_list *lst);
+
 t_sdl				*sdl_init(t_sdl *sdl);
 void				ft_init_wolf(t_wolf3d *w);
 void				ft_we_need_more_init(t_wolf3d *w);
 void				ft_init_multi_wolf(t_threads_help *w, t_wolf3d *head);
+int					ft_init_anim(t_wolf3d *wolf);
 
 void				ft_load_textures(t_wolf3d *w);
 void				renderer(t_wolf3d *wolf);
@@ -191,4 +230,15 @@ void				ft_ray_dir_calculations(t_threads *a);
 
 void fpsthink();
 void fpsinit();
+
+void				ft_draw_animation(t_wolf3d *w);
+void				ft_animation_play(t_wolf3d *w);
+
+void				ft_draw_floor(t_threads *a);
+void				ft_get_floor_coordinates(t_threads *a);
+
+void				ft_init_sound(t_wolf3d *w);
+void				ft_load_sound(t_wolf3d *w);
+void				ft_play_shot(t_wolf3d *w);
+void				ft_play_music(t_wolf3d *w);
 #endif

@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/10/25 14:14:04 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/10/31 16:00:16 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void			ft_handle_events(t_wolf3d *w)
 			e.key.keysym.scancode == SDL_SCANCODE_A ? w->arr[2] = 0 : 0;
 			e.key.keysym.scancode == SDL_SCANCODE_D ? w->arr[3] = 0 : 0;
 			e.key.keysym.scancode == SDL_SCANCODE_SPACE ? w->arr[4] = 0 : 0;
+			e.key.keysym.scancode == SDL_SCANCODE_Q ? w->arr[5] = 0 : 0;
 		}
 	}
 }
@@ -65,7 +66,7 @@ void			ft_use_events(t_wolf3d *w)
 	if (w->arr[0] == 1)
 	{
 		w->sdl->i = 1;
-		//ft_load_sound(w);
+		ft_load_sound(w);
 		if (ft_step_forward_check(w, 1))
 			w->pl.pos.x += w->pl.dir.x * w->ms;
 		if (ft_step_forward_check(w, 0))
@@ -80,5 +81,6 @@ void			ft_use_events(t_wolf3d *w)
 	}
 	w->arr[2] == 1 ? ft_left_rotation(w) : 0;
 	w->arr[3] == 1 ? ft_right_rotation(w) : 0;
-	//w->arr[4] == 1 ? ft_play_shot(w) : 0;
+	w->arr[4] == 1 ? ft_play_shot(w) : 0;
+	w->arr[5] == 1 ? ft_play_music(w) : 0;
 }
