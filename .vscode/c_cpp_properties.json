@@ -5,7 +5,8 @@
             "includePath": [
                 "${workspaceFolder}/includes/**",
                 "${workspaceFolder}/SDL_library/include",
-                "${workspaceFolder}/libft"
+                "${workspaceFolder}/libft",
+                "${workspaceFolder}/includes"
             ],
             "defines": [],
             "macFrameworkPath": [

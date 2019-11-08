@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/10/31 16:57:45 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/11/08 18:24:16 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int			ft_init_anim(t_wolf3d *wolf)
 
 void		ft_init_wolf(t_wolf3d *w)
 {
-	w->pl.pos.x = 5.5;
-	w->pl.pos.y = 5.5;
+	w->pl.pos.x = 1.5;
+	w->pl.pos.y = 1.5;
 	w->pl.dir.x = -1;
 	w->pl.dir.y = 0;
 	w->pl.plane.x = 0;
@@ -64,6 +64,7 @@ void		ft_init_wolf(t_wolf3d *w)
 	w->c.camera_x_cnst = 2 / (double)WIN_WIDTH;
 	w->z_buffer = ft_my_malloc(sizeof(double) * WIN_WIDTH);
 	w->weapon_texture = ft_my_malloc(sizeof(SDL_Surface));
+	w->map_texture = ft_my_malloc(sizeof(SDL_Surface));
 	w->sdl->textures = ft_my_malloc(sizeof(SDL_Surface *) * TEXTURES_NUMBER);
 	w->t.flag = 1;
 	ft_we_need_more_init(w);

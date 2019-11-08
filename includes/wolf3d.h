@@ -3,7 +3,7 @@
 # define WIN_HEIGHT 1080
 # define WIN_WIDTH 1920
 # define TEXTURES_NUMBER 23
-# define THREADS 10
+# define THREADS 20
 # define TEX_W 64
 # define TEX_H 64
 # define ONE_ANIM 20
@@ -41,7 +41,6 @@ typedef struct	s_anime
 	t_coord		place;
 	int			frames;
 }				t_anime;
-
 
 typedef struct	s_player
 {
@@ -144,7 +143,9 @@ typedef struct	s_wolf3d
 	t_const			c;
 	t_player		pl;
 	SDL_Surface		*weapon_texture;
+	SDL_Surface		*map_texture;
 	t_anime			anim;
+	t_anime			view_map;
 	t_floor			flr;
 	int				temp;
 	int				fd;
@@ -240,5 +241,8 @@ void				ft_init_sound(t_wolf3d *w);
 void				ft_load_sound(t_wolf3d *w);
 void				ft_play_shot(t_wolf3d *w);
 void				ft_play_music(t_wolf3d *w);
+
+int			ft_init_view_map(t_wolf3d *wolf);
+void		ft_draw_map(t_wolf3d *w);
 
 #endif
