@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 14:16:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/10/28 14:16:47 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/11/11 13:41:06 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,13 @@ int		ft_2arrclean(char ***dst)
 
 	i = 0;
 	while ((*dst)[i])
-		ft_memdel((void **)&(*dst)[i++]);
-	ft_memdel((void **)(*dst));
+	{
+		free((*dst)[i]);
+		(*dst)[i] = NULL;
+		i++;
+	}
+	free(*dst);
+	*dst = NULL;
 	dst = NULL;
 	return (1);
 }

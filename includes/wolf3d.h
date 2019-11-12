@@ -3,7 +3,7 @@
 # define WIN_HEIGHT 1080
 # define WIN_WIDTH 1920
 # define TEXTURES_NUMBER 23
-# define THREADS 20
+# define THREADS 10
 # define TEX_W 64
 # define TEX_H 64
 # define ONE_ANIM 20
@@ -156,7 +156,7 @@ typedef struct	s_wolf3d
 	double			ms;
 	double			rs;
 	unsigned char	arr[6];
-	void			*tex_col;
+	Uint8			*tex_col;
 	Uint32			color;
 
 }				t_wolf3d;

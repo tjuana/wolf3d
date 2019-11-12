@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 14:10:50 by tjuana            #+#    #+#             */
-/*   Updated: 2019/10/31 16:36:26 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/11/11 15:10:41 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void			ft_clean_sdl(t_wolf3d *w)
 	free(w->sdl->audio_device);
 	free(w->sdl->textures);
 	free(w->sdl->pixels);
+	// free(w->weapon_texture);
 	
 	if (w->map.s_count > 0)
 	{
@@ -82,6 +83,6 @@ void			ft_clean_sdl(t_wolf3d *w)
 	SDL_DestroyTexture(w->sdl->text);
 	SDL_DestroyRenderer(w->sdl->renderer);
 	SDL_DestroyWindow(w->sdl->win);
-	SDL_Delay(2000);
+	SDL_Delay(777);
 	SDL_Quit();
 }

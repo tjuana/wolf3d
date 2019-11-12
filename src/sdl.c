@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/08 18:24:16 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/11/11 16:58:26 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_sdl		*sdl_init(t_sdl *sdl)
 {
 	sdl = ft_my_malloc(sizeof(t_sdl));
-	sdl->pixels = ft_my_malloc((sizeof(Uint32) * WIN_HEIGHT) * WIN_WIDTH);
+	sdl->pixels = ft_my_malloc((sizeof(Uint32) * WIN_WIDTH) * WIN_HEIGHT);
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't initialize SDL: %s", SDL_GetError());
@@ -63,8 +63,8 @@ void		ft_init_wolf(t_wolf3d *w)
 	w->c.half_height = (WIN_HEIGHT >> 1);
 	w->c.camera_x_cnst = 2 / (double)WIN_WIDTH;
 	w->z_buffer = ft_my_malloc(sizeof(double) * WIN_WIDTH);
-	w->weapon_texture = ft_my_malloc(sizeof(SDL_Surface));
-	w->map_texture = ft_my_malloc(sizeof(SDL_Surface));
+	//w->weapon_texture = ft_my_malloc(sizeof(SDL_Surface *));
+	//w->map_texture = ft_my_malloc(sizeof(SDL_Surface));
 	w->sdl->textures = ft_my_malloc(sizeof(SDL_Surface *) * TEXTURES_NUMBER);
 	w->t.flag = 1;
 	ft_we_need_more_init(w);

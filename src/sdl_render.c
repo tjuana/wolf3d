@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 13:26:38 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/08 18:12:08 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/11/11 17:00:39 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void		renderer(t_wolf3d *wolf)
 {
 	ft_animation_play(wolf);
-	ft_init_view_map(wolf);
 	ft_bzero(wolf->sdl->pixels, 4 * WIN_WIDTH * WIN_HEIGHT);
 	SDL_SetRenderDrawColor(wolf->sdl->renderer, 0xff, 0xff, 0xff, 0xff);
 	SDL_RenderClear(wolf->sdl->renderer);
