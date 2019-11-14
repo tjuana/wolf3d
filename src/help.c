@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 14:10:50 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/11 15:10:41 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/11/14 12:30:44 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ SDL_Surface		*ft_sdl_load_bmp(char *str)
 	}
 	return (texture);
 }
+
 int				ft_error(char *code)
 {
 	ft_putendl(code);
@@ -34,8 +35,8 @@ int				ft_error(char *code)
 void			*ft_my_malloc(size_t s)
 {
 	void	*p;
-	
-	if(!(p = malloc(s)))
+
+	if (!(p = malloc(s)))
 	{
 		perror("Malloc failed!");
 		exit(EXIT_FAILURE);
@@ -46,7 +47,7 @@ void			*ft_my_malloc(size_t s)
 int				ft_cleanmem(t_list **lst)
 {
 	t_list	*next;
-	
+
 	while (*lst)
 	{
 		next = (*lst)->next;
@@ -71,8 +72,6 @@ void			ft_clean_sdl(t_wolf3d *w)
 	free(w->sdl->audio_device);
 	free(w->sdl->textures);
 	free(w->sdl->pixels);
-	// free(w->weapon_texture);
-	
 	if (w->map.s_count > 0)
 	{
 		free(w->map.s_ord);

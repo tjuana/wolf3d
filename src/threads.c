@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 13:27:18 by tjuana            #+#    #+#             */
-/*   Updated: 2019/10/31 14:21:23 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/11/14 12:35:28 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,5 @@ void		*begin_game(void *w)
 		ft_draw_floor(p);
 		p->t1++;
 	}
-	return (NULL);	
+	return (NULL);
 }

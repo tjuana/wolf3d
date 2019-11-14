@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 18:54:20 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/08 18:39:18 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/11/14 12:32:06 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,4 @@ void	ft_load_textures(t_wolf3d *w)
 	w->sdl->textures[20] = ft_sdl_load_bmp("Textures/greenlight.bmp");
 	w->sdl->textures[21] = ft_sdl_load_bmp("Textures/pillar.bmp");
 	w->sdl->textures[22] = ft_sdl_load_bmp("Textures/barrel.bmp");
-	
 }

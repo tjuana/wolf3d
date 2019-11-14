@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 14:18:24 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/08 16:51:36 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/11/14 12:28:49 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void	ft_draw_floor(t_threads *a)
 		a->w.tex_col = &((Uint8*)(a->w.sdl->textures[7]->pixels))[TEX_W * 3 *
 		a->w.flr.text_y + a->w.flr.text_x * 3];
 		a->w.color = *(Uint32*)(a->w.tex_col);
-		a->w.sdl->pixels[a->t1 + ((WIN_HEIGHT - a->w.y) * WIN_WIDTH)] = a->w.color;
+		a->w.sdl->pixels[a->t1 + ((WIN_HEIGHT - a->w.y) \
+		* WIN_WIDTH)] = a->w.color;
 		a->w.y++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:33:34 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/11 17:22:39 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/11/12 15:29:09 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	main(int c, char **v)
 		ft_handle_events(&w);
 		ft_use_events(&w);
 		fpsthink();
-		
 	}
 	ft_clean_sdl(&w);
 	return (0);

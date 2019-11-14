@@ -20,6 +20,14 @@
 # include <string.h>
 # include <libft.h>
 
+typedef struct	s_sort_util
+{
+	int			i;
+	int			j;
+	int			count;
+	char		swap;
+}				t_sort_util;
+
 typedef struct	s_coord
 {
 	double		x;
@@ -85,7 +93,13 @@ typedef struct  s_sdl
 	
 }				t_sdl;
 
-
+typedef struct	s_sprite
+{
+	double		x;
+	double		y;
+	double		distance;
+	int			texture;
+}				t_sprite;
 
 typedef struct	s_map
 {
@@ -95,7 +109,7 @@ typedef struct	s_map
 	int			x;
 	int			y;
 	int			s_count;
-	//t_sprite	**sprite;
+	t_sprite	**sprite;
 	int			*s_ord;
 	double		*s_dst;
 }				t_map;
@@ -242,7 +256,9 @@ void				ft_load_sound(t_wolf3d *w);
 void				ft_play_shot(t_wolf3d *w);
 void				ft_play_music(t_wolf3d *w);
 
-int			ft_init_view_map(t_wolf3d *wolf);
-void		ft_draw_map(t_wolf3d *w);
+int					ft_init_view_map(t_wolf3d *wolf);
+void				ft_draw_map(t_wolf3d *w);
 
+void				ft_sort(t_wolf3d *w);
+void				write_sprites(t_map *m);
 #endif

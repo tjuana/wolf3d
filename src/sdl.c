@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/11 16:58:26 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/11/14 12:34:26 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,19 @@ t_sdl		*sdl_init(t_sdl *sdl)
 	sdl->pixels = ft_my_malloc((sizeof(Uint32) * WIN_WIDTH) * WIN_HEIGHT);
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 	{
-		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't initialize SDL: %s", SDL_GetError());
-		return 0;
+		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, \
+		"Couldn't initialize SDL: %s", SDL_GetError());
+		return (0);
 	}
-	if (SDL_CreateWindowAndRenderer(WIN_WIDTH, WIN_HEIGHT, 0, &sdl->win, &sdl->renderer) < 0)
+	if (SDL_CreateWindowAndRenderer(WIN_WIDTH, WIN_HEIGHT, \
+	0, &sdl->win, &sdl->renderer) < 0)
 	{
-		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create window and renderer: %s", SDL_GetError());
-		return 0;
+		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, \
+		"Couldn't create window and renderer: %s", SDL_GetError());
+		return (0);
 	}
-	if (!(sdl->text = SDL_CreateTexture(sdl->renderer, SDL_PIXELFORMAT_ARGB8888, \
-		SDL_TEXTUREACCESS_STREAMING, WIN_WIDTH, WIN_HEIGHT)))
+	if (!(sdl->text = SDL_CreateTexture(sdl->renderer, SDL_PIXELFORMAT_ARGB8888\
+	, SDL_TEXTUREACCESS_STREAMING, WIN_WIDTH, WIN_HEIGHT)))
 		ft_error("SDL non textures");
 	sdl->running = 1;
 	return (sdl);
