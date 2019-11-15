@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sdl.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/14 12:34:26 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/11/15 19:11:48 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void		ft_init_wolf(t_wolf3d *w)
 	w->pl.dir.x = -1;
 	w->pl.dir.y = 0;
 	w->pl.plane.x = 0;
-	w->pl.plane.y = 0.66;
+	w->pl.plane.y = 0.9;
 	w->hit = 0;
 	w->x = -1;
 	w->ms = 0.03;

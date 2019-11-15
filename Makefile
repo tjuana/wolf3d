@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+         #
+#    By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 11:40:58 by tjuana            #+#    #+#              #
-#    Updated: 2019/11/11 16:13:18 by tjuana           ###   ########.fr        #
+#    Updated: 2019/11/15 19:10:14 by dorange-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,11 @@ SRCS_LIST = main.c\
 			animation.c\
 			floor.c\
 			sound.c	\
-			map.c
+			map.c \
+			alg_wu_color.c \
+			alg_wu_draw.c \
+			alg_wu.c \
+			map_arrow.c
 
 OBJS_DIRECTORY = objects/
 OBJS_LIST = $(patsubst %.c, %.o, $(SRCS_LIST))

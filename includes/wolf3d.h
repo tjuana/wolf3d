@@ -9,6 +9,10 @@
 # define ONE_ANIM 20
 # define FULL_ANIM ONE_ANIM * 4 - 4
 
+# define C_R 0x00FF0000
+# define C_G 0x0000FF00
+# define C_B 0x000000FF
+
 # include "SDL2/SDL.h"
 # include "SDL2/SDL_thread.h"
 # include <pthread.h>
@@ -205,6 +209,49 @@ typedef struct	s_threads
 	int				t2;
 }				t_threads;
 
+typedef struct			s_fdf_wu
+{
+	double				x1;
+	double				y1;
+	double				x2;
+	double				y2;
+	double				p;
+	double				dx;
+	double				dy;
+	double				gradient;
+	double				xend;
+	double				yend;
+	double				xgap;
+	double				xpxl1;
+	double				ypxl1;
+	double				xpxl2;
+	double				ypxl2;
+	double				intery;
+	int					steep;
+	int					steps;
+	int					step;
+	int					color1;
+	int					color2;
+	int					check_color_rev;
+	double				temp_f;
+}						t_fdf_wu;
+
+typedef struct			s_fdf_get_color
+{
+	int					color1;
+	int					color2;
+	double				f1;
+	int					r1;
+	int					g1;
+	int					b1;
+	int					r2;
+	int					g2;
+	int					b2;
+	int					r_rez;
+	int					g_rez;
+	int					b_rez;
+}						t_fdf_get_color;
+
 
 void				ft_clean_sdl(t_wolf3d *w);
 int					ft_cleanmem(t_list **lst);
@@ -261,4 +308,29 @@ void				ft_draw_map(t_wolf3d *w);
 
 void				ft_sort(t_wolf3d *w);
 void				write_sprites(t_map *m);
+
+void					ft_fdf_init_wu(t_fdf_wu **wu, t_coord *dot_1, \
+							t_coord *dot_2);
+void					ft_fdf_swap_double(double *n1, double *n2);
+void					ft_fdf_draw_line_swap(t_fdf_wu **wu);
+void					ft_fdf_draw_line_param(t_wolf3d *data, t_fdf_wu **wu);
+void					ft_fdf_wu(t_coord *dot_1, t_coord *dot_2, \
+							t_wolf3d *data);
+
+void					ft_fdf_draw_line_first_pixels(t_wolf3d *data, \
+							t_fdf_wu **wu);
+void					ft_fdf_draw_line_last_pixels(t_wolf3d *data, \
+							t_fdf_wu **wu);
+void					ft_fdf_wu_cycle_x(t_wolf3d *data, t_fdf_wu *wu, \
+							double x);
+void					ft_fdf_wu_cycle_y(t_wolf3d *data, t_fdf_wu *wu, \
+							double x);
+
+int						ft_fdf_ipart(double x);
+double					ft_fdf_round(double x);
+double					ft_fdf_fpart(double x);
+int						ft_fdf_get_color(int color1, int color2, double f1);
+
+void					ft_draw_compass(t_wolf3d *w);
+
 #endif
