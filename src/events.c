@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
+/*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/14 12:28:17 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/11/18 22:27:33 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void			ft_handle_events(t_wolf3d *w)
 			e.key.keysym.scancode == SDL_SCANCODE_SPACE ? w->arr[4] = 0 : 0;
 			e.key.keysym.scancode == SDL_SCANCODE_Q ? w->arr[5] = 0 : 0;
 		}
+		if (e.type == SDL_MOUSEMOTION)
+				ft_mouse_mv(&e, w);
 	}
 }
 

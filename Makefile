@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+         #
+#    By: drafe <drafe@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 11:40:58 by tjuana            #+#    #+#              #
-#    Updated: 2019/11/18 13:15:01 by tjuana           ###   ########.fr        #
+#    Updated: 2019/11/18 22:31:23 by drafe            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRCS_LIST = main.c\
 			sdl.c\
 			textures.c\
 			events.c\
+			events_mouse.c\
 			threads.c\
 			draw_walls.c\
 			sdl_render.c\

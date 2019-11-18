@@ -278,6 +278,8 @@ void				ft_use_events(t_wolf3d *w);
 int					ft_step_back_check(t_wolf3d *w, unsigned char flag);
 int					ft_step_forward_check(t_wolf3d *w, unsigned char flag);
 
+int					ft_mouse_mv(SDL_Event *e, t_wolf3d *w);
+
 void				ft_wall_hit(t_threads *a);
 void				ft_wall_draw_start(t_threads *a);
 void				ft_draw_walls(t_threads *a);
