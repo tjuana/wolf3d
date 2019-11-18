@@ -6,7 +6,8 @@
                 "${workspaceFolder}/includes/**",
                 "${workspaceFolder}/SDL_library/include",
                 "${workspaceFolder}/libft",
-                "${workspaceFolder}/includes"
+                "${workspaceFolder}/includes",
+                "/Users/tjuana/wolf3d/includes"
             ],
             "defines": [],
             "macFrameworkPath": [
