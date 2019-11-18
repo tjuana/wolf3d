@@ -1,6 +1,6 @@
 # sdl pkg-config source file
 
-prefix=/Users/tjuana/wolf3d
+prefix=/Users/dorange-/42/wolf3d/github
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
