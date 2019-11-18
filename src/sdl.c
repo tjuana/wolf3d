@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sdl.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/15 19:11:48 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/11/18 15:56:56 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int			ft_init_anim(t_wolf3d *wolf)
 
 void		ft_init_wolf(t_wolf3d *w)
 {
-	w->pl.pos.x = 1.5;
-	w->pl.pos.y = 1.5;
+	w->pl.pos.x = 1.6;
+	w->pl.pos.y = 1.6;
 	w->pl.dir.x = -1;
 	w->pl.dir.y = 0;
 	w->pl.plane.x = 0;
