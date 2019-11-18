@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 15:17:47 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/14 12:26:32 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/11/18 13:00:51 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void		read_file(int fd, t_map *map)
 
 	lst = NULL;
 	lenght = get_lines(fd, &lst);
+	if (lst == NULL)
+		ft_error("Map is empty");
 	get_map(map, ft_countwords(lst->content, ' '), ft_lstcount(lst));
 	map->s_count = write_map(map, lst);
 	if (map->s_count)
