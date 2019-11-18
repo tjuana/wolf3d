@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 13:27:18 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/14 12:35:28 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/11/18 13:24:15 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,14 @@ void		threading(t_wolf3d *w)
 		args[x].t1 = xx;
 		args[x].t2 = xx + ((WIN_WIDTH / THREADS));
 		ft_init_multi_wolf(&args[x].w, w);
-		pthread_create(&threads[x], NULL, begin_game, (void*)&args[x]);
+		pthread_create(&threads[x], NULL, begin_game, (void*)&args[x]) != 0 ? \
+		ft_error("threads create error") : 0;
 		xx += (WIN_WIDTH / THREADS);
 	}
 	x = -1;
 	while (++x < THREADS)
-		pthread_join(threads[x], NULL);
+		pthread_join(threads[x], NULL) != 0 ? \
+		ft_error("threads join error") : 0;
 	w->pl.pos.x = args[x - 1].w.pl.pos.x;
 	w->pl.pos.y = args[x - 1].w.pl.pos.y;
 	w->pl.plane.x = args[x - 1].w.pl.plane.x;
