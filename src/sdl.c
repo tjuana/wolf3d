@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sdl.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
+/*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/18 16:57:03 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/11/21 18:23:59 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,10 @@ void		ft_we_need_more_init(t_wolf3d *w)
 	w->t.sound_old_time = 0;
 	w->t.play_time = 1000;
 	w->t.sound_sum_time = 0;
-	w->arr[0] = 0;
-	w->arr[1] = 0;
-	w->arr[2] = 0;
-	w->arr[3] = 0;
-	w->arr[4] = 0;
-	w->arr[5] = 0;
+	w->draw_end = 0;//w->c.half_height;
+	w->draw_start = 0;
+	w->mouse_offset = 0;
+	
 }
 
 void		ft_init_multi_wolf(t_threads_help *w, t_wolf3d *head)
@@ -102,8 +100,14 @@ void		ft_init_multi_wolf(t_threads_help *w, t_wolf3d *head)
 	w->pl.dir.x = head->pl.dir.x;
 	w->pl.dir.y = head->pl.dir.y;
 	w->pl.plane.x = head->pl.plane.x;
-	w->pl.plane.y = head->pl.plane.y;
 	w->z_buffer = head->z_buffer;
 	w->half_height = head->c.half_height;
+	w->pl.plane.y = head->pl.plane.y;
 	w->camera_x_cnst = head->c.camera_x_cnst;
+	w->mouse_offset = head->mouse_offset;
+	//w->draw_end += head->mouse_offset;
+	
+	
+	/*w->draw_end = head->draw_end;
+	w->draw_start = head->draw_start;*/
 }

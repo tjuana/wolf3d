@@ -170,10 +170,13 @@ typedef struct	s_wolf3d
 	int				x;
 	int				y;
 	int				hit;
+	int				draw_start;
+	int				draw_end;
+	int				mouse_offset;
 	double			*z_buffer;
 	double			ms;
 	double			rs;
-	unsigned char	arr[6];
+	unsigned char	arr[66];
 	Uint8			*tex_col;
 	Uint32			color;
 
@@ -200,6 +203,7 @@ typedef struct	s_thread_help
 	int			text_y;
 	int			temp;
 	int			half_height;
+	int			mouse_offset;
 }				t_threads_help;
 
 typedef struct	s_threads
@@ -279,6 +283,10 @@ int					ft_step_back_check(t_wolf3d *w, unsigned char flag);
 int					ft_step_forward_check(t_wolf3d *w, unsigned char flag);
 
 int					ft_mouse_mv(SDL_Event *e, t_wolf3d *w);
+void				ft_test_mv_p(t_wolf3d *w);
+void				ft_test_mv_l(t_wolf3d *w);
+
+void				ft_sdl_error(t_wolf3d *w);
 
 void				ft_wall_hit(t_threads *a);
 void				ft_wall_draw_start(t_threads *a);

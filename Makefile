@@ -6,7 +6,7 @@
 #    By: drafe <drafe@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 11:40:58 by tjuana            #+#    #+#              #
-#    Updated: 2019/11/18 22:31:23 by drafe            ###   ########.fr        #
+#    Updated: 2019/11/19 17:22:41 by drafe            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,12 +44,13 @@ SRCS_DIRECTORY = ./src/
 SRCS_LIST = main.c\
 			help.c\
 			read_map.c\
-			sdl.c\
 			textures.c\
 			events.c\
 			events_mouse.c\
 			threads.c\
 			draw_walls.c\
+			sdl.c\
+			sdl_error.c\
 			sdl_render.c\
 			move.c\
 			ray_casting.c\
