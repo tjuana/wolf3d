@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 14:10:50 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/19 17:58:57 by drafe            ###   ########.fr       */
+/*   Updated: 2019/11/22 15:18:12 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 SDL_Surface		*ft_sdl_load_bmp(char *str)
 {
-	SDL_Surface	*texture;
+	SDL_Surface	*surf;
 
-	texture = SDL_LoadBMP(str);
-	if (texture == NULL)
+	surf = SDL_LoadBMP(str);
+	if (surf == NULL)
 	{
 		perror(str);
 		exit(EXIT_FAILURE);
 	}
-	return (texture);
+	return (surf);
 }
 
 int				ft_error(char *code)
@@ -70,7 +70,7 @@ void			ft_clean_sdl(t_wolf3d *w)
 	free(w->sdl->wav_spect);
 	free(w->sdl->wav_len);
 	free(w->sdl->audio_device);
-	free(w->sdl->textures);
+	free(w->sdl->surfaces);
 	free(w->sdl->pixels);
 	if (w->map.s_count > 0)
 	{

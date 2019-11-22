@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/21 18:23:59 by drafe            ###   ########.fr       */
+/*   Updated: 2019/11/22 14:12:29 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void		ft_init_wolf(t_wolf3d *w)
 	w->z_buffer = ft_my_malloc(sizeof(double) * WIN_WIDTH);
 	//w->weapon_texture = ft_my_malloc(sizeof(SDL_Surface *));
 	//w->map_texture = ft_my_malloc(sizeof(SDL_Surface));
-	w->sdl->textures = ft_my_malloc(sizeof(SDL_Surface *) * TEXTURES_NUMBER);
+	w->sdl->surfaces = ft_my_malloc(sizeof(SDL_Surface *) * TEXTURES_NUMBER);
 	w->t.flag = 1;
 	ft_we_need_more_init(w);
 }

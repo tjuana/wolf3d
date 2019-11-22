@@ -23,6 +23,7 @@
 # include <math.h>
 # include <string.h>
 # include <libft.h>
+# include <bmp_parser.h>
 
 typedef struct	s_sort_util
 {
@@ -88,7 +89,7 @@ typedef struct  s_sdl
 	SDL_Renderer		*renderer;
 	Uint32				*pixels;
 	SDL_Texture			*text;
-	SDL_Surface			**textures;
+	SDL_Surface			**surfaces;
 	SDL_AudioSpec		*wav_spect;
 	Uint32				*wav_len;
 	Uint8				**wav_buff;
@@ -282,9 +283,13 @@ void				ft_use_events(t_wolf3d *w);
 int					ft_step_back_check(t_wolf3d *w, unsigned char flag);
 int					ft_step_forward_check(t_wolf3d *w, unsigned char flag);
 
-int					ft_mouse_mv(SDL_Event *e, t_wolf3d *w);
+void				ft_mouse_mv(SDL_Event *e, t_wolf3d *w);
 void				ft_test_mv_p(t_wolf3d *w);
 void				ft_test_mv_l(t_wolf3d *w);
+
+void				ft_fast_run(t_wolf3d *w, int state);
+
+SDL_Surface			*ft_surf_from_bmp(char *str);
 
 void				ft_sdl_error(t_wolf3d *w);
 

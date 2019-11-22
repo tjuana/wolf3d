@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 14:18:24 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/21 15:12:18 by drafe            ###   ########.fr       */
+/*   Updated: 2019/11/22 14:12:38 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ void	ft_draw_floor(t_threads *a)
 		(1.0 - a->w.flr.weight) * a->w.pl.pos.y;
 		a->w.flr.text_x = (int)(a->w.flr.cur_x * TEX_W) % TEX_W;
 		a->w.flr.text_y = (int)(a->w.flr.cur_y * TEX_H) % TEX_H;
-		a->w.tex_col = &((Uint8*)(a->w.sdl->textures[15]->pixels))[TEX_W * 3 *
+		a->w.tex_col = &((Uint8*)(a->w.sdl->surfaces[15]->pixels))[TEX_W * 3 *
 		a->w.flr.text_y + a->w.flr.text_x * 3];
 		a->w.color = *(Uint32*)(a->w.tex_col);
 		a->w.color = (a->w.color >> 2) & 8355711;
 		a->w.sdl->pixels[a->t1 + (a->w.y * WIN_WIDTH)] = a->w.color;
-		a->w.tex_col = &((Uint8*)(a->w.sdl->textures[7]->pixels))[TEX_W * 3 *
+		a->w.tex_col = &((Uint8*)(a->w.sdl->surfaces[7]->pixels))[TEX_W * 3 *
 		a->w.flr.text_y + a->w.flr.text_x * 3];
 		a->w.color = *(Uint32*)(a->w.tex_col);
 		a->w.sdl->pixels[a->t1 + ((WIN_HEIGHT - a->w.y) \

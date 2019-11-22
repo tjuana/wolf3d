@@ -1,6 +1,8 @@
 {
 	"files.associations": {
 		"complex": "c",
-		"cmath": "c"
+		"cmath": "c",
+		"istream": "c",
+		"*.tcc": "c"
 	}
 }

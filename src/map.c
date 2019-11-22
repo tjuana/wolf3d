@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:24:13 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/14 17:49:41 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/11/22 14:13:19 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		ft_draw_map_text(t_wolf3d *w, int pos, int x, int y)
 		+ (w->pl.pos.x - 4) * 32) % 32 * 3 * 2;
 	if (pixel_pos >= 0 || pixel_pos < TEX_W * TEX_H)
 	{
-		w->tex_col = &((Uint8 *)(w->sdl->textures\
+		w->tex_col = &((Uint8 *)(w->sdl->surfaces\
 			[w->map.map[pos] - 1]->pixels))[pixel_pos];
 		w->color = *(Uint32 *)w->tex_col;
 		w->color &= 0xFFFFFF;

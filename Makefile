@@ -6,13 +6,13 @@
 #    By: drafe <drafe@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 11:40:58 by tjuana            #+#    #+#              #
-#    Updated: 2019/11/19 17:22:41 by drafe            ###   ########.fr        #
+#    Updated: 2019/11/22 15:41:18 by drafe            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = wolf3d
 
-FLAGS = -g -O3 -std=c99
+FLAGS = -g -O3 -std=c99 -Wall
 CC = gcc
 LIBRARIES = -lft -L$(LIBFT_DIRECTORY) -F SDL2/Frameworks   -lSDL2 -L$(SDL_DIRECTORY) -lSDL2main -L$(SDL_DIRECTORY) -lSDL2-2.0.0 -L$(SDL_DIRECTORY)
 INCLUDES = -I$(HEADERS_DIRECTORY) -I$(LIBFT_HEADERS) -I$(SDL_HEADERS)
@@ -41,28 +41,30 @@ LIB_LIST =	libSDL2.a\
 			libSDL2main.a
 
 SRCS_DIRECTORY = ./src/
-SRCS_LIST = main.c\
+SRCS_LIST = alg_wu_color.c\
+			alg_wu_draw.c\
+			alg_wu.c\
+			animation.c\
+			bmp_parser.c\
+			draw_walls.c\
+			fpc.c\
+			floor.c\
 			help.c\
 			read_map.c\
-			textures.c\
 			events.c\
+			events_exp.c\
 			events_mouse.c\
-			threads.c\
-			draw_walls.c\
+			main.c\
+			move.c\
+			map.c\
+			map_arrow.c\
+			ray_casting.c\
 			sdl.c\
 			sdl_error.c\
 			sdl_render.c\
-			move.c\
-			ray_casting.c\
-			fpc.c\
-			animation.c\
-			floor.c\
-			sound.c	\
-			map.c \
-			alg_wu_color.c \
-			alg_wu_draw.c \
-			alg_wu.c \
-			map_arrow.c
+			sound.c\
+			textures.c\
+			threads.c
 
 OBJS_DIRECTORY = objects/
 OBJS_LIST = $(patsubst %.c, %.o, $(SRCS_LIST))

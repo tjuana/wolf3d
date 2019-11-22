@@ -1,6 +1,6 @@
 #!/bin/sh
 
-prefix=/Users/drafe/Desktop/doom
+prefix=/Users/drafe/Desktop/txtr
 exec_prefix=${prefix}
 exec_prefix_set=no
 libdir=${exec_prefix}/lib
