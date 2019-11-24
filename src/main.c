@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:33:34 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/12 15:29:09 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/11/23 15:28:10 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	main(int c, char **v)
 		ft_handle_events(&w);
 		ft_use_events(&w);
 		fpsthink();
+		//sleep(10);
 	}
 	ft_clean_sdl(&w);
 	return (0);

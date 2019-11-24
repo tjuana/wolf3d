@@ -3,7 +3,7 @@
 # define WIN_HEIGHT 1080
 # define WIN_WIDTH 1920
 # define TEXTURES_NUMBER 23
-# define THREADS 10
+# define THREADS 1
 # define TEX_W 64
 # define TEX_H 64
 # define ONE_ANIM 20
@@ -24,6 +24,21 @@
 # include <string.h>
 # include <libft.h>
 
+typedef struct	s_coord
+{
+	double		x;
+	double		y;
+}				t_coord;
+
+// new struct for line
+typedef struct		s_line
+{
+	t_coord			p1;		// Координаты первой точки
+	t_coord			p2;		// Координаты второй точки
+	double			height;	// Высота стены
+	int				txtr;	// Номер текстуры
+}					t_line;
+
 typedef struct	s_sort_util
 {
 	int			i;
@@ -31,12 +46,6 @@ typedef struct	s_sort_util
 	int			count;
 	char		swap;
 }				t_sort_util;
-
-typedef struct	s_coord
-{
-	double		x;
-	double		y;
-}				t_coord;
 
 typedef struct	s_rect
 {
@@ -155,6 +164,12 @@ typedef struct		s_time
 
 typedef struct	s_wolf3d
 {
+	// add list with lines
+	t_list			*line;
+	// spec param
+	double			fov;
+	double			l_p;
+
 	t_sdl			*sdl;
 	t_map			map;
 	t_time			t;
@@ -181,6 +196,16 @@ typedef struct	s_wolf3d
 
 typedef struct	s_thread_help
 {
+	// add list with lines
+	t_list			*line;
+	// spec param
+	double			l;
+	double			fov;
+	double			l_p;
+	t_coord			fc_dir;
+	t_coord			ln_dir;
+	double			ln_l;
+
 	t_player	pl;
 	t_map		map;
 	t_floor		flr;

@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/15 19:11:48 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/11/23 16:53:42 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,104 @@ int			ft_init_anim(t_wolf3d *wolf)
 	return (0);
 }
 
+static void	ft_set_line(t_wolf3d *w, t_line *line,
+				t_line temp_line, t_list *lst)
+{
+	line = ft_my_malloc(sizeof(t_line));
+	ft_memcpy(line, &temp_line, sizeof(t_line));
+	lst = ft_lstnew(line, sizeof(t_line));
+	if (w->line == NULL)
+		w->line = lst;
+	else
+		ft_lstadd(&(w->line), lst);
+}
+
+static void	ft_create_line(t_wolf3d *w, int i)
+{
+	double	x1;
+	double	y1;
+	t_line	temp_line;
+	t_line	*line;
+	t_list	*lst;
+
+	x1 = i % w->map.m_wid;
+	y1 = i / w->map.m_hei;
+
+	temp_line.height = WIN_HEIGHT;
+	temp_line.txtr = w->map.map[i];
+
+	// Линия 1:
+	temp_line.p1.x = x1;
+	temp_line.p1.y = y1;
+	temp_line.p2.x = x1 + 1;
+	temp_line.p2.y = y1;
+	ft_set_line(w, line, temp_line, lst);
+
+	// Линия 2:
+	temp_line.p1.x = x1;
+	temp_line.p1.y = y1;
+	temp_line.p2.x = x1;
+	temp_line.p2.y = y1 + 1;
+	ft_set_line(w, line, temp_line, lst);
+
+	// Линия 3:
+	temp_line.p1.x = x1 + 1;
+	temp_line.p1.y = y1;
+	temp_line.p2.x = x1 + 1;
+	temp_line.p2.y = y1 + 1;
+	ft_set_line(w, line, temp_line, lst);
+
+	// Линия 4:
+	temp_line.p1.x = x1;
+	temp_line.p1.y = y1 + 1;
+	temp_line.p2.x = x1 + 1;
+	temp_line.p2.y = y1 + 1;
+	ft_set_line(w, line, temp_line, lst);
+}
+
+static void	ft_init_lines(t_wolf3d *w)
+{
+	int		i;
+
+	i = 0;
+	while (i < w->map.m_wid * w->map.m_hei)
+	{
+		ft_create_line(w, i);
+		// На каждую текстуру нужно 4 линии
+		// Выделим 1 линию:
+		// temp_line.p1.x = i % w->map.m_wid;
+		// temp_line.p1.y = i / w->map.m_hei;
+		// temp_line.p2.x = temp_line.p1.x + 1;
+		// temp_line.p2.y = temp_line.p1.y;
+		// temp_line.height = WIN_HEIGHT;
+		// line = ft_my_malloc(sizeof(t_line));
+		// ft_memcpy(line, &temp_line, sizeof(t_line));
+		// lst = ft_lstnew(line, sizeof(t_line));
+		// if (w->line == NULL)
+		// 	w->line = lst;
+		// else
+		// 	ft_lstadd(&(w->line), lst);
+		i++;
+	}
+}
+
 void		ft_init_wolf(t_wolf3d *w)
 {
+	// fov и lp
+	w->fov = 1.5708; // 90 градусов
+	//w->fov = 3.00000;
+	//w->fov = 1.5708; // 90 градусов
+	w->l_p = WIN_WIDTH / (2 * tan(w->fov / 2));
+
 	w->pl.pos.x = 1.5;
 	w->pl.pos.y = 1.5;
 	w->pl.dir.x = -1;
 	w->pl.dir.y = 0;
 	w->pl.plane.x = 0;
-	w->pl.plane.y = 0.9;
+	w->pl.plane.y = (double)8 / 9; // ;)
 	w->hit = 0;
 	w->x = -1;
-	w->ms = 0.03;
+	w->ms = 0.03; // ?!
 	w->rs = 0.02;
 	w->c.crs = cos(w->rs);
 	w->c.srs = sin(w->rs);
@@ -71,6 +158,7 @@ void		ft_init_wolf(t_wolf3d *w)
 	w->sdl->textures = ft_my_malloc(sizeof(SDL_Surface *) * TEXTURES_NUMBER);
 	w->t.flag = 1;
 	ft_we_need_more_init(w);
+	ft_init_lines(w);
 }
 
 void		ft_we_need_more_init(t_wolf3d *w)
@@ -106,4 +194,7 @@ void		ft_init_multi_wolf(t_threads_help *w, t_wolf3d *head)
 	w->z_buffer = head->z_buffer;
 	w->half_height = head->c.half_height;
 	w->camera_x_cnst = head->c.camera_x_cnst;
+	w->line = head->line;
+	w->fov = head->fov;
+	w->l_p = head->l_p;
 }

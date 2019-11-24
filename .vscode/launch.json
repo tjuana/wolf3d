@@ -16,7 +16,7 @@
 			"environment": [],
 			"externalConsole": false,
 			"MIMode": "lldb",
-			"preLaunchTask": "gcc build active file"
+			//"preLaunchTask": "gcc build active file"
 		}
 	]
 }
