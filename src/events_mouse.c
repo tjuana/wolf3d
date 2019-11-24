@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/22 14:27:35 by drafe            ###   ########.fr       */
+/*   Updated: 2019/11/24 14:36:57 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,13 @@ void	ft_mouse_mv(SDL_Event *e, t_wolf3d *w)
 	//printf("%i %i sign=%f   w->r_speed=%f\n", e->motion.xrel, e->motion.yrel, sign, w->r_speed);
 }
 
+/*
+** **************************************************************************
+**	void ft_test_mv_p(t_wolf3d *w) | debug
+**	Function to handle P button
+** **************************************************************************
+*/
+
 void	ft_test_mv_p(t_wolf3d *w)
 {
 	w->mouse_offset += 15;
@@ -55,6 +62,13 @@ void	ft_test_mv_p(t_wolf3d *w)
 	//w->line_height += 10;
 	printf("P pressed\n");
 }
+
+/*
+** **************************************************************************
+**	void ft_test_mv_l(t_wolf3d *w) | debug
+**	Function to handle L button
+** **************************************************************************
+*/
 
 void	ft_test_mv_l(t_wolf3d *w)
 {

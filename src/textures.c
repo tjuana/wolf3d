@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 18:54:20 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/22 19:19:58 by drafe            ###   ########.fr       */
+/*   Updated: 2019/11/24 18:44:48 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	ft_load_textures(t_wolf3d *w)
 	w->sdl->surfaces[5] = ft_sdl_load_bmp("Textures/WALL34.bmp");
 	w->sdl->surfaces[6] = ft_sdl_load_bmp("Textures/WALL52.bmp");
 	w->sdl->surfaces[7] = ft_sdl_load_bmp("Textures/WALL90.bmp");
-	//w->sdl->surfaces[8] = ft_surf_from_bmp("Textures/WALL2.bmp");
-	w->sdl->surfaces[8] = ft_sdl_load_bmp("Textures/WALL2.bmp");
+	w->sdl->surfaces[8] = ft_surf_from_bmp("Textures/WALL2.bmp");
+	//w->sdl->surfaces[8] = ft_sdl_load_bmp("Textures/WALL2.bmp");
 	w->sdl->surfaces[9] = ft_sdl_load_bmp("Textures/WALL4.bmp");
 	w->sdl->surfaces[10] = ft_sdl_load_bmp("Textures/Grey9.bmp");
 	w->sdl->surfaces[11] = ft_sdl_load_bmp("Textures/Grey11.bmp");
