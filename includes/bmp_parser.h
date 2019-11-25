@@ -48,7 +48,7 @@ typedef struct		s_bmp_image
 {
 	t_bmp_h			head;				// bmp file header (t_bmp_h)
 	t_bmp_color_h	c_head;				// bmp file color header (t_bmp_color_h)
-	unsigned char	*data;				// pixels(maybe uint8_t for old)
+	unsigned char	*data; 				// pixels(maybe uint8_t for old)
 }					t_bmp_image;
 
 #endif

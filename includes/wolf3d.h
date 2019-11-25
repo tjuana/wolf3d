@@ -67,7 +67,7 @@ typedef struct	s_player
 	double		old_planeX;
 	double		cameraX;
 	double		wall_dist;
-	int			stepX;///?????
+	int			stepX; //?????
 	int			stepY;
 	int			side;
 }				t_player;
@@ -287,11 +287,12 @@ void				ft_mouse_mv(SDL_Event *e, t_wolf3d *w);
 void				ft_test_mv_p(t_wolf3d *w);
 void				ft_test_mv_l(t_wolf3d *w);
 
-void				ft_fast_run(t_wolf3d *w, int state);
-
 SDL_Surface			*ft_surf_from_bmp(char *str);
 
 void				ft_sdl_error(t_wolf3d *w);
+
+void				ft_init_doors(t_wolf3d *w);
+void				ft_open_door(t_wolf3d *w); 
 
 void				ft_wall_hit(t_threads *a);
 void				ft_wall_draw_start(t_threads *a);

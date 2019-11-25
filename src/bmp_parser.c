@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 14:10:50 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/24 18:51:06 by drafe            ###   ########.fr       */
+/*   Updated: 2019/11/25 16:59:07 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ static int			ft_check_header(t_bmp_h	*head, char *str)
         && head->num_planes == BMP_NUM_PLANE
         && head->compression == BMP_COMPRESSION
         && head->num_colors == BMP_NUM_COLORS && head->important_colors == BMP_IMPORTANT_COLORS
-        && head->bits_per_pixel == BMP_BITS_PER_PIXEL;
-        //&& head->size == ft_file_size(str) && head->image_size_bytes == ft_img_size(head);
+        && head->bits_per_pixel == BMP_BITS_PER_PIXEL
+        && head->size == ft_file_size(str) && head->image_size_bytes == ft_img_size(head);
 }
 
 /*
@@ -110,6 +110,7 @@ static SDL_Surface	*ft_load_bmp(char *str)
 	int			fd;
 	size_t		bytes;
 
+	bytes = 0;
 	fd = open(str, O_RDONLY);
 	if (fd < 0)
 		return(NULL);

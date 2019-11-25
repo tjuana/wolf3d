@@ -6,7 +6,7 @@
 #    By: drafe <drafe@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 11:40:58 by tjuana            #+#    #+#              #
-#    Updated: 2019/11/22 15:41:18 by drafe            ###   ########.fr        #
+#    Updated: 2019/11/25 17:00:01 by drafe            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRCS_LIST = alg_wu_color.c\
 			alg_wu.c\
 			animation.c\
 			bmp_parser.c\
+			door.c\
 			draw_walls.c\
 			fpc.c\
 			floor.c\
