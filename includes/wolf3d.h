@@ -90,7 +90,7 @@ typedef struct s_write
 }				t_write;
 
 
-typedef struct  s_sdl
+typedef struct  s_sdl //structe for handle sdl  stuff
 {
     int					running;
 	SDL_Window			*win;
@@ -170,7 +170,7 @@ typedef struct	s_wolf3d
 	double			fov;
 	double			l_p;
 
-	t_sdl			*sdl;
+	t_sdl			*sdl; //structe for handle sdl  stuff
 	t_map			map;
 	t_time			t;
 	t_const			c;

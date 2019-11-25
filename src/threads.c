@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 13:27:18 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/25 15:56:04 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/11/25 16:56:31 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,26 +100,26 @@ void		ft_new_ray_dir(t_threads *a)
 		
 		//if ((p_y >= 0 && a->w.pl.dir.y >= 0) || (p_y <= 0 && a->w.pl.dir.y <= 0))
 		//{
-			p_x =	((a->w.pl.pos.x) * (a->w.pl.pos.y + a->w.fc_dir.y) - (a->w.pl.pos.y) * (a->w.pl.pos.x + a->w.fc_dir.x)) *
-					((ptr_line->p1.x) - (ptr_line->p2.x)) -
-					((a->w.pl.pos.x) - (a->w.pl.pos.x + a->w.fc_dir.x)) *
-					((ptr_line->p1.x) * (ptr_line->p2.y) - (ptr_line->p1.y) * (ptr_line->p2.x));
+		p_x =	((a->w.pl.pos.x) * (a->w.pl.pos.y + a->w.fc_dir.y) - (a->w.pl.pos.y) * (a->w.pl.pos.x + a->w.fc_dir.x)) *
+				((ptr_line->p1.x) - (ptr_line->p2.x)) -
+				((a->w.pl.pos.x) - (a->w.pl.pos.x + a->w.fc_dir.x)) *
+				((ptr_line->p1.x) * (ptr_line->p2.y) - (ptr_line->p1.y) * (ptr_line->p2.x));
 
 			//printf("@%f\t", p_x);
 
-			p_x /= p_d;
+		p_x /= p_d;
 
-			// Проверка на то, находится ли точка в секторе
+			// Проверка на то, находится ли точка в секторе (неудачная попытка)
 
 			// 1. Находим радиус-вектор, определяющий нахождение точки
 			// Смещаем координаты
-			a->w.ln_dir.x = p_x - a->w.pl.pos.x;
-			a->w.ln_dir.y = p_y - a->w.pl.pos.y;
+			// a->w.ln_dir.x = p_x - a->w.pl.pos.x;
+			// a->w.ln_dir.y = p_y - a->w.pl.pos.y;
 			// Рассчитываем модуль вектора
-			a->w.ln_l = sqrt(pow((a->w.ln_dir.x), 2) + pow((a->w.ln_dir.y), 2));
+			// a->w.ln_l = sqrt(pow((a->w.ln_dir.x), 2) + pow((a->w.ln_dir.y), 2));
 			// Устанавливаем единичный вектор
-			a->w.ln_dir.x /= a->w.ln_l;
-			a->w.ln_dir.y /= a->w.ln_l;
+			// a->w.ln_dir.x /= a->w.ln_l;
+			// a->w.ln_dir.y /= a->w.ln_l;
 			// 2. Проверка угла // a->w.fov
 			// Проверка по cos
 
@@ -165,24 +165,34 @@ void		ft_new_ray_dir(t_threads *a)
 		//sleep(1);
 		//printf("p_x:%f\tp_y:%f\tl_:%f\n", p_x, p_y, temp_l);
 
-
-
 		// Переход к следующей линии
 		ptr_list = ptr_list->next;
 	}
+
+	printf("@\tl_%.10f\n", temp_l);
+
 
 
 	// Длина пути до нашей стены
 	//a->w.l = l * (a->w.pl.cameraX + 1);// * atan2(a->w.pl.cameraX, a->w.l_p);
 	a->w.l = l;// * atan2(a->w.pl.cameraX, a->w.l_p);
 
+	// cos(α-β)=cosα⋅cosβ+sinα⋅sinβ
+	// α -- a->w.fc_dir
+	// β -- a->w.pl.dir
+
+	// Исправляем эффект рыбьего глаза
+	a->w.l *= (a->w.fc_dir.x * a->w.pl.dir.x + a->w.fc_dir.y * a->w.pl.dir.y);
+	
+
 	//printf("%.100f\n", a->w.l);
 
 	//if (own_line != NULL)
 	//	printf("%f\n", a->w.l_p);
 
+	// Увеличение/уменьшение -- проблема a->w.l_p
 	if (a->w.l != 0 && own_line != NULL)
-		a->w.line_height = own_line->height * a->w.l_p / (a->w.l * (1080 * 10 / 2)); // 1080 -- квадратный параметр (?!?!?!?!)
+		a->w.line_height = own_line->height * a->w.l_p / (a->w.l * (1080 * 100 / 2)); // 1080 -- квадратный параметр (?!?!?!?!)
 	else
 		a->w.line_height = 0;
 	if (own_line != NULL)
@@ -190,7 +200,6 @@ void		ft_new_ray_dir(t_threads *a)
 	else
 		a->w.texture_num = 0;
 
-	//printf("@\tl_%.10f\th_%.20d\n", a->w.l, a->w.line_height);
 
 	// no (!), нужно рассчитать угол относительно стены
 	//a->w.line_height *= a->w.pl.dir.y;
@@ -200,9 +209,12 @@ void		ft_new_ray_dir(t_threads *a)
 	//printf("@\tcX:%f\tang:%f\n", a->w.pl.cameraX, a->w.fc_dir.x);
 
 
+	// // cos(α-β)=cosα⋅cosβ+sinα⋅sinβ
 
 
-
+	//a->w.fc_dir.x = a->w.pl.dir.x * cos(a->w.pl.cameraX * a->w.fov) - a->w.pl.dir.y * sin(a->w.pl.cameraX * a->w.fov);
+	// sin(α±β)=sinα⋅cosβ±cosα⋅sinβ 
+	//a->w.fc_dir.y = a->w.pl.dir.y * cos(a->w.pl.cameraX * a->w.fov) + a->w.pl.dir.x * sin(a->w.pl.cameraX * a->w.fov);
 
 
 

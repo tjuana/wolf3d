@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/14 12:28:17 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/11/25 16:33:27 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,16 @@ static void		ft_right_rotation(t_wolf3d *w)
 	w->pl.dir.y = w->pl.old_dirX * w->c.msrs + w->pl.dir.y * w->c.mcrs;
 	w->pl.old_planeX = w->pl.plane.x;
 	w->pl.plane.x = w->pl.plane.x * w->c.mcrs - w->pl.plane.y * w->c.msrs;
-	w->pl.plane.y = w->pl.old_planeX * w->c.msrs + w->pl.plane.y * w->c.mcrs;
+	w->pl.plane.y = w->pl.old_planeX * w->c.msrs
+		+ w->pl.plane.y * w->c.mcrs;
 }
+
+/*
+** **************************************************************************
+**	ft_use_events(t_wolf3d *w) | debug
+**	Function to...
+** **************************************************************************
+*/
 
 void			ft_use_events(t_wolf3d *w)
 {
