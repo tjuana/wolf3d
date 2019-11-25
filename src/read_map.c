@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
+/*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 15:17:47 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/18 13:00:51 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/11/25 19:33:34 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ int			get_lines(int fd, t_list **lst)
 	t_list	*tmp;
 	char	*line;
 	int		len;
-	int		width;
+	size_t	width;
 	int		res;
 
 	len = 0;
-	width = -1;
+	width = 0;
 	while ((res = get_next_line(fd, &line)) > 0)
 	{
-		width == -1 ? width = ft_countwords(line, ' ') : 0;
+		width == 0 ? width = ft_countwords(line, ' ') : 0;
 		width != ft_countwords(line, ' ') ? ft_error("Error map") : 0;
 		if (!(tmp = ft_lstnew(line, ft_strlen(line) + 1)))
 			ft_error("MAlloc failed");

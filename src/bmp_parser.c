@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 14:10:50 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/25 16:59:07 by drafe            ###   ########.fr       */
+/*   Updated: 2019/11/25 19:29:19 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 static uint32_t			ft_img_size(t_bmp_h	*head)
 {
+	head->bits_per_pixel += 0;
 	return (0);
 }
 
@@ -33,6 +34,7 @@ static uint32_t			ft_img_size(t_bmp_h	*head)
 
 static uint32_t			ft_file_size(char *str)
 {
+	str += 0;
 	return (0);
 }
 

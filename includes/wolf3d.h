@@ -286,6 +286,7 @@ int					ft_step_forward_check(t_wolf3d *w, unsigned char flag);
 void				ft_mouse_mv(SDL_Event *e, t_wolf3d *w);
 void				ft_test_mv_p(t_wolf3d *w);
 void				ft_test_mv_l(t_wolf3d *w);
+void				ft_print_map(t_wolf3d *w);
 
 SDL_Surface			*ft_surf_from_bmp(char *str);
 
