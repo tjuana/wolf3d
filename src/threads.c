@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 13:27:18 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/24 17:28:18 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/11/25 15:56:04 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,9 @@ void		ft_new_ray_dir(t_threads *a)
 
 			// Ааа, вот в чём дело...
 			//temp_l = sqrt(pow((p_x - a->w.pl.pos.x), 2) + pow((p_y - a->w.pl.pos.y), 2));
-			temp_l = sqrt(pow((p_x + a->w.pl.pos.x), 2) + pow((p_y + a->w.pl.pos.y), 2));
+			// Некорректно: нахожу не то! (де-факто: расстояние до начала координат)
+			//temp_l = sqrt(pow((p_x - a->w.pl.pos.x), 2) + pow((p_y - a->w.pl.pos.y), 2));
+			temp_l = sqrt(pow((p_x - a->w.pl.pos.x), 2) + pow((p_y - a->w.pl.pos.y), 2));
 
 			//printf("p_x:%f\tp_y:%f\tl_:%f\n", p_x, p_y, temp_l);
 
@@ -159,8 +161,8 @@ void		ft_new_ray_dir(t_threads *a)
 		//}
 
 		// Выводим информацию:
-		printf("@\tcameraX:\t%f\tl_:\t%f\tp_x:\t%f\tp_y:\t%f\n", a->w.pl.cameraX, temp_l, p_x, p_y);
-		sleep(1);
+		//printf("@\tcameraX:\t%f\tl_:\t%f\tp_x:\t%f\tp_y:\t%f\n", a->w.pl.cameraX, temp_l, p_x, p_y);
+		//sleep(1);
 		//printf("p_x:%f\tp_y:%f\tl_:%f\n", p_x, p_y, temp_l);
 
 
@@ -171,7 +173,8 @@ void		ft_new_ray_dir(t_threads *a)
 
 
 	// Длина пути до нашей стены
-	a->w.l = l;
+	//a->w.l = l * (a->w.pl.cameraX + 1);// * atan2(a->w.pl.cameraX, a->w.l_p);
+	a->w.l = l;// * atan2(a->w.pl.cameraX, a->w.l_p);
 
 	//printf("%.100f\n", a->w.l);
 
@@ -179,13 +182,15 @@ void		ft_new_ray_dir(t_threads *a)
 	//	printf("%f\n", a->w.l_p);
 
 	if (a->w.l != 0 && own_line != NULL)
-		a->w.line_height = own_line->height * a->w.l_p / (a->w.l * (1080 / 2)); // 1080 -- квадратный параметр (?!?!?!?!)
+		a->w.line_height = own_line->height * a->w.l_p / (a->w.l * (1080 * 10 / 2)); // 1080 -- квадратный параметр (?!?!?!?!)
 	else
 		a->w.line_height = 0;
 	if (own_line != NULL)
 		a->w.texture_num = own_line->txtr; // -1
 	else
 		a->w.texture_num = 0;
+
+	//printf("@\tl_%.10f\th_%.20d\n", a->w.l, a->w.line_height);
 
 	// no (!), нужно рассчитать угол относительно стены
 	//a->w.line_height *= a->w.pl.dir.y;
@@ -266,13 +271,13 @@ void				ft_new_draw_walls(t_threads *a)
 		
 		a->w.tex_col = &((Uint8*)(a->w.sdl->textures\
 		[a->w.texture_num]->pixels))[TEX_H * 3 * a->w.text_y + a->w.text_x * 3];
-		i = 0xff00ff;
-		//a->w.color = *(Uint32*)(a->w.tex_col);
-		a->w.color = &i;
+		//i = 0xff00ff;
+		a->w.color = *(Uint32*)(a->w.tex_col);
+		//a->w.color = &i;
 		//a->w.color = *(Uint32*)8352370;
 		if (a->w.pl.side == 1)
 			a->w.color = (a->w.color >> 1) & 8352370;
-		a->w.sdl->pixels[a->t1 + (a->w.y * WIN_WIDTH)] = a->w.color;
+		a->w.sdl->pixels[a->t1 + (a->w.y * WIN_WIDTH)] = 0xff;//a->w.color;
 		a->w.y++;
 	}
 	a->w.z_buffer[a->t1] = a->w.pl.wall_dist;
