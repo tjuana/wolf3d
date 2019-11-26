@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/24 14:36:57 by drafe            ###   ########.fr       */
+/*   Updated: 2019/11/26 18:48:20 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ void	ft_mouse_mv(SDL_Event *e, t_wolf3d *w)
 
 void	ft_test_mv_p(t_wolf3d *w)
 {
-	w->mouse_offset += 15;
-	//w->draw_start += 50;
-	//w->draw_end += 50;
-	//w->line_height += 10;
+	printf("pos x==%f  y==%f ", w->pl.pos.x, w->pl.pos.y);
+	printf("pl dir x==%f  y==%f ", w->pl.dir.x , w->pl.dir.y);
+	//w->mouse_offset += 15;
+
 	printf("P pressed\n");
 }
 
@@ -72,11 +72,49 @@ void	ft_test_mv_p(t_wolf3d *w)
 
 void	ft_test_mv_l(t_wolf3d *w)
 {
-	w->mouse_offset -= 15;
+	w->mouse_offset += 0;
+	w->pl.pos.x = 2;
+	w->pl.pos.y = 2;
+	//w->mouse_offset -= 15;
+
 	//w->draw_start -= 50;
 	//	w->draw_end -= 50;
 	//w->line_height -= 10;
+	/*
+	w->pl.pos.x = 2;
+	w->pl.pos.y = 2;
+	*/
 	printf("L pressed\n");
+}
+
+/*
+** **************************************************************************
+**	void ft_init_doors(t_wolf3d *w) | debug
+**	Function to print map
+** **************************************************************************
+*/
+
+void	ft_print_map(t_wolf3d *w)
+{
+	int			*tmp;
+	int			i;
+	int			j;
+
+	i = 0;
+	j = 0;
+	tmp = w->map.map;
+	while (i < w->map.m_hei)
+	{
+		j = 0;
+		printf("\nm[%d]	", i);
+		while (j < w->map.m_wid)
+		{
+			printf("[%d]==%d  ", j, tmp[j]);
+			j++;
+		}
+		tmp += w->map.m_wid;
+		i++;
+	}
 }
 
 /*

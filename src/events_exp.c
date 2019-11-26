@@ -6,11 +6,40 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/25 18:03:27 by drafe            ###   ########.fr       */
+/*   Updated: 2019/11/26 20:49:36 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
+
+/*
+** **************************************************************************
+**	void ft_left_right(t_wolf3d *w)
+**	First function to handle left & right move event
+** **************************************************************************
+*/
+
+static void		ft_left_right(t_wolf3d *w)
+{
+	if (w->arr[13] == 1)
+	{
+		w->sdl->i = 1;
+		ft_load_sound(w);
+		if (ft_step_left_check(w, 1))
+			w->pl.pos.x += -w->pl.dir.y * w->ms;
+		if (ft_step_left_check(w, 0))
+			w->pl.pos.y += w->pl.dir.x * w->ms;
+	}
+	if (w->arr[14] == 1)
+	{
+		w->sdl->i = 1;
+		ft_load_sound(w);
+		if (ft_step_right_check(w, 1))
+			w->pl.pos.x += w->pl.dir.y * w->ms;
+		if (ft_step_right_check(w, 0))
+			w->pl.pos.y += -w->pl.dir.x * w->ms;
+	}
+}
 
 static void		ft_left_rotation(t_wolf3d *w)
 {
@@ -49,11 +78,11 @@ static void		ft_use_events_exp(t_wolf3d *w)
 	w->arr[5] == 1 ? ft_play_music(w) : 0;
 	w->arr[6] == 1 ? ft_test_mv_p(w) : 0;
 	w->arr[7] == 1 ? ft_test_mv_l(w) : 0;
-	w->arr[8] == 1 ? w->ms = 0.05 : 0;
+	w->arr[8] == 1 && w->arr[1] != 1 ? w->ms = 0.05 : 0;
 	w->arr[8] == 0 ? w->ms = 0.03 : 0;
-	w->arr[9] == 1 ? w->ms = 0.05 : 0;
+	w->arr[9] == 1 && w->arr[1] != 1 ? w->ms = 0.05 : 0;
 	w->arr[9] == 0 ? w->ms = 0.03 : 0;
-	w->arr[12] == 1 ? ft_open_door(w) : 0;
+	w->arr[12] == 1 ? ft_door_open(w) : 0;
 }
 
 /*
@@ -81,5 +110,6 @@ void			ft_use_events(t_wolf3d *w)
 		if (ft_step_back_check(w, 0))
 			w->pl.pos.y -= w->pl.dir.y * w->ms;
 	}
+	ft_left_right(w);
 	ft_use_events_exp(w);
 }

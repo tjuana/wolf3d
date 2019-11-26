@@ -23,7 +23,8 @@
 # include <math.h>
 # include <string.h>
 # include <libft.h>
-# include <bmp_parser.h>
+# include "bmp_parser.h"
+# include "door.h"
 
 typedef struct	s_sort_util
 {
@@ -166,6 +167,7 @@ typedef struct	s_wolf3d
 	t_anime			anim;
 	t_anime			view_map;
 	t_floor			flr;
+	t_door			**doors;
 	int				temp;
 	int				fd;
 	int				x;
@@ -292,8 +294,8 @@ SDL_Surface			*ft_surf_from_bmp(char *str);
 
 void				ft_sdl_error(t_wolf3d *w);
 
-void				ft_init_doors(t_wolf3d *w);
-void				ft_open_door(t_wolf3d *w); 
+void				ft_door_create(t_wolf3d *w);
+void				ft_door_open(t_wolf3d *w);
 
 void				ft_wall_hit(t_threads *a);
 void				ft_wall_draw_start(t_threads *a);
@@ -302,8 +304,12 @@ void				ft_draw_walls(t_threads *a);
 void				threading(t_wolf3d *w);
 
 void				*begin_game(void *w);
+
 int					ft_step_back_check(t_wolf3d *w, unsigned char flag);
 int					ft_step_forward_check(t_wolf3d *w, unsigned char flag);
+int					ft_step_left_check(t_wolf3d *w, unsigned char flag);
+int					ft_step_right_check(t_wolf3d *w, unsigned char flag);
+
 void				ft_ray_dir_calculations(t_threads *a);
 
 void fpsthink();

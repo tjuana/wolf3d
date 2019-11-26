@@ -1,13 +1,12 @@
 #ifndef DOOR_H
 # define DOOR_H
 
-#include <wolf3d.h>
-
 typedef struct	s_door
 {
 	int			x;
 	int			y;
 	int			state;
+	int			key;
 }				t_door;
 
 #endif
