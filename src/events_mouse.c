@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/26 18:48:20 by drafe            ###   ########.fr       */
+/*   Updated: 2019/11/27 17:38:21 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,27 @@ void	ft_test_mv_l(t_wolf3d *w)
 	w->pl.pos.y = 2;
 	*/
 	printf("L pressed\n");
+}
+
+
+/*
+** **************************************************************************
+**	void	ft_door_print(t_wolf3d *w) | debug
+**	Function to print all doors on map
+** **************************************************************************
+*/
+
+void	ft_door_print(t_wolf3d *w)
+{
+	int	i;
+
+	i = 0;
+	while(i < w->doors_nbr)
+	{
+		printf("door#%d  x==%d y==%d   state==%d key==%d\n", \
+		i, w->doors[i]->x, w->doors[i]->y, w->doors[i]->state, w->doors[i]->key);
+		i++;
+	}
 }
 
 /*

@@ -168,6 +168,7 @@ typedef struct	s_wolf3d
 	t_anime			view_map;
 	t_floor			flr;
 	t_door			**doors;
+	int				doors_nbr;
 	int				temp;
 	int				fd;
 	int				x;
@@ -286,9 +287,10 @@ int					ft_step_back_check(t_wolf3d *w, unsigned char flag);
 int					ft_step_forward_check(t_wolf3d *w, unsigned char flag);
 
 void				ft_mouse_mv(SDL_Event *e, t_wolf3d *w);
-void				ft_test_mv_p(t_wolf3d *w);
-void				ft_test_mv_l(t_wolf3d *w);
-void				ft_print_map(t_wolf3d *w);
+void				ft_test_mv_p(t_wolf3d *w);//debug
+void				ft_test_mv_l(t_wolf3d *w);//debug
+void				ft_print_map(t_wolf3d *w);//debug
+void				ft_door_print(t_wolf3d *w);//debug
 
 SDL_Surface			*ft_surf_from_bmp(char *str);
 

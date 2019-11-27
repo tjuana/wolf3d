@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/22 14:12:29 by drafe            ###   ########.fr       */
+/*   Updated: 2019/11/27 17:39:26 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,15 @@ t_sdl		*sdl_init(t_sdl *sdl)
 		"Couldn't initialize SDL: %s", SDL_GetError());
 		return (0);
 	}
-	if (SDL_CreateWindowAndRenderer(WIN_WIDTH, WIN_HEIGHT, \
+	sdl->win = SDL_CreateWindow("WOLF3D", 650, 0, WIN_WIDTH, WIN_HEIGHT, 0);
+	sdl->renderer = SDL_CreateRenderer(sdl->win, 0, 0);
+	/*if (SDL_CreateWindowAndRenderer(WIN_WIDTH, WIN_HEIGHT, \
 	0, &sdl->win, &sdl->renderer) < 0)
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, \
 		"Couldn't create window and renderer: %s", SDL_GetError());
 		return (0);
-	}
+	}*/
 	if (!(sdl->text = SDL_CreateTexture(sdl->renderer, SDL_PIXELFORMAT_ARGB8888\
 	, SDL_TEXTUREACCESS_STREAMING, WIN_WIDTH, WIN_HEIGHT)))
 		ft_error("SDL non textures");
