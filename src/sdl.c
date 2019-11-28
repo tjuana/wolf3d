@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/27 18:57:23 by drafe            ###   ########.fr       */
+/*   Updated: 2019/11/28 14:13:07 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,9 @@ void		ft_init_wolf(t_wolf3d *w)
 
 void		ft_we_need_more_init(t_wolf3d *w)
 {
+	int		i;
+
+	i = -1;
 	w->t.time = 0;
 	w->t.old_time = 0;
 	w->t.sound_old_time = 0;
@@ -85,7 +88,8 @@ void		ft_we_need_more_init(t_wolf3d *w)
 	w->draw_end = 0;//w->c.half_height;
 	w->draw_start = 0;
 	w->mouse_offset = 0;
-	
+	while (++i < KEYS_NBR)
+		w->arr[i] = 0;
 }
 
 void		ft_init_multi_wolf(t_threads_help *w, t_wolf3d *head)

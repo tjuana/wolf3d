@@ -1,17 +1,5 @@
 #ifndef WOLF3D_H
 # define WOLF3D_H
-# define WIN_HEIGHT 1080
-# define WIN_WIDTH 1920
-# define TEXTURES_NUMBER 23
-# define THREADS 10
-# define TEX_W 64
-# define TEX_H 64
-# define ONE_ANIM 20
-# define FULL_ANIM ONE_ANIM * 4 - 4
-
-# define C_R 0x00FF0000
-# define C_G 0x0000FF00
-# define C_B 0x000000FF
 
 # include "SDL2/SDL.h"
 # include "SDL2/SDL_thread.h"
@@ -23,8 +11,10 @@
 # include <math.h>
 # include <string.h>
 # include <libft.h>
+# include "constants.h"
 # include "bmp_parser.h"
 # include "door.h"
+# include "player.h"
 
 typedef struct	s_sort_util
 {
@@ -33,12 +23,6 @@ typedef struct	s_sort_util
 	int			count;
 	char		swap;
 }				t_sort_util;
-
-typedef struct	s_coord
-{
-	double		x;
-	double		y;
-}				t_coord;
 
 typedef struct	s_rect
 {
@@ -55,23 +39,6 @@ typedef struct	s_anime
 	t_coord		place;
 	int			frames;
 }				t_anime;
-
-typedef struct	s_player
-{
-	t_coord		pos;
-	t_coord		dir;
-	t_coord		plane;
-	t_coord		raydir;
-	t_coord		side_dist;
-	t_coord		delta_dist;
-	double		old_dirX;
-	double		old_planeX;
-	double		cameraX;
-	double		wall_dist;
-	int			stepX; //?????
-	int			stepY;
-	int			side;
-}				t_player;
 
 typedef struct s_write
 {

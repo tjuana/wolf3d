@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/28 13:38:58 by drafe            ###   ########.fr       */
+/*   Updated: 2019/11/28 16:04:58 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,20 @@ static int	ft_door_exist(t_wolf3d *w)
 	int		i;
 	int		pl_x;
 	int		pl_y;
-	int		dr_x;
-	int		dr_y;
 
 	i = -1;
 	pl_x = (int)w->pl.pos.x;
 	pl_y = (int)w->pl.pos.y;
-	dr_x = w->map.map[(int)(w->pl.pos.x + w->pl.dir.x * w->ms * 5)
-		+ (int)w->pl.pos.y * w->map.m_wid];
-	dr_y = w->map.map[(int)(w->pl.pos.y + w->pl.dir.y * w->ms * 5)
-		* w->map.m_wid + (int)w->pl.pos.x];
-	while ((dr_x == 17) && (++i < w->doors_nbr))
-		if (((w->doors[i]->x == pl_x - 1) || (w->doors[i]->x == pl_x + 1)) \
-		&& ((w->doors[i]->y == pl_y) || w->doors[i]->y == pl_y - 1))
-			break ;
-	if ((dr_y == 17) && (i = -1) )
-		while (++i < w->doors_nbr)
-			if (((w->doors[i]->y == pl_y - 1) || (w->doors[i]->y == pl_y + 1)) \
-			&& ((w->doors[i]->x == pl_x + 1) || (w->doors[i]->x == pl_x)))
+	while (++i < w->doors_nbr)
+	{
+		if (w->doors[i]->x == pl_x)
+			if (((w->doors[i]->y == pl_y - 1) || (w->doors[i]->y == pl_y + 1)))
 				break ;
+		if (w->doors[i]->y == pl_y)
+			if (((w->doors[i]->x == pl_x - 1) || (w->doors[i]->x == pl_x + 1)))
+				break ;
+	}
+	i == 12 ? i = -1 : 0;
 	return (i);
 }
 
@@ -106,8 +101,9 @@ void		ft_door_set(t_wolf3d *w)
 			{
 				w->doors[nbr]->x = j;
 				w->doors[nbr]->y = i;
-				w->doors[nbr]->state = 0;
+				w->doors[nbr]->state = 3;
 				w->doors[nbr]->key = 0;
+				w->pl.st.key[nbr] = 0;
 			}
 		tmp_map += w->map.m_wid;
 	}
@@ -140,12 +136,18 @@ void		ft_door_create(t_wolf3d *w)
 
 void		ft_door_open(t_wolf3d *w)
 {
-	int		door;
+	int		d_nbr;
 
 	//printf("ft_open_door start\n");
 	ft_door_create(w);
-	door = ft_door_exist(w);
-	printf("door#%d\n", door);
+	d_nbr = ft_door_exist(w);
+	if ((d_nbr >= 0) && (w->doors[d_nbr]->state == 3) && \
+	(w->doors[d_nbr]->key == w->pl.st.key[d_nbr]))
+	{
+		//play animation && sounds
+		w->doors[d_nbr]->state = 1;
+		printf("open door#%d\n", d_nbr);
+	}
 	return ;
 }
 
