@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/27 17:39:26 by drafe            ###   ########.fr       */
+/*   Updated: 2019/11/27 18:57:23 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_sdl		*sdl_init(t_sdl *sdl)
 		"Couldn't initialize SDL: %s", SDL_GetError());
 		return (0);
 	}
-	sdl->win = SDL_CreateWindow("WOLF3D", 650, 0, WIN_WIDTH, WIN_HEIGHT, 0);
+	sdl->win = SDL_CreateWindow("WOLF3D", 650, 650, WIN_WIDTH, WIN_HEIGHT, 0);
 	sdl->renderer = SDL_CreateRenderer(sdl->win, 0, 0);
 	/*if (SDL_CreateWindowAndRenderer(WIN_WIDTH, WIN_HEIGHT, \
 	0, &sdl->win, &sdl->renderer) < 0)

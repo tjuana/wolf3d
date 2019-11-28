@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/27 17:38:21 by drafe            ###   ########.fr       */
+/*   Updated: 2019/11/27 19:30:48 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,7 @@ void	ft_test_mv_p(t_wolf3d *w)
 void	ft_test_mv_l(t_wolf3d *w)
 {
 	w->mouse_offset += 0;
-	w->pl.pos.x = 2;
-	w->pl.pos.y = 2;
+	ft_door_print(w);
 	//w->mouse_offset -= 15;
 
 	//w->draw_start -= 50;

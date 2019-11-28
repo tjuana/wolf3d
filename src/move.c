@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 13:15:45 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/27 17:43:52 by drafe            ###   ########.fr       */
+/*   Updated: 2019/11/27 21:23:29 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,3 +87,8 @@ int		ft_step_right_check(t_wolf3d *w, unsigned char flag)
 	}
 	return (0);
 }
+
+/*int					ft_check_run(t_wolf3d *w)
+{
+	return ((w->arr[0] == 1) && !w->arr[1] && !w->arr[13] && ! w->arr[14]);
+}*/

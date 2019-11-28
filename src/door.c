@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/27 18:08:55 by drafe            ###   ########.fr       */
+/*   Updated: 2019/11/28 13:38:58 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,28 @@
 static int	ft_door_exist(t_wolf3d *w)
 {
 	int		i;
-	int		block_x;
-	int		block_y;
+	int		pl_x;
+	int		pl_y;
+	int		dr_x;
+	int		dr_y;
 
-	//printf("ft_door_exist start\n");
 	i = -1;
-	block_x = 0;
-	block_y = 0;
-	block_x = w->map.map[(int)(w->pl.pos.x + w->pl.dir.x * w->ms * 5)
-	+ (int)w->pl.pos.y * w->map.m_wid];
-	block_y = w->map.map[(int)(w->pl.pos.y + w->pl.dir.y * w->ms * 5)
+	pl_x = (int)w->pl.pos.x;
+	pl_y = (int)w->pl.pos.y;
+	dr_x = w->map.map[(int)(w->pl.pos.x + w->pl.dir.x * w->ms * 5)
+		+ (int)w->pl.pos.y * w->map.m_wid];
+	dr_y = w->map.map[(int)(w->pl.pos.y + w->pl.dir.y * w->ms * 5)
 		* w->map.m_wid + (int)w->pl.pos.x];
-	if ((block_x == 17) || (block_y == 17))//printf("door#%d   pl.x==%d pl.y==%d \n", i, (int)w->pl.pos.x, (int)w->pl.pos.y);
+	while ((dr_x == 17) && (++i < w->doors_nbr))
+		if (((w->doors[i]->x == pl_x - 1) || (w->doors[i]->x == pl_x + 1)) \
+		&& ((w->doors[i]->y == pl_y) || w->doors[i]->y == pl_y - 1))
+			break ;
+	if ((dr_y == 17) && (i = -1) )
 		while (++i < w->doors_nbr)
-		{
-			if((w->doors[i]->x == (int)w->pl.pos.x) || (w->doors[i]->y == (int)w->pl.pos.y))
-				return (i);
-		}
-	return (-1);
+			if (((w->doors[i]->y == pl_y - 1) || (w->doors[i]->y == pl_y + 1)) \
+			&& ((w->doors[i]->x == pl_x + 1) || (w->doors[i]->x == pl_x)))
+				break ;
+	return (i);
 }
 
 /*
@@ -70,10 +74,10 @@ static int	ft_door_nbr(t_wolf3d *w)
 	}
 	res = drs;
 	if ((drs > 0) && !(w->doors = (t_door**)malloc(sizeof(t_door*) * drs)))
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	while (--drs >= 0)
 		if (!(w->doors[drs] = malloc(sizeof(t_door))))
-			exit (EXIT_FAILURE);
+			exit(EXIT_FAILURE);
 	return(res);
 }
 
@@ -141,11 +145,12 @@ void		ft_door_open(t_wolf3d *w)
 	//printf("ft_open_door start\n");
 	ft_door_create(w);
 	door = ft_door_exist(w);
-	printf ("door#%d\n", door);
-	//printf("\n pl.x==%d pl.y==%d \n", (int)w->pl.pos.x, (int)w->pl.pos.y);
-
+	printf("door#%d\n", door);
 	return ;
-	/*
+}
+
+/*
+	//printf("\n pl.x==%d pl.y==%d \n", (int)w->pl.pos.x, (int)w->pl.pos.y);
 	while ((++i < w->doors_nbr) && (w->doors[i]->x != (int)w->pl.pos.x) && \
 	(w->doors[i]->y != (int)w->pl.pos.y));
 	printf("i==%d pos.x==%d pos.y==%d\n", i, (int)w->pl.pos.x, (int)w->pl.pos.y);
@@ -162,5 +167,4 @@ door#8  x==11 y==21   state==0 key==0
 door#9  x==13 y==21   state==0 key==0
 door#10  x==12 y==22   state==0 key==0
 door#11  x==16 y==24   state==0 key==0
-	*/
-}
+*/

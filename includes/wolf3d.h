@@ -311,6 +311,7 @@ int					ft_step_back_check(t_wolf3d *w, unsigned char flag);
 int					ft_step_forward_check(t_wolf3d *w, unsigned char flag);
 int					ft_step_left_check(t_wolf3d *w, unsigned char flag);
 int					ft_step_right_check(t_wolf3d *w, unsigned char flag);
+//int					ft_check_run(t_wolf3d *w);
 
 void				ft_ray_dir_calculations(t_threads *a);
 
