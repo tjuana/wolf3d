@@ -253,7 +253,7 @@ void				ft_use_events(t_wolf3d *w);
 int					ft_step_back_check(t_wolf3d *w, unsigned char flag);
 int					ft_step_forward_check(t_wolf3d *w, unsigned char flag);
 
-void				ft_mouse_mv(SDL_Event *e, t_wolf3d *w);
+void				ft_mouse_mv(t_wolf3d *w, SDL_Event e);
 void				ft_test_mv_p(t_wolf3d *w);//debug
 void				ft_test_mv_l(t_wolf3d *w);//debug
 void				ft_print_map(t_wolf3d *w);//debug

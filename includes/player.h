@@ -14,7 +14,7 @@ typedef struct	s_stats
 	int key[MAX_DOORS_NBR];
 	int life;
 	int	ammo;
-	int score;
+	int money;
 	int	jetpack;
 }				t_stats;
 

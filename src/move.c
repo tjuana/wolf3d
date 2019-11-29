@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 13:15:45 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/27 21:23:29 by drafe            ###   ########.fr       */
+/*   Updated: 2019/11/28 18:55:17 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,12 @@ int		ft_step_back_check(t_wolf3d *w, unsigned char flag)
 	}
 	return (0);
 }
+/*
+** **************************************************************************
+**	int ft_step_left_check(t_wolf3d *w, unsigned char flag)
+**	Function to check can we move left ot not
+** **************************************************************************
+*/
 
 int		ft_step_left_check(t_wolf3d *w, unsigned char flag)
 {
@@ -68,6 +74,13 @@ int		ft_step_left_check(t_wolf3d *w, unsigned char flag)
 	}
 	return (0);
 }
+
+/*
+** **************************************************************************
+**	int ft_step_right_check(t_wolf3d *w, unsigned char flag)
+**	Function to check can we move right ot not
+** **************************************************************************
+*/
 
 int		ft_step_right_check(t_wolf3d *w, unsigned char flag)
 {
