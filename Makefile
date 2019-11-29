@@ -6,7 +6,7 @@
 #    By: drafe <drafe@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 11:40:58 by tjuana            #+#    #+#              #
-#    Updated: 2019/11/29 15:11:31 by drafe            ###   ########.fr        #
+#    Updated: 2019/11/29 16:48:10 by drafe            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ NAME = wolf3d
 
 FLAGS = -Wall -Werror -Wextra -O -O0 -O1 -O2 -O3 -Os -std=c99
 CC = gcc
-LIBRARIES = -lft -L$(LIBFT_DIRECTORY) -F SDL2/Frameworks   -lSDL2 -L$(SDL_DIRECTORY) -lSDL2main -L$(SDL_DIRECTORY) -lSDL2-2.0.0 -L$(SDL_DIRECTORY)
+LIBRARIES = -lft -L$(LIBFT_DIRECTORY) -F SDL2/Frameworks \
+	-lSDL2 -L$(SDL_DIRECTORY) -lSDL2main -L$(SDL_DIRECTORY) -lSDL2-2.0.0 -L$(SDL_DIRECTORY)
+#	-lSDL_ttf -L$(SDL_TTF_DIR)
 INCLUDES = -I$(HEADERS_DIRECTORY) -I$(LIBFT_HEADERS) -I$(SDL_HEADERS)
 
 LIBFT = $(addprefix $(LIBFT_DIRECTORY),libft.a)
@@ -28,6 +30,7 @@ HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
 DIRECTORY =  $(shell pwd)
 
+SDL_TTF_DIR = $(DIRECTORY)/SDL2_ttf
 SDL_DIRECTORY = $(DIRECTORY)/lib
 SDL_MAKE = $(DIRECTORY)/SDL2
 
@@ -38,7 +41,8 @@ LIB_LIST =	libSDL2.a\
 			libSDL2-2.0.0.dylib\
 			libSDL2.dylib\
 			libSDL2_test.a\
-			libSDL2main.a
+			libSDL2main.a\
+			libSDL2_ttf.la
 
 SRCS_DIRECTORY = ./src/
 SRCS_LIST = alg_wu_color.c\
@@ -56,9 +60,10 @@ SRCS_LIST = alg_wu_color.c\
 			events_exp.c\
 			events_mouse.c\
 			main.c\
-			move.c\
 			map.c\
 			map_arrow.c\
+			move.c\
+			player_stats.c\
 			ray_casting.c\
 			sdl.c\
 			sdl_error.c\
@@ -123,7 +128,7 @@ dd:
 	rm $(NAME)
 
 fclean: clean
-	@rm -r $(LIBFT)
+	@rm -rf $(LIBFT)
 	@echo "$(NAME): $(RED)$(LIBFT) was deleted$(RESET)"
 	@rm -f $(NAME)
 	@echo "$(NAME): $(RED)$(NAME) was deleted$(RESET)"

@@ -3,6 +3,7 @@
 
 # include "SDL2/SDL.h"
 # include "SDL2/SDL_thread.h"
+# include "SDL2/SDL_ttf.h"
 # include <pthread.h>
 # include <string.h>
 # include <stdio.h>
@@ -278,6 +279,8 @@ int					ft_step_back_check(t_wolf3d *w, unsigned char flag);
 int					ft_step_forward_check(t_wolf3d *w, unsigned char flag);
 int					ft_step_left_check(t_wolf3d *w, unsigned char flag);
 int					ft_step_right_check(t_wolf3d *w, unsigned char flag);
+
+void				ft_pl_stats(t_wolf3d *w);
 //int					ft_check_run(t_wolf3d *w);
 
 void				ft_ray_dir_calculations(t_threads *a);
