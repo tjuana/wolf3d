@@ -6,12 +6,11 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 16:20:21 by tjuana            #+#    #+#             */
-/*   Updated: 2019/10/28 14:56:15 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/11/18 12:59:34 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
 
 static int		ft_n_words(const char *s, char c)
 {

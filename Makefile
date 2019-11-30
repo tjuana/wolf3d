@@ -6,13 +6,13 @@
 #    By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 11:40:58 by tjuana            #+#    #+#              #
-#    Updated: 2019/11/15 19:10:14 by dorange-         ###   ########.fr        #
+#    Updated: 2019/11/29 20:29:02 by dorange-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = wolf3d
 
-FLAGS = -g -O3 
+FLAGS = -Wall -Werror -Wextra
 CC = gcc
 LIBRARIES = -lft -L$(LIBFT_DIRECTORY) -F SDL2/Frameworks   -lSDL2 -L$(SDL_DIRECTORY) -lSDL2main -L$(SDL_DIRECTORY) -lSDL2-2.0.0 -L$(SDL_DIRECTORY)
 INCLUDES = -I$(HEADERS_DIRECTORY) -I$(LIBFT_HEADERS) -I$(SDL_HEADERS)
@@ -23,7 +23,10 @@ LIBFT_HEADERS = ./libft/includes
 SDL_HEADERS = include/
 
 HEADERS_DIRECTORY = ./includes/
-HEADERS_LIST = wolf3d.h
+HEADERS_LIST =	wolf3d.h \
+				player.h \
+				door.h \
+				constants.h
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
 DIRECTORY =  $(shell pwd)
@@ -41,26 +44,29 @@ LIB_LIST =	libSDL2.a\
 			libSDL2main.a
 
 SRCS_DIRECTORY = ./src/
-SRCS_LIST = main.c\
+SRCS_LIST = alg_wu_color.c\
+			alg_wu_draw.c\
+			alg_wu.c\
+			animation.c\
+			draw_walls.c\
+			floor.c\
 			help.c\
 			read_map.c\
-			sdl.c\
-			textures.c\
 			events.c\
-			threads.c\
-			draw_walls.c\
-			sdl_render.c\
+			events_exp.c\
+			events_mouse.c\
+			main.c\
 			move.c\
+			map.c\
+			map_arrow.c\
 			ray_casting.c\
-			fpc.c\
-			animation.c\
-			floor.c\
-			sound.c	\
-			map.c \
-			alg_wu_color.c \
-			alg_wu_draw.c \
-			alg_wu.c \
-			map_arrow.c
+			sdl.c\
+			sdl_error.c\
+			sdl_render.c\
+			sound.c\
+			textures.c\
+			threads.c \
+			check_map.c
 
 OBJS_DIRECTORY = objects/
 OBJS_LIST = $(patsubst %.c, %.o, $(SRCS_LIST))
