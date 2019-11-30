@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/23 16:53:42 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/11/28 16:59:22 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ int			ft_init_anim(t_wolf3d *wolf)
 	return (0);
 }
 
+
+
+
+// Set line
 static void	ft_set_line(t_wolf3d *w, t_line *line,
 				t_line temp_line, t_list *lst)
 {
@@ -57,6 +61,8 @@ static void	ft_set_line(t_wolf3d *w, t_line *line,
 		w->line = lst;
 	else
 		ft_lstadd(&(w->line), lst);
+
+	//printf("LINE:\ttxtr:%d\tx1:%f\ty1:%f\tx2:%f\ty2:%f\n", line->txtr, line->p1.x, line->p1.y, line->p2.x, line->p2.y);
 }
 
 static void	ft_create_line(t_wolf3d *w, int i)
@@ -109,7 +115,8 @@ static void	ft_init_lines(t_wolf3d *w)
 	i = 0;
 	while (i < w->map.m_wid * w->map.m_hei)
 	{
-		ft_create_line(w, i);
+		if (w->map.map[i] != 0)
+			ft_create_line(w, i);
 		// На каждую текстуру нужно 4 линии
 		// Выделим 1 линию:
 		// temp_line.p1.x = i % w->map.m_wid;
@@ -141,7 +148,7 @@ void		ft_init_wolf(t_wolf3d *w)
 	w->pl.dir.x = -1;
 	w->pl.dir.y = 0;
 	w->pl.plane.x = 0;
-	w->pl.plane.y = (double)8 / 9; // ;)
+	w->pl.plane.y = (double)8 / 9; // ;) [Корректно: (W / 2) / H]
 	w->hit = 0;
 	w->x = -1;
 	w->ms = 0.03; // ?!

@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 13:27:18 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/25 16:56:31 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/11/29 14:59:53 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,34 @@ void		threading(t_wolf3d *w)
 
 // new function for drawing
 
+// Проверяем, лежит ли точка на отрезке (?!)
+int			ft_check_point_in_line(t_coord p, t_coord p1, t_coord p2)
+{
+	double	d;
+	int		p_d;
+
+	d = (p.x - p1.x) * (p2.y - p1.y) - (p.y - p1.y) * (p2.x - p1.x);
+	if ((p1.x < p.x && p.x < p2.x) || (p2.x < p.x && p.x < p1.x))
+	{
+		p_d = abs((int)(d * 100));
+		//printf("p.x%.6f\tp.y%.6f\tp1.x%.6f\tp1.y%.6f\tp2.x%.6f\tp2.y%.6f\t\n", p.x, p.y, p1.x, p1.y, p2.x, p2.y);
+		//printf("%i\t%.10f\n", p_d, d);
+		if (p_d < 1)
+			return (1);
+		else
+			return (0);
+	}
+	else
+		return (0);
+//	double a = p2.y - p1.y;
+//	double b = p1.x - p2.x;
+//	double c = - a * p1.x - b * p1.y;
+//	if (abs(a * t.x + b * t.y + c) > eps) return false;
+
+//	return point_in_box (t, p1, p2);
+}
+
+// Рассчитываем, куда направить луч
 void		ft_new_ray_dir(t_threads *a)
 {
 	t_list	*ptr_list;
@@ -53,22 +81,25 @@ void		ft_new_ray_dir(t_threads *a)
 	double	p_y;
 	double	p_x;
 	double	p_d;
+	t_coord	p;
 
 	//double	old_fc_dir_x;
 	//double	old_fc_dir_y;
 
 	ptr_list = a->w.line; // Кошмарищеее!
 	own_line = NULL;
+
 	// Отклонение для определения угла? Допустим...
 	a->w.pl.cameraX = a->t1 * a->w.camera_x_cnst - 1;
 	l = 0;
-	//old_fc_dir_x = 
 
-	// Вместо dir должен быть некий коэффициент -- fc_dir (направление и отклонение)
+	// Вместо dir должен быть некий коэффициент -- fc_dir (направление и отклонение) [туда, куда пустим луч]
+	// Угол смещения -- половина fov, помноженная на отклонение
+
 	// cos(α+β)=cosα⋅cosβ−sinα⋅sinβ
-	a->w.fc_dir.x = a->w.pl.dir.x * cos(a->w.pl.cameraX * a->w.fov) - a->w.pl.dir.y * sin(a->w.pl.cameraX * a->w.fov);
+	a->w.fc_dir.x = a->w.pl.dir.x * cos(a->w.pl.cameraX * (a->w.fov / 2)) - a->w.pl.dir.y * sin(a->w.pl.cameraX * (a->w.fov / 2));
 	// sin(α±β)=sinα⋅cosβ±cosα⋅sinβ 
-	a->w.fc_dir.y = a->w.pl.dir.y * cos(a->w.pl.cameraX * a->w.fov) + a->w.pl.dir.x * sin(a->w.pl.cameraX * a->w.fov);
+	a->w.fc_dir.y = a->w.pl.dir.y * cos(a->w.pl.cameraX * (a->w.fov / 2)) + a->w.pl.dir.x * sin(a->w.pl.cameraX * (a->w.fov / 2));
 
 	// Необходимо связать это с FOV.
 	while (ptr_list)
@@ -81,8 +112,9 @@ void		ft_new_ray_dir(t_threads *a)
 				((ptr_line->p1.y) - (ptr_line->p2.y)) -
 				((a->w.pl.pos.y) - (a->w.pl.pos.y + a->w.fc_dir.y)) *
 				((ptr_line->p1.x) - (ptr_line->p2.x));
+
 		// Если прямые параллельны или совпадают
-		if (p_d == 0)
+		if (p_d == 0.0)
 		{
 			ptr_list = ptr_list->next;
 			continue;
@@ -105,59 +137,85 @@ void		ft_new_ray_dir(t_threads *a)
 				((a->w.pl.pos.x) - (a->w.pl.pos.x + a->w.fc_dir.x)) *
 				((ptr_line->p1.x) * (ptr_line->p2.y) - (ptr_line->p1.y) * (ptr_line->p2.x));
 
+
 			//printf("@%f\t", p_x);
 
 		p_x /= p_d;
 
-			// Проверка на то, находится ли точка в секторе (неудачная попытка)
+			// Важно проверить, лежит ли точка пересечения на стене (!!!)
 
-			// 1. Находим радиус-вектор, определяющий нахождение точки
-			// Смещаем координаты
-			// a->w.ln_dir.x = p_x - a->w.pl.pos.x;
-			// a->w.ln_dir.y = p_y - a->w.pl.pos.y;
-			// Рассчитываем модуль вектора
-			// a->w.ln_l = sqrt(pow((a->w.ln_dir.x), 2) + pow((a->w.ln_dir.y), 2));
-			// Устанавливаем единичный вектор
-			// a->w.ln_dir.x /= a->w.ln_l;
-			// a->w.ln_dir.y /= a->w.ln_l;
-			// 2. Проверка угла // a->w.fov
-			// Проверка по cos
+		p.x = p_x;
+		p.y = p_y;
+		
+		if (ft_check_point_in_line(p, ptr_line->p1, ptr_line->p2))
+		{
+			ptr_list = ptr_list->next;
+			continue;
+		}
+		//else
+		//{
+		//}
 
-			// // cos(α-β)=cosα⋅cosβ+sinα⋅sinβ
-			// if (fabs(acos(a->w.pl.dir.x * a->w.ln_dir.x + a->w.pl.dir.y * a->w.ln_dir.y)) > (a->w.fov / 2))
-			// {
-			// 	ptr_list = ptr_list->next;
-			// 	continue;
-			// }
 
-			// // sin(α-β)=sinα⋅cosβ-cosα⋅sinβ 
-			// if (fabs(asin(a->w.pl.dir.y * a->w.ln_dir.x - a->w.pl.dir.x * a->w.ln_dir.y)) > (a->w.fov / 2))
-			// {
-			// 	ptr_list = ptr_list->next;
-			// 	continue;
-			// }
+		// Проверка на то, находится ли точка в секторе (неудачная попытка)
 
-			// Проверка явно не удалась
+		// 1. Находим радиус-вектор, определяющий нахождение точки
+		// Смещаем координаты
+		a->w.ln_dir.x = p_x - a->w.pl.pos.x;
+		a->w.ln_dir.y = p_y - a->w.pl.pos.y;
+		// Рассчитываем модуль вектора
+		a->w.ln_l = sqrt(pow((a->w.ln_dir.x), 2) + pow((a->w.ln_dir.y), 2));
+		// Устанавливаем единичный вектор
+		a->w.ln_dir.x /= a->w.ln_l;
+		a->w.ln_dir.y /= a->w.ln_l;
+		// 2. Проверка угла // a->w.fov
+		// Проверка по cos
 
-			// Ааа, вот в чём дело...
-			//temp_l = sqrt(pow((p_x - a->w.pl.pos.x), 2) + pow((p_y - a->w.pl.pos.y), 2));
-			// Некорректно: нахожу не то! (де-факто: расстояние до начала координат)
-			//temp_l = sqrt(pow((p_x - a->w.pl.pos.x), 2) + pow((p_y - a->w.pl.pos.y), 2));
-			temp_l = sqrt(pow((p_x - a->w.pl.pos.x), 2) + pow((p_y - a->w.pl.pos.y), 2));
+		// cos(α-β)=cosα⋅cosβ+sinα⋅sinβ
+		if (fabs(acos(a->w.pl.dir.x * a->w.ln_dir.x + a->w.pl.dir.y * a->w.ln_dir.y)) > (a->w.fov / 2))
+		{
+			ptr_list = ptr_list->next;
+			continue;
+		}
 
-			//printf("p_x:%f\tp_y:%f\tl_:%f\n", p_x, p_y, temp_l);
+		// sin(α-β)=sinα⋅cosβ-cosα⋅sinβ 
+		if (fabs(asin(a->w.pl.dir.y * a->w.ln_dir.x - a->w.pl.dir.x * a->w.ln_dir.y)) > (a->w.fov / 2))
+		{
+			ptr_list = ptr_list->next;
+			continue;
+		}
 
-			//printf("p_x%f\tp_y%f\tp_d%f\n", p_x, p_y, p_d);
-			//sleep(1);
+		// Проверка явно не удалась
 
-			if (temp_l < l || l == 0)
-			{
-				l = temp_l;
-				own_line = ptr_line;
-				//printf("@%f\t", temp_l);
+		// Ааа, вот в чём дело...
+		//temp_l = sqrt(pow((p_x - a->w.pl.pos.x), 2) + pow((p_y - a->w.pl.pos.y), 2));
+		// Некорректно: нахожу не то! (де-факто: расстояние до начала координат)
+		//temp_l = sqrt(pow((p_x - a->w.pl.pos.x), 2) + pow((p_y - a->w.pl.pos.y), 2));
 
-				//a->w.texture_num = ptr_l
-			}
+
+		// Наше расстояние:
+		//temp_l = sqrt(pow((p_x - a->w.pl.pos.x), 2) + pow((p_y - a->w.pl.pos.y), 2));
+
+		//temp_l = sqrt(pow((p_x - a->w.pl.pos.x), 2) + pow((p_y - a->w.pl.pos.y), 2));
+		temp_l = sqrt(pow((p_x - a->w.pl.pos.x), 2) + pow((p_y - a->w.pl.pos.y), 2));
+
+		// Определяем
+
+
+		//printf("p_x:%f\tp_y:%f\tl_:%f\n", p_x, p_y, temp_l);
+		//printf("p_x%f\tp_y%f\tp_d%f\n", p_x, p_y, p_d);
+		//sleep(1);
+
+		if (temp_l < l || l == 0)
+		{
+			l = temp_l;
+			own_line = ptr_line;
+
+			if (a->w.pl.cameraX == 0.0)
+				printf("%f\t%f\t%f\t%f\tp1.x%f\tp1.y%f\tp2.x%f\tp2.y%f\n", a->w.pl.pos.x, a->w.pl.pos.y, p_x, p_y, ptr_line->p1.x, ptr_line->p1.y, ptr_line->p2.x, ptr_line->p2.y);
+			//printf("@%f\t", temp_l);
+			//a->w.texture_num = ptr_l
+		}
 		//}
 
 		// Выводим информацию:
@@ -169,7 +227,8 @@ void		ft_new_ray_dir(t_threads *a)
 		ptr_list = ptr_list->next;
 	}
 
-	printf("@\tl_%.10f\n", temp_l);
+	// Расстояние до стены (почему бы и нет?!)
+	// printf("@\tl_%.10f\n", temp_l);
 
 
 
@@ -192,7 +251,7 @@ void		ft_new_ray_dir(t_threads *a)
 
 	// Увеличение/уменьшение -- проблема a->w.l_p
 	if (a->w.l != 0 && own_line != NULL)
-		a->w.line_height = own_line->height * a->w.l_p / (a->w.l * (1080 * 100 / 2)); // 1080 -- квадратный параметр (?!?!?!?!)
+		a->w.line_height = own_line->height * a->w.l_p / (a->w.l * (1080 * 20/* * 100 / 2*/)); // 1080 -- квадратный параметр (?!?!?!?!)
 	else
 		a->w.line_height = 0;
 	if (own_line != NULL)
@@ -239,7 +298,7 @@ void		ft_new_ray_dir(t_threads *a)
 	// Числитель для p_y:
 	// (x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4)
 
-	// p_y = ((x1) * (y2) - (y1) * (x2)) * ((y3) - (y4)) - ((y1) - (y2)) * ((x3) * (y4) - (y3) * (x4));
+	// p_y = ((x1) * (y2) - (y1) * (x2)) * ((y3) - (y4))-((y1) - (y2)) * ((x3) * (y4) - (y3) * (x4));
 	// p_x = ((x1) * (y2) - (y1) * (x2)) * ((y3) - (y4)) - ((y1) - (y2)) * ((x3) * (y4) - (y3) * (x4));
 }
 
@@ -388,5 +447,7 @@ void		*begin_game(void *w)
 		ft_new_draw_floor(p);
 		p->t1++;
 	}
+	// Максимальный размер стены (или её отсутствие) -- в случае целого x и y
+	//printf("@\tx:%f\ty:%f\n", p->w.pl.pos.x, p->w.pl.pos.y);
 	return (NULL);
 }
