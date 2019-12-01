@@ -10,15 +10,6 @@ void			ft_swap_double(double *a, double *b)
 	*b = temp;
 }
 
-void			ft_swap_int_here(int *a, int *b)
-{
-	int temp;
-
-	temp = *a;
-	*a = *b;
-	*b = temp;
-}
-
 void			ft_sort_combo(t_wolf3d *w)
 {
 	t_sort_util s;
