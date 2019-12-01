@@ -66,7 +66,9 @@ SRCS_LIST = alg_wu_color.c\
 			sound.c\
 			textures.c\
 			threads.c \
-			check_map.c
+			check_map.c \
+			sprites.c \
+			sort_sprites.c
 
 OBJS_DIRECTORY = objects/
 OBJS_LIST = $(patsubst %.c, %.o, $(SRCS_LIST))

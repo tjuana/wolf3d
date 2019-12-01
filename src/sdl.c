@@ -104,4 +104,7 @@ void		ft_init_multi_wolf(t_threads_help *w, t_wolf3d *head)
 	w->pl.plane.y = head->pl.plane.y;
 	w->camera_x_cnst = head->c.camera_x_cnst;
 	w->mouse_offset = head->mouse_offset;
+	w->map.sprite = head->map.sprite;
+	w->map.s_dst = head->map.s_dst;
+	w->map.s_ord = head->map.s_ord;
 }

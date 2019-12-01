@@ -39,6 +39,7 @@ void		threading(t_wolf3d *w)
 	w->pl.plane.y = args[x[0] - 1].w.pl.plane.y;
 	w->pl.dir.x = args[x[0] - 1].w.pl.dir.x;
 	w->pl.dir.y = args[x[0] - 1].w.pl.dir.y;
+	//ft_draw_sprites(w);
 }
 
 void		*begin_game(void *w)

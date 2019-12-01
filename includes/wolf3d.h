@@ -105,6 +105,22 @@ typedef struct			s_const
 	int					half_height;
 }						t_const;
 
+typedef struct		s_sprite_stats
+{
+	t_coord	pos;
+	t_coord	transform;
+	double		inv_det;
+	int			screen_x;
+	int			height;
+	int			width;
+	int			draw_starty;
+	int			draw_startx;
+	int			draw_endy;
+	int			draw_endx;
+	int			tex_x;
+	int			tex_y;
+}					t_sprite_stats;
+
 typedef struct			s_floor
 {
 	double				xwall;
@@ -143,6 +159,7 @@ typedef struct			s_wolf3d
 	t_anime				view_map;
 	t_floor				flr;
 	t_door				**doors;
+	t_sprite_stats		spr;
 	int					doors_nbr;
 	int					temp;
 	int					fd;
@@ -158,6 +175,8 @@ typedef struct			s_wolf3d
 	unsigned char		arr[66];
 	Uint8				*tex_col;
 	Uint32				color;
+	int					stripe;
+	int					i;
 
 }						t_wolf3d;
 
@@ -322,5 +341,12 @@ int						ft_fdf_get_color(int color1, int color2, double f1);
 void					ft_draw_compass(t_wolf3d *w);
 
 void					ft_check_map(t_map *map);
+void	ft_draw_sprites(t_wolf3d *w);
 
+void	ft_calculate_sprites(t_wolf3d *w);
+void	ft_show_sprites(t_wolf3d *w);
+void	ft_transform_sprites(t_wolf3d *w);
+void			ft_sort_combo(t_wolf3d *w);
+void			ft_swap_int_here(int *a, int *b);
+void			ft_swap_double(double *a, double *b);
 #endif

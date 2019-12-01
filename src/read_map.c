@@ -41,10 +41,10 @@ int			get_lines(int fd, t_list **lst)
 	int		res;
 
 	len = 0;
-	width = 0;
+	width = -1;
 	while ((res = get_next_line(fd, &line)) > 0)
 	{
-		width == 0 ? width = ft_countwords(line, ' ') : 0;
+		width == (size_t)-1 ? width = ft_countwords(line, ' ') : 0;
 		width != ft_countwords(line, ' ') ? ft_error("Error map") : 0;
 		if (!(tmp = ft_lstnew(line, ft_strlen(line) + 1)))
 			ft_error("MAlloc failed");

@@ -76,11 +76,11 @@ void			ft_clean_sdl(t_wolf3d *w)
 	{
 		free(w->map.s_ord);
 		free(w->map.s_dst);
+		free(w->map.sprite);
 	}
 	free(w->map.map);
 	SDL_DestroyTexture(w->sdl->text);
 	SDL_DestroyRenderer(w->sdl->renderer);
 	SDL_DestroyWindow(w->sdl->win);
-	SDL_Delay(777);
 	SDL_Quit();
 }
