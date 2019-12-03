@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/28 18:46:44 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/03 21:21:24 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ void	ft_mouse_mv(t_wolf3d *w, SDL_Event e)
 
 void	ft_test_mv_p(t_wolf3d *w)
 {
-	printf("pos x==%f  y==%f ", w->pl.pos.x, w->pl.pos.y);
-	printf("pl dir x==%f  y==%f ", w->pl.dir.x , w->pl.dir.y);
-	//w->mouse_offset += 15;
-	
+	printf("\npos x==%f  y==%f   ", w->pl.pos.x, w->pl.pos.y);
+	printf("pl dir x==%f  y==%f\n", w->pl.dir.x , w->pl.dir.y);
+	//w->mouse_offset += 15;//camera up
+	ft_pl_stats(w);
 	printf("P pressed\n");
 }
 
@@ -69,18 +69,19 @@ void	ft_test_mv_p(t_wolf3d *w)
 
 void	ft_test_mv_l(t_wolf3d *w)
 {
-	w->mouse_offset += 0;
-	ft_door_print(w);
-	//w->mouse_offset -= 15;
-
-	//w->draw_start -= 50;
-	//	w->draw_end -= 50;
-	//w->line_height -= 10;
+	ft_putstr_sdl(w, "Hey ho hip ho", 0, 0);
+	//w->mouse_offset -= 15;//camera down
 	/*
+	old
 	w->pl.pos.x = 2;
 	w->pl.pos.y = 2;
+	w->draw_start -= 50;
+	w->draw_end -= 50;
+	w->line_height -= 10;
 	*/
 	printf("L pressed\n");
+	return ;
+	ft_door_print(w);//print all doors
 }
 
 

@@ -11,11 +11,16 @@ typedef struct	s_coord
 
 typedef struct	s_stats
 {
-	int key[MAX_DOORS_NBR];
-	int life;
-	int	ammo;
-	int money;
-	int	jetpack;
+	SDL_Surface	*life_surf;
+	SDL_Surface	*ammo_surf;
+	SDL_Surface	*money_surf;
+	SDL_Surface	*jet_surf;
+	int			key[MAX_DOORS_NBR];
+	int			door;
+	int			life;
+	int			ammo;
+	int			money;
+	int			jetpack;
 }				t_stats;
 
 typedef struct	s_player

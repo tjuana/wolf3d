@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/28 16:04:58 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/03 21:06:12 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static int	ft_door_nbr(t_wolf3d *w)
 ** **************************************************************************
 */
 
-void		ft_door_set(t_wolf3d *w)
+static void	ft_door_set(t_wolf3d *w)
 {
 	int	*tmp_map;
 	int	nbr;
@@ -121,7 +121,6 @@ void		ft_door_create(t_wolf3d *w)
 	w->doors_nbr = ft_door_nbr(w);
 	//printf("total doors==%d", w->doors_nbr);
 	ft_door_set(w);
-	
 	return ;
 	ft_door_print(w);
 	//ft_print_map(w);
@@ -139,8 +138,8 @@ void		ft_door_open(t_wolf3d *w)
 	int		d_nbr;
 
 	//printf("ft_open_door start\n");
-	ft_door_create(w);
 	d_nbr = ft_door_exist(w);
+	w->pl.st.door = d_nbr;
 	if ((d_nbr >= 0) && (w->doors[d_nbr]->state == 3) && \
 	(w->doors[d_nbr]->key == w->pl.st.key[d_nbr]))
 	{

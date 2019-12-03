@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/28 14:13:07 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/03 20:59:49 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,7 @@ t_sdl		*sdl_init(t_sdl *sdl)
 	}
 	sdl->win = SDL_CreateWindow("WOLF3D", 650, 650, WIN_WIDTH, WIN_HEIGHT, 0);
 	sdl->renderer = SDL_CreateRenderer(sdl->win, 0, 0);
-	/*if (SDL_CreateWindowAndRenderer(WIN_WIDTH, WIN_HEIGHT, \
-	0, &sdl->win, &sdl->renderer) < 0)
-	{
-		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, \
-		"Couldn't create window and renderer: %s", SDL_GetError());
-		return (0);
-	}*/
+
 	if (!(sdl->text = SDL_CreateTexture(sdl->renderer, SDL_PIXELFORMAT_ARGB8888\
 	, SDL_TEXTUREACCESS_STREAMING, WIN_WIDTH, WIN_HEIGHT)))
 		ft_error("SDL non textures");
@@ -87,7 +81,8 @@ void		ft_we_need_more_init(t_wolf3d *w)
 	w->t.sound_sum_time = 0;
 	w->draw_end = 0;//w->c.half_height;
 	w->draw_start = 0;
-	w->mouse_offset = 0;
+	w->mouse_offset = 0;//look up & down
+	ft_door_create(w);
 	while (++i < KEYS_NBR)
 		w->arr[i] = 0;
 }

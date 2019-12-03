@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 14:10:50 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/22 15:18:12 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/03 19:40:59 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void			ft_clean_sdl(t_wolf3d *w)
 		free(w->map.s_dst);
 		//free(w->map.sprite);
 	}
+	TTF_Quit();
 	free(w->map.map);
 	SDL_DestroyTexture(w->sdl->text);
 	SDL_DestroyRenderer(w->sdl->renderer);

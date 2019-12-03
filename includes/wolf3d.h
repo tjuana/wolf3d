@@ -4,6 +4,11 @@
 # include "SDL2/SDL.h"
 # include "SDL2/SDL_thread.h"
 # include "SDL2/SDL_ttf.h"
+/*
+# include <SDL2/SDL.h>
+# include <SDL2/SDL_thread.h>
+# include <SDL2/SDL_ttf.h>
+*/
 # include <pthread.h>
 # include <string.h>
 # include <stdio.h>
@@ -41,7 +46,7 @@ typedef struct	s_anime
 	int			frames;
 }				t_anime;
 
-typedef struct s_write
+typedef struct	s_write
 {
 	t_list		*lst;
 	char		**s;
@@ -63,6 +68,7 @@ typedef struct  s_sdl
 	Uint32				*wav_len;
 	Uint8				**wav_buff;
 	SDL_AudioDeviceID	*audio_device;
+	TTF_Font			*font;
 	unsigned char		i;
 	
 }				t_sdl;
@@ -281,6 +287,9 @@ int					ft_step_left_check(t_wolf3d *w, unsigned char flag);
 int					ft_step_right_check(t_wolf3d *w, unsigned char flag);
 
 void				ft_pl_stats(t_wolf3d *w);
+void				ft_putstr_sdl(t_wolf3d *w, char *str, int x, int y);
+SDL_Rect			ft_create_rect(int w, int h, int x, int y);
+
 //int					ft_check_run(t_wolf3d *w);
 
 void				ft_ray_dir_calculations(t_threads *a);

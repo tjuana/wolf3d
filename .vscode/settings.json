@@ -3,6 +3,10 @@
 		"complex": "c",
 		"cmath": "c",
 		"istream": "c",
-		"*.tcc": "c"
+		"*.tcc": "c",
+		"wolf3d.h": "c",
+		"sdl_ttf.h": "c",
+		"constants.h": "c",
+		"sdl_thread.h": "c"
 	}
 }
