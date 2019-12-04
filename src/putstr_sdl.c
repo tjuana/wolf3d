@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/04 20:29:49 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/04 21:25:53 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,21 @@ void			ft_putstr_sdl(t_wolf3d *w, char *str, int x, int y)
 	}
 	if (SDL_RenderCopy(w->sdl->renderer, tmp_texture, 0, &a) == -1)
 		ft_sdl_error(w);
-	SDL_RenderPresent(w->sdl->renderer);
+	SDL_DestroyTexture(tmp_texture);
+	//SDL_RenderPresent(w->sdl->renderer);
 	TTF_CloseFont(w->sdl->font);
 	w->sdl->font = NULL;
 }
 
-/*
+/*	
+	procyon_si.ttf
+	DooMLeft.ttf
+	DooMLeft2.ttf
+	DooMLeftOutline.ttf
+	DooMRight.ttf
+	DooMRight2.ttf
+	DooMRightOutline.ttf
+
 printf("The font max height is: %d\n", TTF_FontHeight(w->sdl->font));
 	//solid//shaded + SDL_Color bgcolor = {0xff, 0xff, 0xff, 0};
 	

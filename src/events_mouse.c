@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/04 20:34:16 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/04 21:02:36 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_test_mv_p(t_wolf3d *w)
 void	ft_test_mv_l(t_wolf3d *w)
 {
 	w->pl.st.f_sz = 32;
-	ft_putstr_sdl(w, "0123456789", 300, WIN_HEIGHT - 60);
+	ft_putstr_sdl(w, "0123456789", (WIN_WIDTH - 150) / 2, 0);
 	//w->mouse_offset -= 15;//camera down
 	/*
 	old

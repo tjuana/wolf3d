@@ -11,10 +11,11 @@ typedef struct	s_coord
 
 typedef struct	s_stats
 {
-	SDL_Surface	*life_surf;
+	/*SDL_Surface	*life_surf;
 	SDL_Surface	*ammo_surf;
 	SDL_Surface	*money_surf;
-	SDL_Surface	*jet_surf;
+	SDL_Surface	*jet_surf;*/
+	
 	int			key[MAX_DOORS_NBR];
 	int			door_nbr;
 	int			f_sz;

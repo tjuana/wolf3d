@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/03 20:59:49 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/04 21:40:17 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ void		ft_we_need_more_init(t_wolf3d *w)
 	w->draw_end = 0;//w->c.half_height;
 	w->draw_start = 0;
 	w->mouse_offset = 0;//look up & down
+	w->pl.st.life = 100;
+	w->pl.st.ammo = 41;
 	ft_door_create(w);
 	while (++i < KEYS_NBR)
 		w->arr[i] = 0;

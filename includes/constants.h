@@ -10,6 +10,7 @@
 # define FULL_ANIM ONE_ANIM * 4 - 4
 # define KEYS_NBR 66
 # define MAX_DOORS_NBR 20
+# define MAX_AMMO 280
 
 # define C_R 0x00FF0000
 # define C_G 0x0000FF00

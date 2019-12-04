@@ -253,7 +253,7 @@ void				ft_init_multi_wolf(t_threads_help *w, t_wolf3d *head);
 int					ft_init_anim(t_wolf3d *wolf);
 
 void				ft_load_textures(t_wolf3d *w);
-void				renderer(t_wolf3d *wolf);
+void				renderer(t_wolf3d *w);
 
 void				ft_handle_events(t_wolf3d *w);
 void				ft_use_events(t_wolf3d *w);
