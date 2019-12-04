@@ -1,0 +1,8 @@
+{
+	"files.associations": {
+		"wolf3d.h": "c",
+		"complex": "c",
+		"cmath": "c",
+		"sdl_mixer.h": "c"
+	}
+}
