@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/03 21:32:20 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/04 20:29:49 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ SDL_Rect	ft_create_rect(int w, int h, int x, int y)
 
 void			ft_putstr_sdl(t_wolf3d *w, char *str, int x, int y)
 {
-	SDL_Color			color = {0, 55, 89, 0};
+	SDL_Color			color = {85, 25, 20, 0};
 	//SDL_Color			bgcolor = {0, 0, 0, 0};
 	SDL_Surface			*text_surf;
 	SDL_Texture			*tmp_texture;
@@ -50,7 +50,7 @@ void			ft_putstr_sdl(t_wolf3d *w, char *str, int x, int y)
 	tmp_texture = NULL;
 	if (TTF_Init() == -1)
 		ft_sdl_error(w);
-	if (!(w->sdl->font = TTF_OpenFont("fonts/procyon_si.ttf", 72)))
+	if (!(w->sdl->font = TTF_OpenFont("fonts/procyon_si.ttf", w->pl.st.f_sz)))
 		ft_sdl_error(w);
 	if (TTF_SizeText(w->sdl->font, str, &a.w, &a.h) == -1)
 		ft_sdl_error(w);
@@ -74,6 +74,7 @@ void			ft_putstr_sdl(t_wolf3d *w, char *str, int x, int y)
 	TTF_CloseFont(w->sdl->font);
 	w->sdl->font = NULL;
 }
+
 /*
 printf("The font max height is: %d\n", TTF_FontHeight(w->sdl->font));
 	//solid//shaded + SDL_Color bgcolor = {0xff, 0xff, 0xff, 0};

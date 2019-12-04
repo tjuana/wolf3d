@@ -16,7 +16,8 @@ typedef struct	s_stats
 	SDL_Surface	*money_surf;
 	SDL_Surface	*jet_surf;
 	int			key[MAX_DOORS_NBR];
-	int			door;
+	int			door_nbr;
+	int			f_sz;
 	int			life;
 	int			ammo;
 	int			money;

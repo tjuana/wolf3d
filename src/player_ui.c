@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/04 20:28:03 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/03 21:55:16 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void			ft_pl_stats(t_wolf3d *w)
 	
 	w->pl.st.jetpack = 3;
 	str = ft_select_str(w);
-	w->pl.st.f_sz = 72;
 	ft_putstr_sdl(w, "Hey ho hip ho", WIN_WIDTH/2, WIN_HEIGHT/2);
 
 }

@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/03 21:06:12 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/04 20:31:11 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void		ft_door_open(t_wolf3d *w)
 
 	//printf("ft_open_door start\n");
 	d_nbr = ft_door_exist(w);
-	w->pl.st.door = d_nbr;
+	w->pl.st.door_nbr = d_nbr;
 	if ((d_nbr >= 0) && (w->doors[d_nbr]->state == 3) && \
 	(w->doors[d_nbr]->key == w->pl.st.key[d_nbr]))
 	{
