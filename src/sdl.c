@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/04 14:48:30 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/04 18:46:04 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int			ft_init_anim(t_wolf3d *wolf)
 
 void		ft_init_wolf(t_wolf3d *w)
 {
-	w->pl.pos.x = 1.6;
-	w->pl.pos.y = 1.6;
+	w->pl.pos.x = 3;
+	w->pl.pos.y = 3;
 	w->pl.dir.x = -1;
 	w->pl.dir.y = 0;
 	w->pl.plane.x = 0;

@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 14:10:50 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/29 15:14:32 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/04 18:53:45 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void			ft_clean_sdl(t_wolf3d *w)
 	free(w->sdl->wav_spect);
 	free(w->sdl->wav_len);
 	free(w->sdl->audio_device);
-	free(w->sdl->surfaces);
+	SDL_FreeSurface(*w->sdl->surfaces);//free(w->sdl->surfaces);
 	free(w->sdl->pixels);
 	if (w->map.s_count > 0)
 	{
