@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 14:18:24 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/04 14:44:37 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/04 18:30:38 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_get_floor_coordinates(t_threads *a)
 
 void	ft_draw_floor(t_threads *a)
 {
-	a->w.y = a->w.draw_end;
+	a->w.y = a->w.draw_end + 1;
 	while (a->w.y < WIN_HEIGHT)
 	{
 		a->w.flr.cur_dst = WIN_HEIGHT / (2.0 * a->w.y - WIN_HEIGHT);
