@@ -15,7 +15,9 @@ void	ft_draw_sprites(t_wolf3d *w)
 		w->map.s_dst[i] = ((w->pl.pos.x - w->map.sprite[i]->x) *
 		(w->pl.pos.x - w->map.sprite[i]->x) + (w->pl.pos.y -
 		w->map.sprite[i]->y) * (w->pl.pos.y - w->map.sprite[i]->y));
+
 	}
+
 	ft_sort(w);
 	ft_transform_sprites(w);
 }
@@ -36,26 +38,40 @@ void	ft_calculate_sprites(t_wolf3d *w)
 {
 	w->spr.pos.x = w->map.sprite[w->map.s_ord[w->i]]->x - w->pl.pos.x;
 	w->spr.pos.y = w->map.sprite[w->map.s_ord[w->i]]->y - w->pl.pos.y;
+	
+	// printf("%f\n x:\n", w->map.sprite[w->map.s_ord[w->i]]->x);
+
+	// printf("%f\n y:\n", w->map.sprite[w->map.s_ord[w->i]]->y);
+	// printf("FUCKOFF\n\n");
+	
 	w->spr.inv_det = 1.0 / (w->pl.plane.x * w->pl.dir.y -
 	w->pl.dir.x * w->pl.plane.y);
+
 	w->spr.transform.x = w->spr.inv_det * (w->pl.dir.y *
 	w->spr.pos.x - w->pl.dir.x * w->spr.pos.y);
+	
 	w->spr.transform.y = w->spr.inv_det * (-w->pl.plane.y *
 	w->spr.pos.x + w->pl.plane.x * w->spr.pos.y);
+	
 	w->spr.screen_x = (int)((WIN_WIDTH >> 1) * (1 + w->spr.transform.x
 	/ w->spr.transform.y));
+
 	w->spr.height = abs((int)(WIN_HEIGHT / w->spr.transform.y));
 	w->spr.draw_starty = (-w->spr.height >> 1) + (WIN_HEIGHT >> 1);
+	
 	if (w->spr.draw_starty < 0)
 		w->spr.draw_starty = 0;
 	w->spr.draw_endy = (w->spr.height >> 1) + (WIN_HEIGHT >> 1);
+	
 	if (w->spr.draw_endy >= WIN_HEIGHT)
 		w->spr.draw_endy = WIN_HEIGHT - 1;
 	w->spr.width = abs((int)(WIN_HEIGHT / w->spr.transform.y));
 	w->spr.draw_startx = (-w->spr.width >> 1) + w->spr.screen_x;
+	
 	if (w->spr.draw_startx < 0)
 		w->spr.draw_startx = 0;
 	w->spr.draw_endx = (w->spr.width >> 1) + w->spr.screen_x;
+	
 	if (w->spr.draw_endx >= WIN_WIDTH)
 		w->spr.draw_endx = WIN_WIDTH - 1;
 }
@@ -88,7 +104,7 @@ void	ft_show_sprites(t_wolf3d *w)
 				w->temp = w->y - (WIN_HEIGHT >> 1) + (w->spr.height >> 1);
 				w->spr.tex_y = ((w->temp * TEX_H) / w->spr.height);
 				w->tex_col = &((Uint8*)(w->sdl->surfaces[w->map.sprite
-				[w->map.s_ord[w->i]]->texture]->pixels))[TEX_W *
+				[w->map.s_ord[w->i]]->texture - 1]->pixels))[TEX_W *
 				3 * w->spr.tex_y + w->spr.tex_x * 3];
 				w->color = *(Uint32*)(w->tex_col);
 				if ((w->color & 0x00FFFFFF) != 0)
@@ -108,4 +124,5 @@ void	ft_transform_sprites(t_wolf3d *w)
 		ft_calculate_sprites(w);
 		ft_show_sprites(w);
 	}
+	w->i = 0;
 }

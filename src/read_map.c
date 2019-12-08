@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 15:17:47 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/06 20:17:32 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/08 19:17:44 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		read_file(int fd, t_map *map)
 		ft_error("Map is empty");
 	get_map(map, ft_countwords(lst->content, ' '), ft_lstcount(lst));
 	map->s_count = write_map(map, lst);
-	//ft_check_map(map);
+	ft_check_map(map);
 	if (map->s_count)
 	{
 		write_sprites(map);
@@ -103,17 +103,17 @@ void		write_sprites(t_map *m)
 	m->sprite = ft_my_malloc(sizeof(t_sprite *) * m->s_count);
 	y = -1;
 	spr_num = 0;
-	while (++y < m->m_wid)
+	while (++y < m->m_hei)
 	{
 		x = -1;
-		while (++x < m->m_hei)
+		while (++x < m->m_wid)
 		{
 			if (m->map[y * m->m_wid + x] >= 21 \
 			&& m->map[y * m->m_wid + x] <= 23)
 			{
 				m->sprite[spr_num] = ft_my_malloc(sizeof(t_sprite) * 1);
 				m->sprite[spr_num]->x = x == m->m_wid ? x - 0.5 : x + 0.5;
-				m->sprite[spr_num]->y = y == m->m_hei ? y - 0.5 : x + 0.5;
+				m->sprite[spr_num]->y = y == m->m_hei ? y - 0.5 : y + 0.5;
 				m->sprite[spr_num]->texture = m->map[y * m->m_wid + x];
 				spr_num++;
 			}

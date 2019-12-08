@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 17:45:53 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/04 17:48:15 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/08 18:37:57 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct			s_sprite
 typedef struct		    s_sprite_stats
 {
 	t_coord	            pos;
-	t_coord	            transform;
+	t_coord				transform;
 	double		        inv_det;
 	int		        	screen_x;
 	int		        	height;
