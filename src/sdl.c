@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/06 18:59:01 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/08 18:29:40 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int			ft_init_anim(t_wolf3d *wolf)
 
 void		ft_init_wolf(t_wolf3d *w)
 {
-	w->pl.pos.x = 3.7;
-	w->pl.pos.y = 3.7;
+	w->pl.pos.x = 2;
+	w->pl.pos.y = 2;
 	w->pl.dir.x = -1;
 	w->pl.dir.y = 0;
 	w->pl.plane.x = 0;
@@ -93,18 +93,25 @@ void		ft_init_multi_wolf(t_threads_help *w, t_wolf3d *head)
 	w->sdl = head->sdl;
 	w->map.map = head->map.map;
 	w->map.m_wid = head->map.m_wid;
-	w->map.m_hei = head->map.m_wid;
+	w->map.m_hei = head->map.m_hei;
+	
 	w->pl.pos.x = head->pl.pos.x;
 	w->pl.pos.y = head->pl.pos.y;
+	
 	w->pl.dir.x = head->pl.dir.x;
 	w->pl.dir.y = head->pl.dir.y;
+	
 	w->pl.plane.x = head->pl.plane.x;
+	w->pl.plane.y = head->pl.plane.y;
+	
 	w->z_buffer = head->z_buffer;
 	w->half_height = head->c.half_height;
-	w->pl.plane.y = head->pl.plane.y;
+	
 	w->camera_x_cnst = head->c.camera_x_cnst;
 	w->mouse_offset = head->mouse_offset;
+	
 	w->map.sprite = head->map.sprite;
+	
 	w->map.s_dst = head->map.s_dst;
 	w->map.s_ord = head->map.s_ord;
 }
