@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:24:13 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/14 17:49:41 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/11/29 14:12:32 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	ft_check_map_pos(t_wolf3d *w, int pos, int x, int y)
 		+ w->pl.pos.x - 4) < 0);
 }
 
-void		ft_draw_map_text(t_wolf3d *w, int pos, int x, int y)
+static void		ft_draw_map_text(t_wolf3d *w, int pos, int x, int y)
 {
 	int		pixel_pos;
 
@@ -43,12 +43,12 @@ void		ft_draw_map_text(t_wolf3d *w, int pos, int x, int y)
 		+ (w->pl.pos.x - 4) * 32) % 32 * 3 * 2;
 	if (pixel_pos >= 0 || pixel_pos < TEX_W * TEX_H)
 	{
-		w->tex_col = &((Uint8 *)(w->sdl->textures\
+		w->tex_col = &((Uint8 *)(w->sdl->surfaces\
 			[w->map.map[pos] - 1]->pixels))[pixel_pos];
 		w->color = *(Uint32 *)w->tex_col;
 		w->color &= 0xFFFFFF;
 		if (w->color != 0xFF00FF)
-			w->sdl->pixels[x + (y * WIN_WIDTH)] = w->color;
+			w->sdl->pixels[-x + (y * WIN_WIDTH)] = w->color;
 	}
 }
 
@@ -60,7 +60,7 @@ static int	pos_calc(t_wolf3d *w, int x, int y)
 				+ w->pl.pos.x - 4)));
 }
 
-void		ft_draw_map(t_wolf3d *w)
+void		ft_draw_map(t_wolf3d *w)//draw the black part of the map
 {
 	int		x;
 	int		y;
@@ -74,13 +74,13 @@ void		ft_draw_map(t_wolf3d *w)
 		{
 			pos = pos_calc(w, x, y);
 			if (ft_check_map_pos(w, pos, x, y))
-				w->sdl->pixels[x + (y * WIN_WIDTH)] = 0x000000;
+				w->sdl->pixels[-x + (y * WIN_WIDTH) - 1] = 0x00ff00;//out view of the map
 			else
 			{
 				if (w->map.map[pos] != 0)
 					ft_draw_map_text(w, pos, x, y);
 				else
-					w->sdl->pixels[x + (y * WIN_WIDTH)] = 0x000000;
+					w->sdl->pixels[-x + (y * WIN_WIDTH) - 1] = 0x000000;
 			}
 			x++;
 		}

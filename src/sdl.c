@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sdl.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/15 19:11:48 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/12/04 18:46:04 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,16 @@ int			ft_init_anim(t_wolf3d *wolf)
 
 void		ft_init_wolf(t_wolf3d *w)
 {
-	w->pl.pos.x = 1.5;
-	w->pl.pos.y = 1.5;
+	w->pl.pos.x = 3;
+	w->pl.pos.y = 3;
 	w->pl.dir.x = -1;
 	w->pl.dir.y = 0;
 	w->pl.plane.x = 0;
 	w->pl.plane.y = 0.9;
 	w->hit = 0;
 	w->x = -1;
-	w->ms = 0.03;
-	w->rs = 0.02;
+	w->ms = 0.04;//?
+	w->rs = 0.047;//?
 	w->c.crs = cos(w->rs);
 	w->c.srs = sin(w->rs);
 	w->c.mcrs = cos(-w->rs);
@@ -66,35 +66,32 @@ void		ft_init_wolf(t_wolf3d *w)
 	w->c.half_height = (WIN_HEIGHT >> 1);
 	w->c.camera_x_cnst = 2 / (double)WIN_WIDTH;
 	w->z_buffer = ft_my_malloc(sizeof(double) * WIN_WIDTH);
-	//w->weapon_texture = ft_my_malloc(sizeof(SDL_Surface *));
-	//w->map_texture = ft_my_malloc(sizeof(SDL_Surface));
-	w->sdl->textures = ft_my_malloc(sizeof(SDL_Surface *) * TEXTURES_NUMBER);
+	w->sdl->surfaces = ft_my_malloc(sizeof(SDL_Surface *) * TEXTURES_NUMBER);
 	w->t.flag = 1;
 	ft_we_need_more_init(w);
 }
 
 void		ft_we_need_more_init(t_wolf3d *w)
 {
+	int		i;
+
+	i = -1;
 	w->t.time = 0;
 	w->t.old_time = 0;
 	w->t.sound_old_time = 0;
 	w->t.play_time = 1000;
 	w->t.sound_sum_time = 0;
-	w->arr[0] = 0;
-	w->arr[1] = 0;
-	w->arr[2] = 0;
-	w->arr[3] = 0;
-	w->arr[4] = 0;
-	w->arr[5] = 0;
+	w->draw_end = 0;
+	w->draw_start = 0;
+	w->mouse_offset = 0;
+	while (++i < KEYS_NBR)
+		w->arr[i] = '0';
 }
 
 void		ft_init_multi_wolf(t_threads_help *w, t_wolf3d *head)
 {
 	w->sdl = head->sdl;
 	w->map.map = head->map.map;
-	//w->map.sprite = head->map.sprite;
-	//w->map.sprite_ord = head->map.sprite_ord;
-	//w->map.spr_dst = head->map.spr_dst;
 	w->map.m_wid = head->map.m_wid;
 	w->map.m_hei = head->map.m_wid;
 	w->pl.pos.x = head->pl.pos.x;
@@ -102,8 +99,12 @@ void		ft_init_multi_wolf(t_threads_help *w, t_wolf3d *head)
 	w->pl.dir.x = head->pl.dir.x;
 	w->pl.dir.y = head->pl.dir.y;
 	w->pl.plane.x = head->pl.plane.x;
-	w->pl.plane.y = head->pl.plane.y;
 	w->z_buffer = head->z_buffer;
 	w->half_height = head->c.half_height;
+	w->pl.plane.y = head->pl.plane.y;
 	w->camera_x_cnst = head->c.camera_x_cnst;
+	w->mouse_offset = head->mouse_offset;
+	w->map.sprite = head->map.sprite;
+	w->map.s_dst = head->map.s_dst;
+	w->map.s_ord = head->map.s_ord;
 }

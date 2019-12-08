@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:33:34 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/12 15:29:09 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/11/29 14:49:59 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,14 @@ int	main(int c, char **v)
 	w.sdl = sdl_init(w.sdl);
 	ft_init_wolf(&w);
 	ft_load_textures(&w);
-	ft_init_anim(&w);
-	ft_init_view_map(&w);
+	ft_init_anim(&w);//gun
+	ft_init_view_map(&w);//map
 	ft_init_sound(&w);
-	fpsinit();
 	while (w.sdl->running)
 	{
 		renderer(&w);
 		ft_handle_events(&w);
 		ft_use_events(&w);
-		fpsthink();
 	}
 	ft_clean_sdl(&w);
 	return (0);

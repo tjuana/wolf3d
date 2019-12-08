@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:43:08 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/12 14:40:08 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/04 17:51:27 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,8 @@ void    ft_sort(t_wolf3d *w)
 			if (w->map.s_dst[s.i] < w->map.s_dst[s.j])
 			{
 				ft_swap_double(&w->map.s_dst[s.i], &w->map.s_dst[s.j]);
-				ft_swap(&w->map.s_dst[s.i], &w->map.s_dst[s.j]);
+				ft_swap(&w->map.s_ord[s.i], &w->map.s_ord[s.j]);
 				s.swap = 1;
-				printf(&w->map.s_dst[s.i]);
 			}
 		}
 	}

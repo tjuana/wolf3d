@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 14:10:50 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/14 12:30:44 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/04 18:53:45 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 SDL_Surface		*ft_sdl_load_bmp(char *str)
 {
-	SDL_Surface	*texture;
+	SDL_Surface	*surf;
 
-	texture = SDL_LoadBMP(str);
-	if (texture == NULL)
+	surf = SDL_LoadBMP(str);
+	if (surf == NULL)
 	{
 		perror(str);
 		exit(EXIT_FAILURE);
 	}
-	return (texture);
+	return (surf);
 }
 
 int				ft_error(char *code)
@@ -70,18 +70,17 @@ void			ft_clean_sdl(t_wolf3d *w)
 	free(w->sdl->wav_spect);
 	free(w->sdl->wav_len);
 	free(w->sdl->audio_device);
-	free(w->sdl->textures);
+	SDL_FreeSurface(*w->sdl->surfaces);//free(w->sdl->surfaces);
 	free(w->sdl->pixels);
 	if (w->map.s_count > 0)
 	{
 		free(w->map.s_ord);
 		free(w->map.s_dst);
-		//free(w->map.sprite);
+		free(w->map.sprite);
 	}
 	free(w->map.map);
 	SDL_DestroyTexture(w->sdl->text);
 	SDL_DestroyRenderer(w->sdl->renderer);
 	SDL_DestroyWindow(w->sdl->win);
-	SDL_Delay(777);
 	SDL_Quit();
 }
