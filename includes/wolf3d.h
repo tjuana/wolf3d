@@ -21,6 +21,7 @@
 # include "bmp_parser.h"
 # include "door.h"
 # include "player.h"
+# include "sprites.h"
 
 typedef struct	s_sort_util
 {
@@ -73,36 +74,20 @@ typedef struct  s_sdl
 	
 }				t_sdl;
 
-typedef struct	s_sprite
-{
-	double		x;
-	double		y;
-	double		distance;
-	int			texture;
-}				t_sprite;
-
 typedef struct	s_map
 {
+	t_sprite	**sprite;
+	t_door		**doors;
+	int			doors_nbr;
 	int			m_wid;
 	int			m_hei;
 	int			*map;
 	int			x;
 	int			y;
 	int			s_count;
-	t_sprite	**sprite;
 	int			*s_ord;
 	double		*s_dst;
 }				t_map;
-
-typedef struct		s_const
-{
-	double	crs;
-	double	srs;
-	double	mcrs;
-	double	msrs;
-	double	camera_x_cnst;
-	int		half_height;
-}					t_const;
 
 typedef struct		s_floor
 {
@@ -141,8 +126,7 @@ typedef struct	s_wolf3d
 	t_anime			anim;
 	t_anime			view_map;
 	t_floor			flr;
-	t_door			**doors;
-	int				doors_nbr;
+	t_sprite_stats	spr;
 	int				temp;
 	int				fd;
 	int				x;
@@ -157,7 +141,9 @@ typedef struct	s_wolf3d
 	unsigned char	arr[66];
 	Uint8			*tex_col;
 	Uint32			color;
-
+	int				stripe;
+	int				i;
+	double			lol;//debug
 }				t_wolf3d;
 
 typedef struct	s_thread_help
@@ -336,6 +322,17 @@ double					ft_fdf_round(double x);
 double					ft_fdf_fpart(double x);
 int						ft_fdf_get_color(int color1, int color2, double f1);
 
+void					ft_enemy(t_wolf3d *w);
+
+void					ft_sort(t_wolf3d *w);
+
 void					ft_draw_compass(t_wolf3d *w);
+void					ft_check_map(t_map *map);
+void					ft_draw_sprites(t_wolf3d *w);
+
+void					ft_calculate_sprites(t_wolf3d *w);
+void					ft_show_sprites(t_wolf3d *w);
+void					ft_transform_sprites(t_wolf3d *w);
+void					ft_sort(t_wolf3d *w);
 
 #endif

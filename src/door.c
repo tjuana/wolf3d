@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/04 20:31:11 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/10 18:14:14 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,18 @@ static int	ft_door_exist(t_wolf3d *w)
 	i = -1;
 	pl_x = (int)w->pl.pos.x;
 	pl_y = (int)w->pl.pos.y;
-	while (++i < w->doors_nbr)
+	while (++i < w->map.doors_nbr)
 	{
-		if (w->doors[i]->x == pl_x)
-			if (((w->doors[i]->y == pl_y - 1) || (w->doors[i]->y == pl_y + 1)))
+		if (w->map.doors[i]->x == pl_x)
+			if (((w->map.doors[i]->y == pl_y - 1) \
+			|| (w->map.doors[i]->y == pl_y + 1)))
 				break ;
-		if (w->doors[i]->y == pl_y)
-			if (((w->doors[i]->x == pl_x - 1) || (w->doors[i]->x == pl_x + 1)))
+		if (w->map.doors[i]->y == pl_y)
+			if (((w->map.doors[i]->x == pl_x - 1) \
+			|| (w->map.doors[i]->x == pl_x + 1)))
 				break ;
 	}
-	i == 12 ? i = -1 : 0;
+	i == w->map.doors_nbr ? i = -1 : 0;
 	return (i);
 }
 
@@ -51,7 +53,6 @@ static int	ft_door_exist(t_wolf3d *w)
 static int	ft_door_nbr(t_wolf3d *w)
 {
 	int	drs;
-	int	res;
 	int	*tmp_map;
 	int	i;
 	int	j;
@@ -67,13 +68,13 @@ static int	ft_door_nbr(t_wolf3d *w)
 				drs++;
 		tmp_map += w->map.m_wid;
 	}
-	res = drs;
-	if ((drs > 0) && !(w->doors = (t_door**)malloc(sizeof(t_door*) * drs)))
+	w->map.doors_nbr = drs;
+	if ((drs > 0) && !(w->map.doors = (t_door**)malloc(sizeof(t_door*) * drs)))
 		exit(EXIT_FAILURE);
 	while (--drs >= 0)
-		if (!(w->doors[drs] = malloc(sizeof(t_door))))
+		if (!(w->map.doors[drs] = malloc(sizeof(t_door))))
 			exit(EXIT_FAILURE);
-	return(res);
+	return(w->map.doors_nbr);
 }
 
 /*
@@ -97,12 +98,12 @@ static void	ft_door_set(t_wolf3d *w)
 	while ((++i < w->map.m_hei) && (j = -1))
 	{
 		while (++j < w->map.m_wid)
-			if (tmp_map[j] == 17 && ++nbr < w->doors_nbr)
+			if (tmp_map[j] == 17 && ++nbr < w->map.doors_nbr)
 			{
-				w->doors[nbr]->x = j;
-				w->doors[nbr]->y = i;
-				w->doors[nbr]->state = 3;
-				w->doors[nbr]->key = 0;
+				w->map.doors[nbr]->x = j;
+				w->map.doors[nbr]->y = i;
+				w->map.doors[nbr]->state = 3;
+				w->map.doors[nbr]->key = 0;
 				w->pl.st.key[nbr] = 0;
 			}
 		tmp_map += w->map.m_wid;
@@ -118,7 +119,7 @@ static void	ft_door_set(t_wolf3d *w)
 
 void		ft_door_create(t_wolf3d *w)
 {
-	w->doors_nbr = ft_door_nbr(w);
+	w->map.doors_nbr = ft_door_nbr(w);
 	//printf("total doors==%d", w->doors_nbr);
 	ft_door_set(w);
 	return ;
@@ -138,34 +139,15 @@ void		ft_door_open(t_wolf3d *w)
 	int		d_nbr;
 
 	//printf("ft_open_door start\n");
+	d_nbr = -1;
 	d_nbr = ft_door_exist(w);
 	w->pl.st.door_nbr = d_nbr;
-	if ((d_nbr >= 0) && (w->doors[d_nbr]->state == 3) && \
-	(w->doors[d_nbr]->key == w->pl.st.key[d_nbr]))
+	if ((d_nbr >= 0) && (w->map.doors[d_nbr]->state == 3) && \
+	(w->map.doors[d_nbr]->key == w->pl.st.key[d_nbr]))
 	{
-		//play animation && sounds
-		w->doors[d_nbr]->state = 1;
+		//play door animation && sounds
+		w->map.doors[d_nbr]->state = 1;
 		printf("open door#%d\n", d_nbr);
 	}
 	return ;
 }
-
-/*
-	//printf("\n pl.x==%d pl.y==%d \n", (int)w->pl.pos.x, (int)w->pl.pos.y);
-	while ((++i < w->doors_nbr) && (w->doors[i]->x != (int)w->pl.pos.x) && \
-	(w->doors[i]->y != (int)w->pl.pos.y));
-	printf("i==%d pos.x==%d pos.y==%d\n", i, (int)w->pl.pos.x, (int)w->pl.pos.y);
-
-door#0  x==12 y==2   state==0 key==0
-door#1  x==2 y==3   state==0 key==0
-door#2  x==10 y==4   state==0 key==0
-door#3  x==14 y==4   state==0 key==0
-door#4  x==12 y==6   state==0 key==0
-door#5  x==16 y==15   state==0 key==0
-door#6  x==16 y==18   state==0 key==0
-door#7  x==12 y==20   state==0 key==0
-door#8  x==11 y==21   state==0 key==0
-door#9  x==13 y==21   state==0 key==0
-door#10  x==12 y==22   state==0 key==0
-door#11  x==16 y==24   state==0 key==0
-*/

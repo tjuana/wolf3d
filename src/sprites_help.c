@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites_help.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
+/*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 12:43:08 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/12 14:40:08 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/09 20:04:42 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void    ft_sort(t_wolf3d *w)
 			s.count = 11;
 		s.count < 1 ? s.count = 1 : 0;
 		s.swap = 0;
-		s.i = 0;
+		s.i = -1;
 		s.j = 0;
 		while (++s.i < w->map.s_count - s.count)
 		{
@@ -42,9 +42,8 @@ void    ft_sort(t_wolf3d *w)
 			if (w->map.s_dst[s.i] < w->map.s_dst[s.j])
 			{
 				ft_swap_double(&w->map.s_dst[s.i], &w->map.s_dst[s.j]);
-				ft_swap(&w->map.s_dst[s.i], &w->map.s_dst[s.j]);
+				ft_swap(&w->map.s_ord[s.i], &w->map.s_ord[s.j]);
 				s.swap = 1;
-				printf(&w->map.s_dst[s.i]);
 			}
 		}
 	}

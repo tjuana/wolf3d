@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/04 21:40:17 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/10 21:13:05 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ void		ft_init_wolf(t_wolf3d *w)
 	w->c.half_height = (WIN_HEIGHT >> 1);
 	w->c.camera_x_cnst = 2 / (double)WIN_WIDTH;
 	w->z_buffer = ft_my_malloc(sizeof(double) * WIN_WIDTH);
-	//w->weapon_texture = ft_my_malloc(sizeof(SDL_Surface *));
-	//w->map_texture = ft_my_malloc(sizeof(SDL_Surface));
 	w->sdl->surfaces = ft_my_malloc(sizeof(SDL_Surface *) * TEXTURES_NUMBER);
 	w->t.flag = 1;
 	ft_we_need_more_init(w);
@@ -84,6 +82,7 @@ void		ft_we_need_more_init(t_wolf3d *w)
 	w->mouse_offset = 0;//look up & down
 	w->pl.st.life = 100;
 	w->pl.st.ammo = 41;
+	w->lol = 0.1;//debug
 	ft_door_create(w);
 	while (++i < KEYS_NBR)
 		w->arr[i] = 0;
@@ -93,9 +92,6 @@ void		ft_init_multi_wolf(t_threads_help *w, t_wolf3d *head)
 {
 	w->sdl = head->sdl;
 	w->map.map = head->map.map;
-	//w->map.sprite = head->map.sprite;
-	//w->map.sprite_ord = head->map.sprite_ord;
-	//w->map.spr_dst = head->map.spr_dst;
 	w->map.m_wid = head->map.m_wid;
 	w->map.m_hei = head->map.m_wid;
 	w->pl.pos.x = head->pl.pos.x;
@@ -105,12 +101,10 @@ void		ft_init_multi_wolf(t_threads_help *w, t_wolf3d *head)
 	w->pl.plane.x = head->pl.plane.x;
 	w->z_buffer = head->z_buffer;
 	w->half_height = head->c.half_height;
-	w->pl.plane.y = head->pl.plane.y;
-	w->camera_x_cnst = head->c.camera_x_cnst;
 	w->mouse_offset = head->mouse_offset;
-	//w->draw_end += head->mouse_offset;
-	
-	
-	/*w->draw_end = head->draw_end;
-	w->draw_start = head->draw_start;*/
+	w->camera_x_cnst = head->c.camera_x_cnst;
+	w->pl.plane.y = head->pl.plane.y;
+	w->map.sprite = head->map.sprite;
+	w->map.s_dst = head->map.s_dst;
+	w->map.s_ord = head->map.s_ord;
 }

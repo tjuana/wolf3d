@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/04 21:02:36 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/10 20:47:10 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,9 @@ void	ft_test_mv_p(t_wolf3d *w)
 {
 	printf("\npos x==%f  y==%f   ", w->pl.pos.x, w->pl.pos.y);
 	printf("pl dir x==%f  y==%f\n", w->pl.dir.x , w->pl.dir.y);
+	ft_enemy(w);
 	//w->mouse_offset += 15;//camera up
-	ft_pl_stats(w);
+	//ft_pl_stats(w);
 	printf("P pressed\n");
 }
 
@@ -69,8 +70,7 @@ void	ft_test_mv_p(t_wolf3d *w)
 
 void	ft_test_mv_l(t_wolf3d *w)
 {
-	w->pl.st.f_sz = 32;
-	ft_putstr_sdl(w, "0123456789", (WIN_WIDTH - 150) / 2, 0);
+	w->lol += 0.1;
 	//w->mouse_offset -= 15;//camera down
 	/*
 	old
@@ -88,7 +88,7 @@ void	ft_test_mv_l(t_wolf3d *w)
 
 /*
 ** **************************************************************************
-**	void	ft_door_print(t_wolf3d *w) | debug
+**	void ft_door_print(t_wolf3d *w) | debug
 **	Function to print all doors on map
 ** **************************************************************************
 */
@@ -98,10 +98,10 @@ void	ft_door_print(t_wolf3d *w)
 	int	i;
 
 	i = 0;
-	while(i < w->doors_nbr)
+	while(i < w->map.doors_nbr)
 	{
 		printf("door#%d  x==%d y==%d   state==%d key==%d\n", \
-		i, w->doors[i]->x, w->doors[i]->y, w->doors[i]->state, w->doors[i]->key);
+		i, w->map.doors[i]->x, w->map.doors[i]->y, w->map.doors[i]->state, w->map.doors[i]->key);
 		i++;
 	}
 }
@@ -135,34 +135,3 @@ void	ft_print_map(t_wolf3d *w)
 		i++;
 	}
 }
-
-/*
-    int window_w, window_h;
-    int origin_x, origin_y;
-    SDL_GetMouseState(x, y);
-    // Translate mouse position from 'pixel' position into character position.
-    // We are working here in screen coordinates and not pixels, since this is
-    // what SDL_GetWindowSize() returns; we must calculate and subtract the
-    // origin position since we center the image within the window.
-    SDL_GetWindowSize(TXT_SDLWindow, &window_w, &window_h);
-    origin_x = (window_w - screen_image_w) / 2;
-    origin_y = (window_h - screen_image_h) / 2;
-    *x = ((*x - origin_x) * TXT_SCREEN_W) / screen_image_w;
-    *y = ((*y - origin_y) * TXT_SCREEN_H) / screen_image_h;
-    if (*x < 0)
-    {
-        *x = 0;
-    }
-    else if (*x >= TXT_SCREEN_W)
-    {
-        *x = TXT_SCREEN_W - 1;
-    }
-    if (*y < 0)
-    {
-        *y = 0;
-    }
-    else if (*y >= TXT_SCREEN_H)
-    {
-        *y = TXT_SCREEN_H - 1;
-    }
-*/ 

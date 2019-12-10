@@ -6,7 +6,7 @@
 #    By: drafe <drafe@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 11:40:58 by tjuana            #+#    #+#              #
-#    Updated: 2019/12/03 21:07:51 by drafe            ###   ########.fr        #
+#    Updated: 2019/12/09 21:15:09 by drafe            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,12 +47,13 @@ SRCS_LIST = alg_wu_color.c\
 			alg_wu.c\
 			animation.c\
 			bmp_parser.c\
+			check_map.c\
 			door.c\
 			draw_walls.c\
 			fpc.c\
 			floor.c\
 			help.c\
-			read_map.c\
+			enemies.c\
 			events.c\
 			events_exp.c\
 			events_mouse.c\
@@ -63,10 +64,13 @@ SRCS_LIST = alg_wu_color.c\
 			player_stats.c\
 			putstr_sdl.c\
 			ray_casting.c\
+			read_map.c\
 			sdl.c\
 			sdl_error.c\
 			sdl_render.c\
 			sound.c\
+			sprites.c\
+			sprites_help.c\
 			textures.c\
 			threads.c
 

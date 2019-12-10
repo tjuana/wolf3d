@@ -11,9 +11,21 @@
 # define KEYS_NBR 66
 # define MAX_DOORS_NBR 20
 # define MAX_AMMO 280
+# define MAX_LIFE 200
+# define MOB_SPD 0.1
 
 # define C_R 0x00FF0000
 # define C_G 0x0000FF00
 # define C_B 0x000000FF
+
+typedef struct			s_const
+{
+	double				crs;
+	double				srs;
+	double				mcrs;
+	double				msrs;
+	double				camera_x_cnst;
+	int					half_height;
+}						t_const;
 
 #endif

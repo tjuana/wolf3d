@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/04 21:43:14 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/09 20:41:17 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,22 @@ static void		ft_left_right(t_wolf3d *w)
 
 static void		ft_left_rotation(t_wolf3d *w)
 {
-	w->pl.old_dirX = w->pl.dir.x;
+	w->pl.old_dirx = w->pl.dir.x;
 	w->pl.dir.x = w->pl.dir.x * w->c.crs - w->pl.dir.y * w->c.srs;
-	w->pl.dir.y = w->pl.old_dirX * w->c.srs + w->pl.dir.y * w->c.crs;
-	w->pl.old_planeX = w->pl.plane.x;
+	w->pl.dir.y = w->pl.old_dirx * w->c.srs + w->pl.dir.y * w->c.crs;
+	w->pl.old_planex = w->pl.plane.x;
 	w->pl.plane.x = w->pl.plane.x * w->c.crs - w->pl.plane.y * w->c.srs;
-	w->pl.plane.y = w->pl.old_planeX * w->c.srs + w->pl.plane.y * w->c.crs;
+	w->pl.plane.y = w->pl.old_planex * w->c.srs + w->pl.plane.y * w->c.crs;
 }
 
 static void		ft_right_rotation(t_wolf3d *w)
 {
-	w->pl.old_dirX = w->pl.dir.x;
+	w->pl.old_dirx = w->pl.dir.x;
 	w->pl.dir.x = w->pl.dir.x * w->c.mcrs - w->pl.dir.y * w->c.msrs;
-	w->pl.dir.y = w->pl.old_dirX * w->c.msrs + w->pl.dir.y * w->c.mcrs;
-	w->pl.old_planeX = w->pl.plane.x;
+	w->pl.dir.y = w->pl.old_dirx * w->c.msrs + w->pl.dir.y * w->c.mcrs;
+	w->pl.old_planex = w->pl.plane.x;
 	w->pl.plane.x = w->pl.plane.x * w->c.mcrs - w->pl.plane.y * w->c.msrs;
-	w->pl.plane.y = w->pl.old_planeX * w->c.msrs + w->pl.plane.y * w->c.mcrs;
+	w->pl.plane.y = w->pl.old_planex * w->c.msrs + w->pl.plane.y * w->c.mcrs;
 }
 
 /*

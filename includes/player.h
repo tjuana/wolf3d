@@ -18,7 +18,7 @@ typedef struct	s_stats
 	
 	int			key[MAX_DOORS_NBR];
 	int			door_nbr;
-	int			f_sz;
+	int			font_sz;
 	int			life;
 	int			ammo;
 	int			money;
@@ -34,12 +34,12 @@ typedef struct	s_player
 	t_coord		side_dist;
 	t_coord		delta_dist;
 	t_stats		st;
-	double		old_dirX;
-	double		old_planeX;
-	double		cameraX;
+	double		old_dirx;
+	double		old_planex;
+	double		camerax;
 	double		wall_dist;
-	int			stepX; //?????
-	int			stepY;
+	int			stepx; //?????
+	int			stepy;
 	int			side;
 }				t_player;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 15:17:47 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/25 19:33:34 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/08 19:17:44 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void		read_file(int fd, t_map *map)
 		ft_error("Map is empty");
 	get_map(map, ft_countwords(lst->content, ' '), ft_lstcount(lst));
 	map->s_count = write_map(map, lst);
+	ft_check_map(map);
 	if (map->s_count)
 	{
 		write_sprites(map);
@@ -43,7 +44,7 @@ int			get_lines(int fd, t_list **lst)
 	width = 0;
 	while ((res = get_next_line(fd, &line)) > 0)
 	{
-		width == 0 ? width = ft_countwords(line, ' ') : 0;
+		width == (size_t)0 ? width = ft_countwords(line, ' ') : 0;
 		width != ft_countwords(line, ' ') ? ft_error("Error map") : 0;
 		if (!(tmp = ft_lstnew(line, ft_strlen(line) + 1)))
 			ft_error("MAlloc failed");
@@ -80,10 +81,10 @@ int			write_map(t_map *map, t_list *lst)
 		while (++wr.x < map->m_wid)
 		{
 			map->map[wr.y * map->m_wid + wr.x] = ft_atoi(wr.s[wr.x]);
-			map->map[wr.y * map->m_wid + wr.x] > 22 ? \
-			ft_error("map is failed") : 0;
-			if (map->map[wr.y * map->m_wid + wr.x] >= 20 \
-			&& map->map[wr.y * map->m_wid + wr.x] <= 22)
+			map->map[wr.y * map->m_wid + wr.x] > 23 ? \
+			ft_error("Map is failed") : 0;
+			if (map->map[wr.y * map->m_wid + wr.x] >= 21 \
+			&& map->map[wr.y * map->m_wid + wr.x] <= 23)
 				wr.s_count++;
 		}
 		ft_2arrclean(&wr.s);
@@ -102,17 +103,17 @@ void		write_sprites(t_map *m)
 	m->sprite = ft_my_malloc(sizeof(t_sprite *) * m->s_count);
 	y = -1;
 	spr_num = 0;
-	while (++y < m->m_wid)
+	while (++y < m->m_hei)
 	{
 		x = -1;
-		while (++x < m->m_hei)
+		while (++x < m->m_wid)
 		{
-			if (m->map[y * m->m_wid + x] >= 20 \
-			&& m->map[y * m->m_wid + x] <= 22)
+			if (m->map[y * m->m_wid + x] >= 21 \
+			&& m->map[y * m->m_wid + x] <= 23)
 			{
 				m->sprite[spr_num] = ft_my_malloc(sizeof(t_sprite) * 1);
 				m->sprite[spr_num]->x = x == m->m_wid ? x - 0.5 : x + 0.5;
-				m->sprite[spr_num]->y = y == m->m_wid ? y - 0.5 : x + 0.5;
+				m->sprite[spr_num]->y = y == m->m_hei ? y - 0.5 : y + 0.5;
 				m->sprite[spr_num]->texture = m->map[y * m->m_wid + x];
 				spr_num++;
 			}

@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/04 21:25:53 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/10 20:48:40 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void			ft_putstr_sdl(t_wolf3d *w, char *str, int x, int y)
 	tmp_texture = NULL;
 	if (TTF_Init() == -1)
 		ft_sdl_error(w);
-	if (!(w->sdl->font = TTF_OpenFont("fonts/procyon_si.ttf", w->pl.st.f_sz)))
+	if (!(w->sdl->font = TTF_OpenFont("fonts/procyon_si.ttf", w->pl.st.font_sz)))
 		ft_sdl_error(w);
 	if (TTF_SizeText(w->sdl->font, str, &a.w, &a.h) == -1)
 		ft_sdl_error(w);
