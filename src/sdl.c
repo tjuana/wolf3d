@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/08 18:29:40 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/11 19:20:32 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,20 @@ t_sdl		*sdl_init(t_sdl *sdl)
 	sdl = ft_my_malloc(sizeof(t_sdl));
 	sdl->pixels = ft_my_malloc((sizeof(Uint32) * WIN_WIDTH) * WIN_HEIGHT);
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
-	{
-		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, \
-		"Couldn't initialize SDL: %s", SDL_GetError());
-		return (0);
-	}
+		ft_sdl_init_error(sdl);
 	if (SDL_CreateWindowAndRenderer(WIN_WIDTH, WIN_HEIGHT, \
-	0, &sdl->win, &sdl->renderer) < 0)
-	{
-		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, \
-		"Couldn't create window and renderer: %s", SDL_GetError());
-		return (0);
-	}
+	SDL_WINDOW_RESIZABLE | SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC, &sdl->win, &sdl->renderer) < 0)
+		ft_sdl_init_error(sdl);
+	// if (!(sdl->text = SDL_CreateTextureFromSurface(sdl->renderer, sdl->surfaces)))
+	// 	ft_error("SDL non textures");
 	if (!(sdl->text = SDL_CreateTexture(sdl->renderer, SDL_PIXELFORMAT_ARGB8888\
 	, SDL_TEXTUREACCESS_STREAMING, WIN_WIDTH, WIN_HEIGHT)))
 		ft_error("SDL non textures");
+	
+	// int w = WIN_WIDTH;
+	// int h = WIN_HEIGHT;
+	
+	// SDL_QueryTexture(sdl->text, NULL, NULL, &w, &h);
 	sdl->running = 1;
 	return (sdl);
 }
@@ -74,7 +73,7 @@ void		ft_init_wolf(t_wolf3d *w)
 void		ft_we_need_more_init(t_wolf3d *w)
 {
 	int		i;
-
+	
 	i = -1;
 	w->t.time = 0;
 	w->t.old_time = 0;

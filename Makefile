@@ -6,7 +6,7 @@
 #    By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 11:40:58 by tjuana            #+#    #+#              #
-#    Updated: 2019/12/04 18:10:41 by tjuana           ###   ########.fr        #
+#    Updated: 2019/12/11 20:12:51 by tjuana           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,17 @@ NAME = wolf3d
 
 FLAGS = -Wall -Werror -Wextra -O -O0 -O1 -O2 -O3 -Os -std=c99 -g
 CC = gcc
-LIBRARIES = -lft -L$(LIBFT_DIRECTORY) -F SDL2/Frameworks   -lSDL2 -L$(SDL_DIRECTORY) -lSDL2main -L$(SDL_DIRECTORY) -lSDL2-2.0.0 -L$(SDL_DIRECTORY)
-INCLUDES = -I$(HEADERS_DIRECTORY) -I$(LIBFT_HEADERS) -I$(SDL_HEADERS)
+LIBRARIES = -lft -L$(LIBFT_DIRECTORY) -F SDL2/Frameworks   -lSDL2 -L$(SDL_DIRECTORY) \
+-lSDL2main -L$(SDL_DIRECTORY) -lSDL2-2.0.0 -L$(SDL_DIRECTORY) $(FRAME)
+INCLUDES = -I$(HEADERS_DIRECTORY) $(INC_SDL) -I$(LIBFT_HEADERS) -I$(SDL_HEADERS)
+
+INC_SDL = 		-I SDL2/Frameworks/SDL2_image.framework/Versions/A/Headers 	\
+				-I SDL2/Frameworks/SDL2_ttf.framework/Versions/A/Headers 	\
+				-I SDL2/Frameworks/SDL2_mixer.framework/Versions/A/Headers/ 	\
+
+FRAME = 	-framework SDL2_image 		\
+            -framework SDL2_ttf -framework SDL2_mixer -rpath Frameworks/
+
 
 LIBFT = $(addprefix $(LIBFT_DIRECTORY),libft.a)
 LIBFT_DIRECTORY = ./libft/
@@ -69,7 +78,8 @@ SRCS_LIST = alg_wu_color.c\
 			threads.c \
 			check_map.c \
 			sprites.c \
-			sprites_help.c
+			sprites_help.c \
+			fps.c
 
 OBJS_DIRECTORY = objects/
 OBJS_LIST = $(patsubst %.c, %.o, $(SRCS_LIST))

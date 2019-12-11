@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 15:21:47 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/08 17:28:20 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/11 17:37:19 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define THREADS 10
 # define TEX_W 64
 # define TEX_H 64
-# define ONE_ANIM 24
+# define ONE_ANIM 17
 # define FULL_ANIM ONE_ANIM * 4 - 4
 # define KEYS_NBR 66
 # define MAX_DOORS_NBR 20
