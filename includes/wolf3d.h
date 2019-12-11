@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 15:23:55 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/08 18:37:12 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/11 19:19:45 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "SDL2/SDL.h"
 # include "SDL2/SDL_thread.h"
 # include "SDL2/SDL_mixer.h"
+# include "SDL2/SDL_image.h"
 # include <pthread.h>
 # include <string.h>
 # include <stdio.h>
@@ -27,6 +28,12 @@
 # include "door.h"
 # include "player.h"
 # include "sprites.h"
+
+// typedef struct			s_textures
+// {
+// 	SDL_Surface			*surfaces;
+// 	t_textures			*next;
+// }						t_textures;
 
 typedef struct			s_sort_util
 {
@@ -314,4 +321,10 @@ void	ft_calculate_sprites(t_wolf3d *w);
 void	ft_show_sprites(t_wolf3d *w);
 void	ft_transform_sprites(t_wolf3d *w);
 void			ft_sort(t_wolf3d *w);
+void fpsthink();
+void fpsinit();
+void	ft_test_mv_p(t_wolf3d *w);
+
+int		ft_sdl_init_error(t_sdl *sdl);
+ void SDL_SurfaceInfo(char * name, SDL_Surface *thing);
 #endif

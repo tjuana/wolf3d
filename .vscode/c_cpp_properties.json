@@ -11,8 +11,8 @@
             ],
             "defines": [],
             "macFrameworkPath": [
-                "/System/Library/Frameworks",
-                "/Library/Frameworks"
+                "/Users/tjuana/Downloads/Wolf3D-1-sleonia/Frameworks",
+                "/Users/tjuana/Library"
             ],
             "compilerPath": "/usr/bin/clang",
             "cStandard": "c11",

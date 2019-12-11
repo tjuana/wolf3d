@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:01:59 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/08 16:26:54 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/11 15:09:17 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ void				ft_wall_hit(t_threads *a)
 
 void				ft_wall_draw_start(t_threads *a)
 {
-	a->w.draw_start = a->w.half_height - (a->w.line_height >> 1);
-	a->w.draw_end = (a->w.line_height >> 1) + a->w.half_height;
-	a->w.draw_start += a->w.mouse_offset;
-	a->w.draw_end += a->w.mouse_offset;
+	a->w.draw_start = a->w.half_height - (a->w.line_height >> 1) + a->w.mouse_offset;
+	a->w.draw_end = (a->w.line_height >> 1) + a->w.half_height + a->w.mouse_offset;
+	// a->w.draw_start += a->w.mouse_offset;
+	// a->w.draw_end += a->w.mouse_offset;
 	a->w.draw_start < 0 ? a->w.draw_start = 0 : 0;
 	a->w.draw_end >= WIN_HEIGHT ? a->w.draw_end = WIN_HEIGHT - 1 : 0;
 	a->w.texture_num =\
