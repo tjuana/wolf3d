@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/09 20:41:17 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/11 17:59:26 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,15 @@ static void		ft_use_events_exp(t_wolf3d *w)
 	w->arr[5] == 1 ? ft_play_music(w) : 0;
 	w->arr[6] == 1 ? ft_test_mv_p(w) : 0;
 	w->arr[7] == 1 ? ft_test_mv_l(w) : 0;
+	w->arr[15] == 1 ? ft_test_kp2(w) : 0;
+	w->arr[16] == 1 ? ft_test_kp4(w) : 0;
+	w->arr[17] == 1 ? ft_test_kp6(w) : 0;
+	w->arr[18] == 1 ? ft_test_kp8(w) : 0;
 	w->arr[8] == 1 ? w->ms = 0.05 : 0;
 	w->arr[8] == 0 || w->arr[1] == 1 || w->arr[13] == 1 || w->arr[14] == 1 \
 	? w->ms = 0.03 : 0;
 	w->arr[12] == 1 ? ft_door_open(w) : 0;
+	
 }
 
 /*

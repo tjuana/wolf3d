@@ -12,7 +12,7 @@
 # define MAX_DOORS_NBR 20
 # define MAX_AMMO 280
 # define MAX_LIFE 200
-# define MOB_SPD 0.1
+# define MOB_SPD 0.05
 
 # define C_R 0x00FF0000
 # define C_G 0x0000FF00

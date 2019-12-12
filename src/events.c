@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/03 15:46:09 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/11 17:51:17 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ static void		ft_keydown(t_wolf3d *w, SDL_Event e)
 	e.key.keysym.scancode == SDL_SCANCODE_LSHIFT ? w->arr[8] = 1 : 0;
 	//e.key.keysym.scancode == SDL_SCANCODE_RSHIFT ? w->arr[9] = 1 : 0;
 	e.key.keysym.scancode == SDL_SCANCODE_SPACE ? w->arr[12] = 1 : 0;
+	e.key.keysym.scancode == SDL_SCANCODE_KP_2 ? w->arr[15] = 1 : 0;
+	e.key.keysym.scancode == SDL_SCANCODE_KP_4 ? w->arr[16] = 1 : 0;
+	e.key.keysym.scancode == SDL_SCANCODE_KP_6 ? w->arr[17] = 1 : 0;
+	e.key.keysym.scancode == SDL_SCANCODE_KP_8 ? w->arr[18] = 1 : 0;
 }
 
 /*
@@ -58,6 +62,10 @@ static void		ft_keyup(t_wolf3d *w, SDL_Event e)
 	e.key.keysym.scancode == SDL_SCANCODE_LSHIFT ? w->arr[8] = 0 : 0;
 	//e.key.keysym.scancode == SDL_SCANCODE_RSHIFT ? w->arr[9] = 0 : 0;
 	e.key.keysym.scancode == SDL_SCANCODE_SPACE ? w->arr[12] = 0 : 0;
+	e.key.keysym.scancode == SDL_SCANCODE_KP_2 ? w->arr[15] = 0 : 0;
+	e.key.keysym.scancode == SDL_SCANCODE_KP_4 ? w->arr[16] = 0 : 0;
+	e.key.keysym.scancode == SDL_SCANCODE_KP_6 ? w->arr[17] = 0 : 0;
+	e.key.keysym.scancode == SDL_SCANCODE_KP_8 ? w->arr[18] = 0 : 0;
 }
 
 /*

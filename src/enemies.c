@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/10 21:43:31 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/12 21:08:22 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,19 @@
 ** **************************************************************************
 */
 
-static void	ft_enemy_left(t_wolf3d *w)
+void	ft_enemy_left(t_wolf3d *w)
 {
 	int	move_flag;
+	int	tst;
 
 	move_flag = 0;
-	printf("\nw->lol==%f\n", w->lol);
-	w->temp = w->map.map[(int)(w->map.sprite[0]->x - 0.2 * MOB_SPD * 15)\
-	* w->map.m_wid + (int)w->map.sprite[0]->y];//distance to another block
-	if (!w->temp || w->temp == 20)
-		move_flag++;
-	if (move_flag == 1)
-		w->map.sprite[0]->x -= 0.2 * MOB_SPD;//speed
+	printf("\n left x==%f y==%f ", w->map.sprite[0]->x, w->map.sprite[0]->y);
+	tst = 0;
+	tst = (int)(w->map.m_wid * (int)w->map.sprite[0]->y) + (w->map.sprite[0]->x - MOB_SPD - 0.5);
+	w->temp = w->map.map[tst];
+	printf(" w->tst==%d  w->map.map[tst]==%d\n",  tst, w->map.map[tst]);
+	w->temp == 0 ? move_flag++ : 0;
+	move_flag == 1 ? w->map.sprite[0]->x -= MOB_SPD : 0;
 }
 
 /*
@@ -40,18 +41,21 @@ static void	ft_enemy_left(t_wolf3d *w)
 ** **************************************************************************
 */
 
-static void	ft_enemy_right(t_wolf3d *w)
+void	ft_enemy_right(t_wolf3d *w)
 {
 	int	move_flag;
+	int	tst;
 
 	move_flag = 0;
-	printf("\nw->lol==%d\n", ((int)(w->map.sprite[0]->x + 0.2 * MOB_SPD * 14) * w->map.m_wid + (int)w->map.sprite[0]->y));
-	w->temp = w->map.map[(int)(w->map.sprite[0]->x + 0.2 * MOB_SPD * 14)\
-	* w->map.m_wid + (int)w->map.sprite[0]->y];//distance to another block
-	if (!w->temp || w->temp == 20)
-		move_flag++;
-	if (move_flag == 1)
-		w->map.sprite[0]->x += 0.2 * MOB_SPD;//speed
+	tst = 0;
+	printf("\nright x==%f y==%f ", w->map.sprite[0]->x, w->map.sprite[0]->y);
+	tst = (int)(w->map.m_wid * (int)w->map.sprite[0]->y) + (w->map.sprite[0]->x + MOB_SPD + 0.5);
+	w->temp = w->map.map[tst];
+	//x_wid = (int)(w->map.m_wid * w->map.sprite[0]->x);
+	//y_wid = (int)(w->map.m_wid * w->map.sprite[0]->y);
+	printf(" tst==%d  map[tst]==%d \n", tst, w->map.map[tst]);
+	w->temp == 0 ? move_flag++ : 0;
+	move_flag == 1 ? w->map.sprite[0]->x += MOB_SPD : 0;
 }
 
 /*
@@ -61,18 +65,19 @@ static void	ft_enemy_right(t_wolf3d *w)
 ** **************************************************************************
 */
 
-static void	ft_enemy_forward(t_wolf3d *w)
+void	ft_enemy_forward(t_wolf3d *w)
 {
 	int	move_flag;
+	int	tst;
 
 	move_flag = 0;
-	printf("\nw->lol==%f\n", w->lol);
-	w->temp = w->map.map[(int)(w->map.sprite[0]->y + 0.2 * MOB_SPD * 15)\
-	+ (int)w->map.sprite[0]->x * w->map.m_wid];//distance to another block
-	if (!w->temp || w->temp == 20)
-		move_flag++;
-	if (move_flag == 1)
-		w->map.sprite[0]->y += 0.2 * MOB_SPD;//speed
+	tst = 0;
+	printf("\n forward x==%f y==%f ", w->map.sprite[0]->x, w->map.sprite[0]->y);
+	tst = (int)((int)(w->map.sprite[0]->y + MOB_SPD + 0.5) * w->map.m_wid + w->map.sprite[0]->x);
+	w->temp = w->map.map[tst];
+	printf(" w->tst==%d  w->map.map[tst]==%d\n", tst, w->map.map[tst]);
+	w->temp == 0 ? move_flag++ : 0;
+	move_flag == 1 ? w->map.sprite[0]->y += MOB_SPD : 0;
 }
 
 /*
@@ -82,24 +87,26 @@ static void	ft_enemy_forward(t_wolf3d *w)
 ** **************************************************************************
 */
 
-static void	ft_enemy_back(t_wolf3d *w)
+void	ft_enemy_back(t_wolf3d *w)
 {
 	int	move_flag;
+	int	tst;
 
 	move_flag = 0;
-	printf("\nw->lol==%f\n", w->lol);
-	w->temp = w->map.map[(int)(w->map.sprite[0]->y - 0.2 * MOB_SPD * 15)\
-	+ (int)w->map.sprite[0]->x * w->map.m_wid];//distance to another block
-	if (!w->temp || w->temp == 20)
-		move_flag++;
-	if (move_flag == 1)
-		w->map.sprite[0]->y -= 0.2 * MOB_SPD;//speed	
+	printf("\n back x==%f y==%f m_wid==%d ", w->map.sprite[0]->x, w->map.sprite[0]->y, w->map.m_hei);
+	tst = 0;
+	tst = (int)((int)(w->map.sprite[0]->y - MOB_SPD - 0.5) * w->map.m_wid + w->map.sprite[0]->x);
+	w->temp = w->map.map[tst];
+	printf(" \n w->tst==%d  w->map.map[tst]==%d\n", tst, w->map.map[tst]);
+
+	w->temp == 0 ? move_flag++ : 0;
+	move_flag == 1 ? w->map.sprite[0]->y -= MOB_SPD : 0;
 }
 
 /*
 ** **************************************************************************
 **	void ft_enemy(t_wolf3d *w)
-**	Function to move enemy
+**	Function to move enemy 
 ** **************************************************************************
 */
 
@@ -114,12 +121,13 @@ void		ft_enemy(t_wolf3d *w)
 	tmp_map = w->map.map;
 	printf("x==%f y==%f\n", w->spr.pos.x, w->spr.pos.y);
 	printf("mapx==%f mapy==%f\n", w->map.sprite[0]->x, w->map.sprite[0]->y);
-	ft_enemy_right(w);
+	
 	return ;
+	ft_enemy_right(w);
 	ft_enemy_forward(w);
 	ft_enemy_back(w);
 	ft_enemy_left(w);
-	//w->map.sprite[0]->y += 0.25;
+	//w->map.sprite[0]->y += 0.55;
 	/*printf("x==%f y==%f\n", w->spr.pos.x, w->spr.pos.y);
 
 	w->spr.pos.x += 2.5;

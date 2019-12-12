@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/10 20:47:10 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/11 21:07:33 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,9 @@ void	ft_mouse_mv(t_wolf3d *w, SDL_Event e)
 
 void	ft_test_mv_p(t_wolf3d *w)
 {
-	printf("\npos x==%f  y==%f   ", w->pl.pos.x, w->pl.pos.y);
-	printf("pl dir x==%f  y==%f\n", w->pl.dir.x , w->pl.dir.y);
+	printf("\npl pos x==%f  y==%f   ", w->pl.pos.x, w->pl.pos.y);
+	printf("pl dir x==%f  y==%f ", w->pl.dir.x , w->pl.dir.y);
+	printf(" sprite x==%f y==%f \n", w->map.sprite[0]->x, w->map.sprite[0]->y);
 	ft_enemy(w);
 	//w->mouse_offset += 15;//camera up
 	//ft_pl_stats(w);
@@ -70,7 +71,7 @@ void	ft_test_mv_p(t_wolf3d *w)
 
 void	ft_test_mv_l(t_wolf3d *w)
 {
-	w->lol += 0.1;
+	w->lol += 1;
 	//w->mouse_offset -= 15;//camera down
 	/*
 	old
@@ -134,4 +135,52 @@ void	ft_print_map(t_wolf3d *w)
 		tmp += w->map.m_wid;
 		i++;
 	}
+}
+
+/*
+** **************************************************************************
+**	void ft_test_kp2(t_wolf3d *w) | debug
+**	Function to handle numpad 2 button
+** **************************************************************************
+*/
+
+void	ft_test_kp2(t_wolf3d *w)
+{
+	ft_enemy_back(w);
+}
+
+/*
+** **************************************************************************
+**	void ft_test_kp4(t_wolf3d *w) | debug
+**	Function to handle numpad 4 button
+** **************************************************************************
+*/
+
+void	ft_test_kp4(t_wolf3d *w)
+{
+	ft_enemy_left(w);
+}
+
+/*
+** **************************************************************************
+**	void ft_test_kp6(t_wolf3d *w) | debug
+**	Function to handle numpad 6 button
+** **************************************************************************
+*/
+
+void	ft_test_kp6(t_wolf3d *w)
+{
+	ft_enemy_right(w);
+}
+
+/*
+** **************************************************************************
+**	void ft_test_kp8(t_wolf3d *w) | debug
+**	Function to handle numpad 8 button
+** **************************************************************************
+*/
+
+void	ft_test_kp8(t_wolf3d *w)
+{
+	ft_enemy_forward(w);
 }

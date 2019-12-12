@@ -249,6 +249,11 @@ int					ft_step_forward_check(t_wolf3d *w, unsigned char flag);
 void				ft_mouse_mv(t_wolf3d *w, SDL_Event e);
 void				ft_test_mv_p(t_wolf3d *w);//debug
 void				ft_test_mv_l(t_wolf3d *w);//debug
+void				ft_test_kp2(t_wolf3d *w);//debug
+void				ft_test_kp4(t_wolf3d *w);//debug
+void				ft_test_kp6(t_wolf3d *w);//debug
+void				ft_test_kp8(t_wolf3d *w);//debug
+
 void				ft_print_map(t_wolf3d *w);//debug
 void				ft_door_print(t_wolf3d *w);//debug
 
@@ -322,6 +327,10 @@ double					ft_fdf_round(double x);
 double					ft_fdf_fpart(double x);
 int						ft_fdf_get_color(int color1, int color2, double f1);
 
+void					ft_enemy_left(t_wolf3d *w);
+void					ft_enemy_right(t_wolf3d *w);
+void					ft_enemy_forward(t_wolf3d *w);
+void					ft_enemy_back(t_wolf3d *w);
 void					ft_enemy(t_wolf3d *w);
 
 void					ft_sort(t_wolf3d *w);

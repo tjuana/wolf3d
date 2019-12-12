@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
+/*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 13:27:18 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/08 17:27:17 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/11 16:01:57 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void		threading(t_wolf3d *w)
 	w->pl.plane.y = args[x[0] - 1].w.pl.plane.y;
 	w->pl.dir.x = args[x[0] - 1].w.pl.dir.x;
 	w->pl.dir.y = args[x[0] - 1].w.pl.dir.y;
+	
 	ft_draw_sprites(w);
 }
 

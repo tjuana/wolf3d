@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/10 21:13:05 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/11 21:07:21 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void		ft_init_wolf(t_wolf3d *w)
 	w->hit = 0;
 	w->x = -1;
 	w->ms = 0.03;
-	w->rs = 0.02;
+	w->rs = 0.04;
 	w->c.crs = cos(w->rs);
 	w->c.srs = sin(w->rs);
 	w->c.mcrs = cos(-w->rs);
@@ -62,7 +62,7 @@ void		ft_init_wolf(t_wolf3d *w)
 	w->c.half_height = (WIN_HEIGHT >> 1);
 	w->c.camera_x_cnst = 2 / (double)WIN_WIDTH;
 	w->z_buffer = ft_my_malloc(sizeof(double) * WIN_WIDTH);
-	w->sdl->surfaces = ft_my_malloc(sizeof(SDL_Surface *) * TEXTURES_NUMBER);
+	w->sdl->surfaces = ft_my_malloc(sizeof(w->sdl->surfaces) * TEXTURES_NUMBER);
 	w->t.flag = 1;
 	ft_we_need_more_init(w);
 }
@@ -82,7 +82,7 @@ void		ft_we_need_more_init(t_wolf3d *w)
 	w->mouse_offset = 0;//look up & down
 	w->pl.st.life = 100;
 	w->pl.st.ammo = 41;
-	w->lol = 0.1;//debug
+	w->lol = 1;//debug
 	ft_door_create(w);
 	while (++i < KEYS_NBR)
 		w->arr[i] = 0;
