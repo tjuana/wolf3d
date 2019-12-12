@@ -6,11 +6,12 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:33:34 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/11 15:01:20 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/12 19:40:23 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
+
 
 int	main(int c, char **v)
 {
@@ -23,7 +24,11 @@ int	main(int c, char **v)
 	read_file(w.fd, &w.map);
 	w.sdl = sdl_init(w.sdl);
 	ft_init_wolf(&w);
+	
 	ft_load_textures(&w);
+	
+	ft_bank_of_text("./Textures/", &w);
+	
 	ft_init_anim(&w);
 	ft_init_view_map(&w);
 	ft_init_sound(&w);
@@ -35,6 +40,9 @@ int	main(int c, char **v)
 		renderer(&w);
 		fpsthink();
 	}
+	
 	ft_clean_sdl(&w);
+	close(w.fd);
 	return (0);
 }
+

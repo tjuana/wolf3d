@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 15:23:55 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/11 19:19:45 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/12 19:54:27 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,7 @@
 # include "door.h"
 # include "player.h"
 # include "sprites.h"
-
-// typedef struct			s_textures
-// {
-// 	SDL_Surface			*surfaces;
-// 	t_textures			*next;
-// }						t_textures;
+# include <dirent.h>
 
 typedef struct			s_sort_util
 {
@@ -74,12 +69,14 @@ typedef struct			s_sdl
 	SDL_Renderer		*renderer;
 	Uint32				*pixels;
 	SDL_Texture			*text;
+	SDL_Texture			*test;	//test png file
 	SDL_Surface			**surfaces;
 	SDL_AudioSpec		*wav_spect;
 	Uint32				*wav_len;
 	Uint8				**wav_buff;
 	SDL_AudioDeviceID	*audio_device;
 	unsigned char		i;
+	int					img;
 }						t_sdl;
 
 typedef struct			s_map
@@ -315,16 +312,20 @@ int						ft_fdf_get_color(int color1, int color2, double f1);
 void					ft_draw_compass(t_wolf3d *w);
 
 void					ft_check_map(t_map *map);
-void	ft_draw_sprites(t_wolf3d *w);
+void					ft_draw_sprites(t_wolf3d *w);
 
-void	ft_calculate_sprites(t_wolf3d *w);
-void	ft_show_sprites(t_wolf3d *w);
-void	ft_transform_sprites(t_wolf3d *w);
-void			ft_sort(t_wolf3d *w);
-void fpsthink();
-void fpsinit();
-void	ft_test_mv_p(t_wolf3d *w);
+void					ft_calculate_sprites(t_wolf3d *w);
+void					ft_show_sprites(t_wolf3d *w);
+void					ft_transform_sprites(t_wolf3d *w);
+void					ft_sort(t_wolf3d *w);
+void 					fpsthink();
+void 					fpsinit();
 
-int		ft_sdl_init_error(t_sdl *sdl);
- void SDL_SurfaceInfo(char * name, SDL_Surface *thing);
+void					ft_test_mv_p(t_wolf3d *w);
+
+int						ft_sdl_init_error(t_sdl *sdl);
+
+// void					SDL_SurfaceInfo(char * name, SDL_Surface *thing);
+void					ft_bank_of_text(char *dir, t_wolf3d *w);
+SDL_Texture					*ft_load_png(char *name, t_sdl *sdl);
 #endif
