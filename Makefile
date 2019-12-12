@@ -6,7 +6,7 @@
 #    By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 11:40:58 by tjuana            #+#    #+#              #
-#    Updated: 2019/12/11 20:12:51 by tjuana           ###   ########.fr        #
+#    Updated: 2019/12/12 19:19:39 by tjuana           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ INC_SDL = 		-I SDL2/Frameworks/SDL2_image.framework/Versions/A/Headers 	\
 				-I SDL2/Frameworks/SDL2_ttf.framework/Versions/A/Headers 	\
 				-I SDL2/Frameworks/SDL2_mixer.framework/Versions/A/Headers/ 	\
 
-FRAME = 	-framework SDL2_image 		\
-            -framework SDL2_ttf -framework SDL2_mixer -rpath Frameworks/
+FRAME = 	-framework SDL2_image \
+            -framework SDL2_ttf -framework SDL2_mixer -rpath SDL2/Frameworks/
 
 
 LIBFT = $(addprefix $(LIBFT_DIRECTORY),libft.a)

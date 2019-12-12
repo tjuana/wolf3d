@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 18:54:20 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/11 19:15:54 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/12 19:39:01 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	ft_load_textures(t_wolf3d *w)
 	
 	w->map_texture = ft_sdl_load_bmp("Textures/Grey9.bmp");
 
-	
 	w->sdl->surfaces[0] = ft_sdl_load_bmp("Textures/Stone1.bmp");
 	w->sdl->surfaces[1] = ft_sdl_load_bmp("Textures/WALL2.bmp");
 	w->sdl->surfaces[2] = ft_sdl_load_bmp("Textures/WALL54.bmp");
@@ -44,10 +43,4 @@ void	ft_load_textures(t_wolf3d *w)
 	w->sdl->surfaces[21] = ft_sdl_load_bmp("Textures/pillar.bmp");
 	w->sdl->surfaces[22] = ft_sdl_load_bmp("Textures/barrel.bmp");
 	
-	SDL_SurfaceInfo("yo", w->weapon_texture);
-}
-
- void SDL_SurfaceInfo(char * name, SDL_Surface *thing)
-{
-     printf("Surface %s: w:%d h:%d bpp:%d\n", name, thing->w, thing->h, thing->format->BitsPerPixel);
 }

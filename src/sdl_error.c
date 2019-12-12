@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/11 13:53:39 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/12 19:37:13 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,22 @@ int		ft_sdl_init_error(t_sdl *sdl)
 {
 	SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, \
 	"Couldn't create window and renderer: %s", SDL_GetError());
+	if (sdl->wav_buff)
+		free(sdl->wav_buff);
+	if (sdl->wav_spect)
+		free(sdl->wav_spect);	
+	
+	// free(sdl->wav_len);
+	// free(w->sdl->audio_device);
+	// free(sdl->surfaces);
+	// free(sdl->pixels);
 	if (sdl->text)
 		SDL_DestroyTexture(sdl->text);
 	if (sdl->renderer)
 		SDL_DestroyRenderer(sdl->renderer);
 	if (sdl->win)
 		SDL_DestroyWindow(sdl->win);
+	IMG_Quit();
 	SDL_Quit();
 	exit(-1);
 }
