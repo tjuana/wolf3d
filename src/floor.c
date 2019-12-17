@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 14:18:24 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/11 14:50:57 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/17 14:35:05 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,17 @@ void	ft_draw_floor(t_threads *a)
 		a->w.flr.text_x = (int)(a->w.flr.cur_x * TEX_W) % TEX_W;
 		a->w.flr.text_y = (int)(a->w.flr.cur_y * TEX_H) % TEX_H;
 		
-		a->w.tex_col = &((Uint8*)(a->w.sdl->surfaces[0]->pixels))[TEX_W * 3 *
-		a->w.flr.text_y + a->w.flr.text_x * 3];
-		a->w.color = *(Uint32*)(a->w.tex_col);
-		a->w.color = (a->w.color >> 2) & 0x7F7F7F;
+		// a->w.tex_col = &((Uint8*)(a->w.sdl->surfaces[0]->pixels))[TEX_W * 3 *
+		// a->w.flr.text_y + a->w.flr.text_x * 3];
+		// a->w.color = *(Uint32*)(a->w.tex_col);
+		// a->w.color = (a->w.color >> 2) & 0x7F7F7F;
 		
-		a->w.sdl->pixels[a->t1 + (a->w.y * WIN_WIDTH)] = a->w.color;
-		a->w.tex_col = &((Uint8*)(a->w.sdl->surfaces[0]->pixels))[TEX_W * 3 *
-		a->w.flr.text_y + a->w.flr.text_x * 3];
-		a->w.color = *(Uint32*)(a->w.tex_col);
-		a->w.sdl->pixels[a->t1 + ((WIN_HEIGHT - a->w.y) \
-		* WIN_WIDTH)] = a->w.color;
+		// a->w.sdl->pixels[a->t1 + (a->w.y * WIN_WIDTH)] = a->w.color;
+		// a->w.tex_col = &((Uint8*)(a->w.sdl->surfaces[0]->pixels))[TEX_W * 3 *
+		// a->w.flr.text_y + a->w.flr.text_x * 3];
+		// a->w.color = *(Uint32*)(a->w.tex_col);
+		// a->w.sdl->pixels[a->t1 + ((WIN_HEIGHT - a->w.y) \
+		// * WIN_WIDTH)] = a->w.color;
 		a->w.y++;
 	}
 }

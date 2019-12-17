@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 18:54:20 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/12 19:39:01 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/17 19:00:44 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	ft_load_textures(t_wolf3d *w)
 	w->weapon_texture = ft_sdl_load_bmp("Textures/pistol.bmp");
 	
 	w->map_texture = ft_sdl_load_bmp("Textures/Grey9.bmp");
+	
+
 
 	w->sdl->surfaces[0] = ft_sdl_load_bmp("Textures/Stone1.bmp");
 	w->sdl->surfaces[1] = ft_sdl_load_bmp("Textures/WALL2.bmp");

@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/09 16:55:39 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/17 14:46:34 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,14 @@ void	ft_mouse_mv(SDL_Event *e, t_wolf3d *w)
 
 void	ft_test_mv_p(t_wolf3d *w)
 {
-	printf("\npos x==%f  y==%f   ", w->pl.pos.x, w->pl.pos.y);
-	printf("pl dir x==%f  y==%f\n", w->pl.dir.x , w->pl.dir.y);
 	w->mouse_offset += 15;//camera up
+	//ft_pl_stats(w);
+	printf("P pressed\n");
+}
+
+void	ft_test_mv_l(t_wolf3d *w)
+{
+	w->mouse_offset -= 15;//camera down
 	//ft_pl_stats(w);
 	printf("P pressed\n");
 }

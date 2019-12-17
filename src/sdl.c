@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/12 20:04:06 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/17 17:31:03 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,25 @@
 
 t_sdl		*sdl_init(t_sdl *sdl)
 {
+	
 	sdl = ft_my_malloc(sizeof(t_sdl));
 	sdl->pixels = ft_my_malloc((sizeof(Uint32) * WIN_WIDTH) * WIN_HEIGHT);
+	
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 		ft_sdl_init_error(sdl);
+		
 	if (SDL_CreateWindowAndRenderer(WIN_WIDTH, WIN_HEIGHT, \
-	SDL_RENDERER_ACCELERATED, &sdl->win, &sdl->renderer) < 0)
+	SDL_RENDERER_ACCELERATED | SDL_WINDOW_OPENGL, &sdl->win, &sdl->renderer) < 0)
 		ft_sdl_init_error(sdl);
+
 	if (!(sdl->text = SDL_CreateTexture(sdl->renderer, SDL_PIXELFORMAT_ARGB8888\
 	, SDL_TEXTUREACCESS_STREAMING, WIN_WIDTH, WIN_HEIGHT)))
 		ft_error("SDL non textures");
-	if(!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
-		SDL_Log("Unable to Init hinting: %s", SDL_GetError());
-	}
-	if(!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG))
-		ft_sdl_init_error(sdl);
+	
+	// if(!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
+	// 	SDL_Log("Unable to Init hinting: %s", SDL_GetError());
+	// }
+	sdl->surface = SDL_GetWindowSurface(sdl->win);
 	sdl->running = 1;
 	return (sdl);
 }

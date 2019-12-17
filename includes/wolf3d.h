@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 15:23:55 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/12 19:54:27 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/17 17:58:26 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ typedef struct			s_sdl
 {
 	int					running;
 	SDL_Window			*win;
+	SDL_Surface			*surface;
+	SDL_Surface			*wall_texture;
 	SDL_Renderer		*renderer;
 	Uint32				*pixels;
 	SDL_Texture			*text;
@@ -157,6 +159,7 @@ typedef struct			s_thread_help
 	t_map				map;
 	t_floor				flr;
 	t_sdl				*sdl;
+
 	void				*tex_col;
 	double				*z_buffer;
 	double				wall_hit;
@@ -326,6 +329,8 @@ void					ft_test_mv_p(t_wolf3d *w);
 int						ft_sdl_init_error(t_sdl *sdl);
 
 // void					SDL_SurfaceInfo(char * name, SDL_Surface *thing);
-void					ft_bank_of_text(char *dir, t_wolf3d *w);
-SDL_Texture					*ft_load_png(char *name, t_sdl *sdl);
+// void					ft_bank_of_text(char *dir, t_wolf3d *w);
+SDL_Texture				*ft_load_png(char *name, t_sdl *sdl);
+
+void	ft_test_mv_l(t_wolf3d *w);
 #endif
