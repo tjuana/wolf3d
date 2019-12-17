@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/12 19:37:13 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/17 21:09:56 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ int		ft_sdl_init_error(t_sdl *sdl)
 {
 	SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, \
 	"Couldn't create window and renderer: %s", SDL_GetError());
-	if (sdl->wav_buff)
-		free(sdl->wav_buff);
-	if (sdl->wav_spect)
-		free(sdl->wav_spect);	
+	// if (sdl->wav_buff)
+	// 	free(sdl->wav_buff);
+	// if (sdl->wav_spect)
+	// 	free(sdl->wav_spect);	
 	
 	// free(sdl->wav_len);
 	// free(w->sdl->audio_device);

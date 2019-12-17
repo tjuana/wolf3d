@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 15:23:55 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/17 17:58:26 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/17 20:57:30 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@
 # include "player.h"
 # include "sprites.h"
 # include <dirent.h>
-
+# include <sdl.h>
+# include <fdf.h>
 typedef struct			s_sort_util
 {
 	int					i;
@@ -62,24 +63,6 @@ typedef struct			s_write
 	int					s_count;
 }						t_write;
 
-typedef struct			s_sdl
-{
-	int					running;
-	SDL_Window			*win;
-	SDL_Surface			*surface;
-	SDL_Surface			*wall_texture;
-	SDL_Renderer		*renderer;
-	Uint32				*pixels;
-	SDL_Texture			*text;
-	SDL_Texture			*test;	//test png file
-	SDL_Surface			**surfaces;
-	SDL_AudioSpec		*wav_spect;
-	Uint32				*wav_len;
-	Uint8				**wav_buff;
-	SDL_AudioDeviceID	*audio_device;
-	unsigned char		i;
-	int					img;
-}						t_sdl;
 
 typedef struct			s_map
 {
@@ -106,18 +89,7 @@ typedef struct			s_floor
 	int					text_y;
 }						t_floor;
 
-typedef struct			s_time
-{
-	Uint32				time;
-	Uint32				old_time;
-	Uint32				frame_time;
-	Uint32				sound_old_time;
-	Uint32				sound_time;
-	Uint32				change_of_time;
-	Uint32				play_time;
-	Uint32				sound_sum_time;
-	unsigned char		flag;
-}						t_time;
+
 
 typedef struct			s_wolf3d
 {
@@ -185,48 +157,6 @@ typedef struct			s_threads
 	int					t2;
 }						t_threads;
 
-typedef struct			s_fdf_wu
-{
-	double				x1;
-	double				y1;
-	double				x2;
-	double				y2;
-	double				p;
-	double				dx;
-	double				dy;
-	double				gradient;
-	double				xend;
-	double				yend;
-	double				xgap;
-	double				xpxl1;
-	double				ypxl1;
-	double				xpxl2;
-	double				ypxl2;
-	double				intery;
-	int					steep;
-	int					steps;
-	int					step;
-	int					color1;
-	int					color2;
-	int					check_color_rev;
-	double				temp_f;
-}						t_fdf_wu;
-
-typedef struct			s_fdf_get_color
-{
-	int					color1;
-	int					color2;
-	double				f1;
-	int					r1;
-	int					g1;
-	int					b1;
-	int					r2;
-	int					g2;
-	int					b2;
-	int					r_rez;
-	int					g_rez;
-	int					b_rez;
-}						t_fdf_get_color;
 void					ft_clean_sdl(t_wolf3d *w);
 int						ft_cleanmem(t_list **lst);
 void					*ft_my_malloc(size_t s);
@@ -325,12 +255,13 @@ void 					fpsthink();
 void 					fpsinit();
 
 void					ft_test_mv_p(t_wolf3d *w);
+void					ft_test_mv_l(t_wolf3d *w);
 
 int						ft_sdl_init_error(t_sdl *sdl);
 
 // void					SDL_SurfaceInfo(char * name, SDL_Surface *thing);
 // void					ft_bank_of_text(char *dir, t_wolf3d *w);
-SDL_Texture				*ft_load_png(char *name, t_sdl *sdl);
+SDL_Surface				*ft_load_png(char *name, t_sdl *sdl);
 
-void	ft_test_mv_l(t_wolf3d *w);
+
 #endif

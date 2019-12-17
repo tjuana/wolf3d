@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 13:26:38 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/12 20:15:49 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/17 21:28:17 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void		renderer(t_wolf3d *wolf)
 	threading(wolf);
 	ft_draw_animation(wolf);
 	ft_draw_map(wolf);
+	SDL_BlitScaled(wolf->sdl->wall_surface, NULL, wolf->sdl->win_surface, &bg_flower);
 	SDL_UpdateTexture(wolf->sdl->text, 0, wolf->sdl->pixels, WIN_WIDTH * 4);
 	SDL_RenderCopy(wolf->sdl->renderer, wolf->sdl->text, NULL, NULL);
 	SDL_RenderPresent(wolf->sdl->renderer);

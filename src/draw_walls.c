@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:01:59 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/17 18:58:40 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/17 20:58:18 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,10 @@ void				ft_draw_walls(t_threads *a)
 		a->w.temp = (a->w.y << 8) - (WIN_HEIGHT << 7) + (a->w.line_height << 7);
 		a->w.text_y = (((a->w.temp * TEX_H) / a->w.line_height) >> 8);
 		
-		a->w.tex_col = &((Uint8*)(a->w.sdl->wall_texture\
-		->pixels))[TEX_H * 3 * a->w.text_y + a->w.text_x * 3];
+		// a->w.tex_col = &((Uint8*)(a->w.sdl->wall_texture\
+		// ->pixels))[TEX_H  * a->w.text_y + a->w.text_x];
 		// a->w.color = *(Uint32*)(a->w.tex_col);
+		
 		a->w.color = (0x7f9f3f);
 		if (a->w.pl.side == 1)
 			a->w.color = (a->w.color >> 1) & 0x7F7F7F;
@@ -96,4 +97,4 @@ void				ft_draw_walls(t_threads *a)
 		if (a->w.pl.side == 1)
 			a->w.color = (a->w.color >> 1) & 0x7F7F7F;
 		a->w.sdl->pixels[a->t1 + (a->w.y * WIN_WIDTH)] = a->w.color;
-		*/
+*/

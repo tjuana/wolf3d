@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/17 17:31:03 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/17 21:07:36 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_sdl		*sdl_init(t_sdl *sdl)
 	// if(!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
 	// 	SDL_Log("Unable to Init hinting: %s", SDL_GetError());
 	// }
-	sdl->surface = SDL_GetWindowSurface(sdl->win);
+	
 	sdl->running = 1;
 	return (sdl);
 }

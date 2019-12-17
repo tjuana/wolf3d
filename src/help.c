@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 14:10:50 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/17 19:15:07 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/17 21:28:24 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,33 +54,42 @@
     // closedir(dr);
 // }
 
-SDL_Texture		*ft_load_png(char *name, t_sdl *sdl)
+SDL_Surface		*ft_load_png(char *name, t_sdl *sdl)
 {
-	SDL_Surface *tmp;
-	SDL_Texture *text;
+	SDL_Surface* load = NULL;
 	
+	sdl->win_surface = SDL_GetWindowSurface(sdl->win);
 	if(!(IMG_Init(IMG_INIT_PNG)& IMG_INIT_PNG))
 		ft_sdl_init_error(sdl);
-	tmp = ft_my_malloc(sizeof(tmp));
+	SDL_Rect bg_flower;
+    bg_flower.w = WIN_WIDTH;
+    bg_flower.h = WIN_HEIGHT;
+    bg_flower.x = 0;
+    bg_flower.y = 0;
+	sdl->win_surface = SDL_GetWindowSurface(sdl->win);
+	if((load = IMG_Load(name)) == NULL)
+		ft_sdl_init_error(sdl);
+	else
+		if((sdl->wall_surface = SDL_ConvertSurface(load, sdl->win_surface->format, 0)) == NULL)
+			ft_sdl_init_error(sdl);
+	SDL_BlitScaled(sdl->wall_surface, NULL, sdl->win_surface, &bg_flower);
 	
-	tmp = IMG_Load(name);
-	int h = WIN_HEIGHT;
-	int w = WIN_WIDTH;
+	
+		
+
+	
+	// int h = WIN_HEIGHT;
+	// int w = WIN_WIDTH;
 
 	// Convert SDL surface to a texture
-	if((text = SDL_CreateTextureFromSurface(sdl->renderer, tmp)) == NULL) {
-		SDL_Log("Unable to create SDL Texture : %s : %s", name, IMG_GetError());
-		exit(-1);
-	}
+	
+	// if((sdl->test = SDL_CreateTextureFromSurface(sdl->renderer, sdl->wall_texture)) == NULL)
+	// 	ft_sdl_init_error(sdl);
 
     // Grab dimensions
-	SDL_QueryTexture(text, NULL, NULL, &w, &h); 
-
-	SDL_FreeSurface(tmp);
-	
-	sdl->test = text;
-	
-	return (0);
+	// if (SDL_QueryTexture(sdl->test, NULL, NULL, &w, &h) != 0)
+	// 	ft_sdl_init_error(sdl);
+return (sdl->wall_surface);
 }
 
 SDL_Surface		*ft_sdl_load_bmp(char *str)
@@ -156,9 +165,10 @@ void			ft_clean_sdl(t_wolf3d *w)
 	// SDL_FreeSurface(*w->sdl->surfaces);
 	SDL_FreeSurface(w->weapon_texture);
 	SDL_FreeSurface(w->map_texture);
-	SDL_FreeSurface(w->sdl->surface);
+		
 	free(w->sdl->surfaces);
 	free(w->sdl->pixels);
+	
 	if (w->map.s_count > 0)
 	{
 		free(w->map.s_ord);
@@ -167,13 +177,16 @@ void			ft_clean_sdl(t_wolf3d *w)
 	}
 	
 	free(w->map.map);
-	// free(w->sdl);
+	//free(w->sdl);
 	
 	SDL_DestroyTexture(w->sdl->text);
 	w->sdl->text = NULL;
+	
 	// SDL_DestroyTexture(w->sdl->test);
 	// w->sdl->test = NULL;
+	
 	SDL_DestroyRenderer(w->sdl->renderer);
+	
 	SDL_DestroyWindow(w->sdl->win);
 	
 	SDL_Delay(777);
