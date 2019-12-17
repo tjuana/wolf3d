@@ -2,7 +2,7 @@
 // Created by Nymphadora Shelly on 04/12/2019.
 //
 #include "prender.h"
-#include "wolf3d.h"
+//#include "wolf3d.h"
 
 void LoadData()//this function reads a new map format
 {
@@ -52,6 +52,7 @@ void UnloadData()
     NumSectors = 0;
 }
 
+
 static SDL_Surface* surface = NULL;
 /* vline: Draw a vertical line on screen, with a different color pixel in top & bottom */
 static void vline(int x, int y1,int y2, int top,int middle,int bottom)
@@ -69,7 +70,7 @@ static void vline(int x, int y1,int y2, int top,int middle,int bottom)
     }
 }
 
-static void vlines(int x, int y1,int y2, int top,int middle,int bottom, SDL_Surface *surf)
+/*static void vlines(int x, int y1,int y2, int top,int middle,int bottom, SDL_Surface *surf)
 {
     int *pix = (int*) surface->pixels;
     y1 = clamp(y1, 0, H-1);
@@ -82,7 +83,7 @@ static void vlines(int x, int y1,int y2, int top,int middle,int bottom, SDL_Surf
         for(int y=y1+1; y<y2; ++y) pix[y*W+x] = middle;
         pix[y2*W+x] = bottom;
     }
-}
+}*/
 
 /* MovePlayer(dx,dy): Moves the player by (dx,dy) in the map, and
  * also updates their anglesin/anglecos/sector properties properly.
@@ -150,8 +151,8 @@ void DrawScreen()
             {
                 float nearz = 1e-4f, farz = 5, nearside = 1e-5f, farside = 20.f;
                 // Find an intersection between the wall and the approximate edges of player's view
-                struct xy i1 = Intersect(tx1,tz1,tx2,tz2, -nearside,nearz, -farside,farz);
-                struct xy i2 = Intersect(tx1,tz1,tx2,tz2,  nearside,nearz,  farside,farz);
+                t_xy i1 = Intersect(tx1,tz1,tx2,tz2, -nearside,nearz, -farside,farz);
+                t_xy i2 = Intersect(tx1,tz1,tx2,tz2,  nearside,nearz,  farside,farz);
                 if(tz1 < nearz) { if(i1.y > 0) { tx1 = i1.x; tz1 = i1.y; } else { tx1 = i2.x; tz1 = i2.y; } }
                 if(tz2 < nearz) { if(i1.y > 0) { tx2 = i1.x; tz2 = i1.y; } else { tx2 = i2.x; tz2 = i2.y; } }
             }
@@ -170,6 +171,7 @@ void DrawScreen()
                 nyceil  = sectors[neighbor].ceil  - player.where.z;
                 nyfloor = sectors[neighbor].floor - player.where.z;
             }
+
             /* Project our ceiling & floor heights into screen coordinates (Y coordinate) */
             int y1a  = H/2 - (int)(Yaw(yceil, tz1) * yscale1),  y1b = H/2 - (int)(Yaw(yfloor, tz1) * yscale1);
             int y2a  = H/2 - (int)(Yaw(yceil, tz2) * yscale2),  y2b = H/2 - (int)(Yaw(yfloor, tz2) * yscale2);
@@ -224,7 +226,7 @@ void DrawScreen()
     } while(head != tail); // render any other queued sectors
 }
 
-int main_prender()
+int main()
 {
     int quit = 0;
     LoadData();
@@ -395,28 +397,14 @@ int main_prender()
                 }
                 int pushing = wsad[0] || wsad[1] || wsad[2] || wsad[3];
                 float acceleration = pushing ? 0.4 : 0.2;
-
                 player.velocity.x = player.velocity.x * (1 - acceleration) + move_vec[0] * acceleration;
                 player.velocity.y = player.velocity.y * (1 - acceleration) + move_vec[1] * acceleration;
-
                 if (pushing) moving = 1;
-
-                //SDL_Delay(10);
             }
             done:
             UnloadData();
-            //SDL_RenderClear( gRenderer );
-
-            //Render texture to screen
-            // SDL_RenderCopy( gRenderer, gTexture, NULL, NULL );
-
-            //Update screen
-            //SDL_RenderPresent( gRenderer );
             SDL_Quit();
             SDL_UpdateWindowSurface( window );
-
-            //Wait two seconds
-            //SDL_Delay( 2000 );
         }
 }
     return 0;

@@ -1,6 +1,6 @@
 # sdl pkg-config source file
 
-prefix=/Users/nshelly/CLionProjects/doom_nukem/dddd
+prefix=/Users/nshelly/CLionProjects/untitled2
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include

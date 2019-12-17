@@ -6,11 +6,11 @@
 #    By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 11:40:58 by tjuana            #+#    #+#              #
-#    Updated: 2019/12/04 18:10:41 by tjuana           ###   ########.fr        #
+#    Updated: 2019/12/09 20:21:49 by nshelly          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = wolf3d
+NAME = prender
 
 FLAGS = -Wall -Werror -Wextra -O -O0 -O1 -O2 -O3 -Os -std=c99 -g
 CC = gcc
@@ -20,14 +20,10 @@ INCLUDES = -I$(HEADERS_DIRECTORY) -I$(LIBFT_HEADERS) -I$(SDL_HEADERS)
 LIBFT = $(addprefix $(LIBFT_DIRECTORY),libft.a)
 LIBFT_DIRECTORY = ./libft/
 LIBFT_HEADERS = ./libft/includes
-SDL_HEADERS = include/
+SDL_HEADERS = include/SDL2/
 
 HEADERS_DIRECTORY = ./includes/
-HEADERS_LIST =	wolf3d.h \
-				player.h \
-				door.h \
-				constants.h \
-				sprites.h
+HEADERS_LIST =	prender.h
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
 DIRECTORY =  $(shell pwd)
@@ -45,31 +41,7 @@ LIB_LIST =	libSDL2.a\
 			libSDL2main.a
 
 SRCS_DIRECTORY = ./src/
-SRCS_LIST = alg_wu_color.c\
-			alg_wu_draw.c\
-			alg_wu.c\
-			animation.c\
-			draw_walls.c\
-			floor.c\
-			help.c\
-			read_map.c\
-			events.c\
-			events_exp.c\
-			events_mouse.c\
-			main.c\
-			move.c\
-			map.c\
-			map_arrow.c\
-			ray_casting.c\
-			sdl.c\
-			sdl_error.c\
-			sdl_render.c\
-			sound.c\
-			textures.c\
-			threads.c \
-			check_map.c \
-			sprites.c \
-			sprites_help.c
+SRCS_LIST = prender.c functions.c
 
 OBJS_DIRECTORY = objects/
 OBJS_LIST = $(patsubst %.c, %.o, $(SRCS_LIST))
