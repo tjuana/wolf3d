@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:01:59 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/17 20:58:18 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/18 14:34:43 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ void				ft_wall_hit(t_threads *a)
 
 void				ft_wall_draw_start(t_threads *a)
 {
-	a->w.draw_start = a->w.half_height - (a->w.line_height >> 1) + a->w.mouse_offset;
-	a->w.draw_end = (a->w.line_height >> 1) + a->w.half_height + a->w.mouse_offset;
-	// a->w.draw_start += a->w.mouse_offset;
-	// a->w.draw_end += a->w.mouse_offset;
+	a->w.draw_start = a->w.half_height - (a->w.line_height >> 1);
+	a->w.draw_end = (a->w.line_height >> 1) + a->w.half_height;
+	a->w.draw_start += a->w.mouse_offset;
+	a->w.draw_end += a->w.mouse_offset;
 	a->w.draw_start < 0 ? a->w.draw_start = 0 : 0;
 	a->w.draw_end >= WIN_HEIGHT ? a->w.draw_end = WIN_HEIGHT - 1 : 0;
 	a->w.texture_num =\
@@ -77,13 +77,13 @@ void				ft_draw_walls(t_threads *a)
 		a->w.temp = (a->w.y << 8) - (WIN_HEIGHT << 7) + (a->w.line_height << 7);
 		a->w.text_y = (((a->w.temp * TEX_H) / a->w.line_height) >> 8);
 		
-		// a->w.tex_col = &((Uint8*)(a->w.sdl->wall_texture\
-		// ->pixels))[TEX_H  * a->w.text_y + a->w.text_x];
-		// a->w.color = *(Uint32*)(a->w.tex_col);
+		a->w.tex_col = &((Uint32*)(a->w.sdl->wall_surface\
+		->pixels))[(a->w.text_y << 6) + a->w.text_x];
+		a->w.color = *(Uint32*)(a->w.tex_col);
 		
-		a->w.color = (0x7f9f3f);
-		if (a->w.pl.side == 1)
-			a->w.color = (a->w.color >> 1) & 0x7F7F7F;
+		// a->w.color = (0x7f9f3f);
+		// if (a->w.pl.side == 1)
+		// 	a->w.color = (a->w.color >> 1) & 0x7F7F7F;
 		a->w.sdl->pixels[a->t1 + (a->w.y * WIN_WIDTH)] = a->w.color;
 		a->w.y++;
 	}

@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 14:10:50 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/17 21:28:24 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/18 14:16:24 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,7 @@ SDL_Surface		*ft_load_png(char *name, t_sdl *sdl)
 	if((load = IMG_Load(name)) == NULL)
 		ft_sdl_init_error(sdl);
 	else
-		if((sdl->wall_surface = SDL_ConvertSurface(load, sdl->win_surface->format, 0)) == NULL)
-			ft_sdl_init_error(sdl);
-	SDL_BlitScaled(sdl->wall_surface, NULL, sdl->win_surface, &bg_flower);
-	
-	
+		sdl->wall_surface = load;	
 		
 
 	
