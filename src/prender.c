@@ -93,7 +93,8 @@ static void vline(int x, int y1,int y2, int top,int middle,int bottom)
     else if(y2 > y1)
     {
         pix[y1*W+x] = top;
-        for(int y=y1+1; y<y2; ++y) pix[y*W+x] = middle;
+        for(int y=y1+1; y<y2; ++y)
+            pix[y*W+x] = middle;
         pix[y2*W+x] = bottom;
     }
 }
@@ -280,9 +281,9 @@ void DrawScreen(t_player *player)
                 yb = (x - x1) * (y2b-y1b) / (x2-x1) + y1b;
                 cyb = clamp(yb, ytop[x],ybottom[x]); // bottom
                 /* Render ceiling: everything above this sector's ceiling height. */
-                vline(x, ytop[x], cya-1, 0x111111 ,0x222222,0x111111);
+                vline(x, ytop[x], cya-1, 0xffffff ,0x222222,0xff0000);//ceiling colors
                 /* Render floor: everything below this sector's floor height. */
-                vline(x, cyb+1, ybottom[x], 0x0000FF,0x0000AA,0x0000FF);
+                vline(x, cyb+1, ybottom[x], 0x00ff00,0x0000AA,0x0000FF);//floor colors
                 /* Is there another sector behind this edge? */
                 if(neighbor >= 0)
                 {
@@ -292,7 +293,7 @@ void DrawScreen(t_player *player)
                     nyb = (x - x1) * (ny2b-ny1b) / (x2-x1) + ny1b;
                     cnyb = clamp(nyb, ytop[x],ybottom[x]);
                     /* If our ceiling is higher than their ceiling, render upper wall */
-                    unsigned r1 = 0x010101 * (255-z), r2 = 0x040007 * (31-z/8);
+                    unsigned r1 = 0xff0000 * (255-z), r2 = 0x00ff00 * (31-z/8);//wall colors
                     vline(x, cya, cnya-1, 0, x==x1||x==x2 ? 0 : r1, 0); // Between our and their ceiling
                     ytop[x] = clamp(max(cya, cnya), ytop[x], H-1);   // Shrink the remaining window below these ceilings
                     /* If our floor is lower than their floor, render bottom wall */
@@ -302,7 +303,7 @@ void DrawScreen(t_player *player)
                 else
                 {
                     /* There's no neighbor. Render wall from top (cya = ceiling level) to bottom (cyb = floor level). */
-                    unsigned r = 0x010101 * (255-z);
+                    unsigned r = 0x0000ff * (255-z);
                     vline(x, cya, cyb, 0, x==x1||x==x2 ? 0 : r, 0);
                 }
             }
@@ -316,7 +317,6 @@ void DrawScreen(t_player *player)
         ++renderedsectors[now.sectorno];
     } while(head != tail); // render any other queued sectors
 }
-
 
 int main(int ac, char **ag)
 {

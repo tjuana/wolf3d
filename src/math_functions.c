@@ -18,7 +18,7 @@ double max(double a, double b)
     return  (((a) > (b)) ? (a) : (b));
 }
 /*
- * clamp: fijar los valores d eun rango establecido
+ * clamp: fijar los valores  eun rango establecido
  */
 float clamp(double a, double mi, double ma)
 {

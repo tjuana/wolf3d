@@ -1,15 +1,15 @@
-vertex	0	0   6    28
-vertex	2	1   17.5
+vertex	0	0   6    50
+vertex	2	1   30 #large first floor
 vertex	5	4   6   18  21
-vertex	6.5	9   11  13  13.5 17.5
+vertex	6.5	9   11  13  13.5 30
 vertex	7	5   7   8   9 11 13  13.5  15  17  19  21
 vertex	7.5	4 6
 vertex	10.5	4 6
 vertex	11	5 7 8 9 11 13 13.5 15 17 19 21
-vertex	11.5	9 11 13 13.5 17.5
+vertex	11.5	9 11 13 13.5 30
 vertex	13	4 6 18 21
-vertex	16	1 17.5
-vertex	18	0 6 28
+vertex	16	1 30
+vertex	18	0 6 50
 
 sector	0 30	 3 14 29 49             -1 1 11 22
 sector	0 30	 17 15 14 3 9           -1 12 11 0 21
