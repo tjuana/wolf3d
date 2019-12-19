@@ -6,13 +6,13 @@
 #    By: drafe <drafe@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 11:40:58 by tjuana            #+#    #+#              #
-#    Updated: 2019/12/09 21:15:09 by drafe            ###   ########.fr        #
+#    Updated: 2019/12/18 19:33:55 by drafe            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = wolf3d
 
-FLAGS = -Wall -Werror -Wextra -O -O0 -O1 -O2 -O3 -Os -std=c99
+FLAGS = -Wall -Werror -Wextra -O -O0 -O1 -O2 -O3 -Os -std=c99 -g
 
 CC = gcc
 
@@ -34,6 +34,7 @@ HEADERS_LIST = bmp_parser.h\
 	constants.h\
 	door.h\
 	player.h\
+	sprites.h\
 	wolf3d.h
 
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
@@ -53,6 +54,7 @@ SRCS_LIST = alg_wu_color.c\
 			fpc.c\
 			floor.c\
 			help.c\
+			enemies_ai.c\
 			enemies.c\
 			events.c\
 			events_exp.c\

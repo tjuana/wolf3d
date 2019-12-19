@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 17:45:53 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/10 20:16:59 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/18 18:37:44 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 typedef struct			s_sprite
 {
-	double				x;
-	double				y;
+	t_coord				crd;
 	double				distance;
+	t_coord				dir;
 	int					texture;
 }						t_sprite;
 

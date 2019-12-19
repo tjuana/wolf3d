@@ -172,6 +172,7 @@ typedef struct	s_thread_help
 
 typedef struct	s_threads
 {
+	t_wolf3d		w1;
 	t_threads_help	w;
 	int				t1;
 	int				t2;
@@ -327,11 +328,10 @@ double					ft_fdf_round(double x);
 double					ft_fdf_fpart(double x);
 int						ft_fdf_get_color(int color1, int color2, double f1);
 
-void					ft_enemy_left(t_wolf3d *w);
-void					ft_enemy_right(t_wolf3d *w);
-void					ft_enemy_forward(t_wolf3d *w);
-void					ft_enemy_back(t_wolf3d *w);
+int						ft_enemy_go(t_wolf3d *w, char dir);
+void					ft_enemy_cycle(t_wolf3d *w);
 void					ft_enemy(t_wolf3d *w);
+void					ft_enemy_detect_pl(t_wolf3d *w);
 
 void					ft_sort(t_wolf3d *w);
 

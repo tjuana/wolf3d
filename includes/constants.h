@@ -1,7 +1,7 @@
 #ifndef CONSTANTS_H
 # define CONSTANTS_H
-# define WIN_HEIGHT 1080
-# define WIN_WIDTH 1920
+# define WIN_HEIGHT 800
+# define WIN_WIDTH 1420
 # define TEXTURES_NUMBER 23
 # define THREADS 10
 # define TEX_W 64
@@ -12,7 +12,7 @@
 # define MAX_DOORS_NBR 20
 # define MAX_AMMO 280
 # define MAX_LIFE 200
-# define MOB_SPD 0.05
+# define MOB_SPD 0.000005
 
 # define C_R 0x00FF0000
 # define C_G 0x0000FF00

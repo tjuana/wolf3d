@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 13:27:18 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/11 16:01:57 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/18 21:23:59 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void		threading(t_wolf3d *w)
 	{
 		args[x[0]].t1 = x[1];
 		args[x[0]].t2 = x[1] + ((WIN_WIDTH / THREADS));
+		args[x[0]].w1 = *w;
 		ft_init_multi_wolf(&args[x[0]].w, w);
 		pthread_create(&threads[x[0]], NULL, begin_game, (void*)&args[x[0]]) \
 		!= 0 ? ft_error("threads create error") : 0;
@@ -50,12 +51,14 @@ void		*begin_game(void *w)
 	p = (t_threads *)w;
 	while (p->t1 < p->t2)
 	{
+		
 		ft_ray_dir_calculations(p);
 		ft_wall_hit(p);
 		ft_wall_draw_start(p);
 		ft_draw_walls(p);
 		ft_get_floor_coordinates(p);
 		ft_draw_floor(p);
+		//ft_enemy_cycle(&p->w1);
 		p->t1++;
 	}
 	return (NULL);
