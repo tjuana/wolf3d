@@ -60,9 +60,9 @@ t_xy Intersect(double x1, double y1, double x2, double y2,double x3, double y3, 
     return (xy);
 }
 
-//double Yaw(double y, double z)//problems with function
-//{
-//    return (y + z * player.yaw);
-//}
+double Yaw(double y, double z, t_player *player)
+{
+    return(y + z*player->yaw);
+}
 
 
