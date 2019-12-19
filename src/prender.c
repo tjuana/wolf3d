@@ -189,7 +189,9 @@ void DrawScreen(t_player *player)
 
     enum { MaxQueue = 32 };  // maximum number of pending portal renders
     struct item { int sectorno,sx1,sx2; } queue[MaxQueue], *head=queue, *tail=queue;
-    int ytop[W]={0}, ybottom[W], renderedsectors[NumSectors];
+    int ytop[W]={0};
+    int ybottom[W];
+    int renderedsectors[NumSectors];
     for(unsigned x=0; x<W; ++x) ybottom[x] = H-1;
     for(unsigned n=0; n<NumSectors; ++n) renderedsectors[n] = 0;
 
@@ -315,101 +317,6 @@ void DrawScreen(t_player *player)
     } while(head != tail); // render any other queued sectors
 }
 
-int sub_events(t_subevents *se, t_player *player)
-{
-    if (se->ev.key.keysym.sym == 'w')
-        se->wsad[0] = se->ev.type == SDL_KEYDOWN;
-    if (se->ev.key.keysym.sym == 's')
-        se->wsad[1] = se->ev.type == SDL_KEYDOWN;
-    if (se->ev.key.keysym.sym == 'a')
-        se->wsad[2] = se->ev.type == SDL_KEYDOWN;
-    if (se->ev.key.keysym.sym == 'd')
-        se->wsad[3] = se->ev.type == SDL_KEYDOWN;
-    if (se->ev.key.keysym.sym == 'q')
-    {
-        UnloadData(player);
-        SDL_Quit();
-        return (0);
-    }
-    if (se->ev.key.keysym.sym == ' ')
-        if (se->ground)
-        {
-            player->velocity.z += 0.5;
-            se->falling = 1;
-        }
-    if (se->ev.key.keysym.sym == SDLK_LCTRL)
-    {
-        se->ducking = se->ev.type == SDL_KEYDOWN;
-        se->falling = 1;
-    }
-    return(1);
-}
-
-int events(t_subevents *se, t_player *player)//inside of this function is sub_events function, we add t_player because is neede by sub_events for jump
-{
-    while (SDL_PollEvent(&se->ev))
-    {
-        if (se->ev.type == SDL_QUIT)
-            se->quit = 1;
-        if (se->ev.type)
-        {
-            if(se->ev.type == SDL_KEYDOWN || se->ev.type == SDL_KEYUP)//esto solo sucede al presionar y al soltar
-            {
-                if (se->ev.key.keysym.sym)
-                    if(!sub_events(se, player))//KEYS//here we dont have to put * because we already are giving a pointer
-                        return(0);
-                if(se->ev.type == SDL_QUIT)
-                {
-                    UnloadData(player);
-                    SDL_Quit();
-                    return (0);
-                }
-            }
-        }
-    }
-    return(1);
-}
-
-void mouse_movement(t_mouse *ms, t_player *player)
-{
-    SDL_GetRelativeMouseState(&ms->x, &ms->y);
-    player->angle += ms->x * 0.03f;//mouse left-right
-    ms->yaw = clamp(ms->yaw - ms->y * 0.05f, -5, 5);//mouse up-down
-    player->yaw = ms->yaw - player->velocity.z * 0.5f;
-}
-
-void vectors_vel_dir(t_player *player, t_subevents *se, t_others *ot)
-{
-
-    ot->move_vec[0] = 0.f;//direction in x
-    ot->move_vec[1] = 0.f;//direction in y
-    if (se->wsad[0])
-    {
-        ot->move_vec[0] += player->anglecos * 0.2f;
-        ot->move_vec[1] += player->anglesin * 0.2f;
-    }
-    if (se->wsad[1])
-    {
-        ot->move_vec[0] -= player->anglecos * 0.2f;
-        ot->move_vec[1] -= player->anglesin * 0.2f;
-    }
-    if (se->wsad[2])
-    {
-        ot->move_vec[0] += player->anglesin * 0.2f;
-        ot->move_vec[1] -= player->anglecos * 0.2f;
-    }
-    if (se->wsad[3])
-    {
-        ot->move_vec[0] -= player->anglesin * 0.2f;
-        ot->move_vec[1] += player->anglecos * 0.2f;
-    }
-    int pushing = se->wsad[0] || se->wsad[1] || se->wsad[2] || se->wsad[3];
-    float acceleration = pushing ? 0.4 : 0.2;
-    player->velocity.x = player->velocity.x * (1 - acceleration) + ot->move_vec[0] * acceleration;
-    player->velocity.y = player->velocity.y * (1 - acceleration) + ot->move_vec[1] * acceleration;
-    if (pushing)
-        ot->moving = 1;
-}
 
 int main(int ac, char **ag)
 {
@@ -417,6 +324,7 @@ int main(int ac, char **ag)
     t_mouse ms;
     t_player player;
     t_others ot;
+    t_sector_ops op;
 
     if (ac < 2 || ac > 2)
     {
@@ -424,7 +332,7 @@ int main(int ac, char **ag)
         return (0);
     }
     se.quit = 0;
-    LoadData(ag[1], &player);
+    LoadData(ag[1], &player);//load map and init typedef t_player data
     SDL_Window* window = NULL;
     if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
     {
@@ -437,7 +345,8 @@ int main(int ac, char **ag)
         {
             printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
         }
-        else {
+        else
+            {
             surface = SDL_GetWindowSurface(window);
             SDL_UpdateWindowSurface( window );
             SDL_ShowCursor(SDL_DISABLE);//NOT SHOW MOUSE CURSOR
@@ -454,65 +363,11 @@ int main(int ac, char **ag)
             {
                 DrawScreen(&player);
                 SDL_UpdateWindowSurface( window );
-
                 /* Vertical collision detection */
-                float eyeheight = se.ducking ? DuckHeight : EyeHeight;
+                op.eyeheight = se.ducking ? DuckHeight : EyeHeight;
                 se.ground = !se.falling;
-                if (se.falling)
-                {
-                    player.velocity.z -= 0.05f; /* Add gravity */
-                    float nextz = player.where.z + player.velocity.z;
-                    if (player.velocity.z < 0 && nextz < player.sectors[player.sector].floor + eyeheight) // When going down
-                    {
-                        /* Fix to ground */
-                        player.where.z = player.sectors[player.sector].floor + eyeheight;
-                        player.velocity.z = 0;
-                        se.falling = 0;
-                        se.ground = 1;
-                    } else if (player.velocity.z > 0 && nextz > player.sectors[player.sector].ceil) // When going up
-                    {
-                        /* Prevent jumping above ceiling */
-                        player.velocity.z = 0;
-                        se.falling = 1;
-                    }
-                    if (se.falling) {
-                        player.where.z += player.velocity.z;
-                        ot.moving = 1;
-                    }
-                }
-                /* Horizontal collision detection */
-                if (ot.moving)
-                {
-                    float px = player.where.x, py = player.where.y;
-                    float dx = player.velocity.x, dy = player.velocity.y;
-
-                    const t_sector *const sect = &player.sectors[player.sector];
-                    const t_xy *const vert = sect->vertex;
-                    /* Check if the player is about to cross one of the sector's edges */
-                    for (unsigned s = 0; s < sect->npoints; ++s)
-                        if (IntersectBox(px, py, px + dx, py + dy, vert[s + 0].x, vert[s + 0].y, vert[s + 1].x,
-                                         vert[s + 1].y)
-                            && PointSide(px + dx, py + dy, vert[s + 0].x, vert[s + 0].y, vert[s + 1].x, vert[s + 1].y) <
-                               0) {
-                            /* Check where the hole is. */
-                            float hole_low =
-                                    sect->neighbors[s] < 0 ? 9e9 : max(sect->floor, player.sectors[sect->neighbors[s]].floor);
-                            float hole_high =
-                                    sect->neighbors[s] < 0 ? -9e9 : min(sect->ceil, player.sectors[sect->neighbors[s]].ceil);
-                            /* Check whether we're bumping into a wall. */
-                            if (hole_high < player.where.z + HeadMargin
-                                || hole_low > player.where.z - eyeheight + KneeHeight) {
-                                /* Bumps into a wall! Slide along the wall. */
-                                /* This formula is from Wikipedia article "vector projection". */
-                                float xd = vert[s + 1].x - vert[s + 0].x, yd = vert[s + 1].y - vert[s + 0].y;
-                                dx = xd * (dx * xd + yd * dy) / (xd * xd + yd * yd);
-                                dy = yd * (dx * xd + yd * dy) / (xd * xd + yd * yd);
-                                ot.moving = 0;
-                            }
-                        }
-                    MovePlayer(dx, dy, &player);//MOVES WASD, mouse aiming dont depend of this
-                    se.falling = 1;
-                }
+                jumps(&se, &player, &op, &ot);
+                sectors_ops(&op, &player, &ot, &se);
                 if (!events(&se, &player))
                     return(0);
                 mouse_movement(&ms, &player);/* mouse aiming */

@@ -2,15 +2,12 @@
 // Created by Nymphadora Shelly on 04/12/2019.
 //
 
-#ifndef DOOM_W_PRENDER_H
-#define DOOM_W_PRENDER_H
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <SDL.h>
-
+#ifndef DOOM_W_PRENDER_H
+#define DOOM_W_PRENDER_H
 /* Define window size */
 #define W 800
 #define H 600
@@ -21,18 +18,6 @@
 #define KneeHeight 2    // How tall obstacles the player can simply walk over without jumping
 #define hfov (0.73f*H)  // Affects the horizontal field of vision
 #define vfov (.2f*H)    // Affects the vertical field of vision
-//#define Yaw(y,z) (y + z*player.yaw)
-
-
-
-/* Sectors: Floor and ceiling height; list of edge vertices and neighbors */
-/*static struct sector//have to be static
-{
-    float floor, ceil;
-    struct xy { float x,y; } *vertex; // Each vertex has an x and y coordinate
-    signed char *neighbors;           // Each edge may have a corresponding neighboring sector
-    unsigned npoints;                 // How many vertexes there are
-} *sectors = NULL;*/
 
 typedef struct s_xy
 {
@@ -58,8 +43,6 @@ typedef struct s_xyz
     float y;
     float z;
 } t_xyz;
-
-
 
 typedef struct s_player
 {
@@ -91,19 +74,21 @@ typedef struct s_mouse
     float yaw;
 
 }   t_mouse;
-typedef struct s_coords
+
+typedef struct s_sector_ops
 {
-    double x0;
-    double y0;
-    double x1;
-    double y1;
-    double x2;
-    double y2;
-    double x3;
-    double y3;
-    double x4;
-    double y4;
-} t_coords;
+    float px;
+    float dx;
+    float py;
+    float dy;
+    const t_sector *sect;
+    const t_xy *vert;
+    float eyeheight;
+    float hole_low;
+    float hole_high;
+    float xd;
+    float yd;
+}   t_sector_ops;
 
 typedef struct s_others
 {
@@ -118,14 +103,16 @@ int Overlap(double a0, double a1, double b0, double b1);
 int IntersectBox(double x0, double y0, double x1, double y1,double x2, double y2, double x3, double y3);
 double PointSide(double px, double py, double x0, double y0,double x1, double y1);
 t_xy Intersect(double x1, double y1, double x2, double y2,double x3, double y3, double x4, double y4);
-//double Yaw(double y, double z);
-void LoadData();
 void UnloadData();
 void MovePlayer(float dx, float dy, t_player *player);
-void DrawScreen();
 double Yaw(double y, double z, t_player *player);
-//static void vlines(int x, int y1,int y2, int top,int middle,int bottom, SDL_Surface *surf);
-
+/*functions_main*/
+int sub_events(t_subevents *se, t_player *player);
+int events(t_subevents *se, t_player *player);
+void mouse_movement(t_mouse *ms, t_player *player);
+void vectors_vel_dir(t_player *player, t_subevents *se, t_others *ot);
+void sectors_ops(t_sector_ops *op, t_player *player, t_others *ot, t_subevents *se);
+void jumps(t_subevents *se, t_player *player, t_sector_ops *op, t_others *ot);
 
 #endif //DOOM_W_PRENDER_H
 
