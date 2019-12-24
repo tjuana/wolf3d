@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 14:10:50 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/18 14:16:24 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/18 18:11:47 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,36 +56,18 @@
 
 SDL_Surface		*ft_load_png(char *name, t_sdl *sdl)
 {
-	SDL_Surface* load = NULL;
+	SDL_Surface *load = NULL;
 	
 	sdl->win_surface = SDL_GetWindowSurface(sdl->win);
 	if(!(IMG_Init(IMG_INIT_PNG)& IMG_INIT_PNG))
 		ft_sdl_init_error(sdl);
-	SDL_Rect bg_flower;
-    bg_flower.w = WIN_WIDTH;
-    bg_flower.h = WIN_HEIGHT;
-    bg_flower.x = 0;
-    bg_flower.y = 0;
-	sdl->win_surface = SDL_GetWindowSurface(sdl->win);
 	if((load = IMG_Load(name)) == NULL)
 		ft_sdl_init_error(sdl);
-	else
-		sdl->wall_surface = load;	
-		
-
-	
-	// int h = WIN_HEIGHT;
-	// int w = WIN_WIDTH;
-
-	// Convert SDL surface to a texture
-	
-	// if((sdl->test = SDL_CreateTextureFromSurface(sdl->renderer, sdl->wall_texture)) == NULL)
-	// 	ft_sdl_init_error(sdl);
-
-    // Grab dimensions
-	// if (SDL_QueryTexture(sdl->test, NULL, NULL, &w, &h) != 0)
-	// 	ft_sdl_init_error(sdl);
-return (sdl->wall_surface);
+	// else
+	// 	sdl->wall_surface = load;
+	//  SDL_SetSurfaceAlphaMod(sdl->win_surface, (Uint8)3350);
+	// SDL_FreeSurface(load);
+return (load);
 }
 
 SDL_Surface		*ft_sdl_load_bmp(char *str)
@@ -160,7 +142,7 @@ void			ft_clean_sdl(t_wolf3d *w)
 	
 	// SDL_FreeSurface(*w->sdl->surfaces);
 	SDL_FreeSurface(w->weapon_texture);
-	SDL_FreeSurface(w->map_texture);
+	// SDL_FreeSurface(w->map_texture);
 		
 	free(w->sdl->surfaces);
 	free(w->sdl->pixels);

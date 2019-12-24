@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:01:59 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/18 14:34:43 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/18 19:45:25 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,12 @@ void				ft_draw_walls(t_threads *a)
 		a->w.tex_col = &((Uint32*)(a->w.sdl->wall_surface\
 		->pixels))[(a->w.text_y << 6) + a->w.text_x];
 		a->w.color = *(Uint32*)(a->w.tex_col);
-		
+	
 		// a->w.color = (0x7f9f3f);
-		// if (a->w.pl.side == 1)
-		// 	a->w.color = (a->w.color >> 1) & 0x7F7F7F;
+
+
 		a->w.sdl->pixels[a->t1 + (a->w.y * WIN_WIDTH)] = a->w.color;
+
 		a->w.y++;
 	}
 	a->w.z_buffer[a->t1] = a->w.pl.wall_dist;

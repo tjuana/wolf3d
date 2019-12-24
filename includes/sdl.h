@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 19:43:48 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/18 14:13:28 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/18 18:42:29 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct			s_sdl
 	SDL_AudioDeviceID	*audio_device;
 	unsigned char		i;
 	int					img;
+	t_texture			*p;
 }						t_sdl;
 
 typedef struct			s_time
@@ -43,3 +44,11 @@ typedef struct			s_time
 	Uint32				sound_sum_time;
 	unsigned char		flag;
 }						t_time;
+
+typedef struct	s_texture
+{
+	
+	SDL_Surface *texture;
+	t_texture	*next;
+	
+}				t_texture;

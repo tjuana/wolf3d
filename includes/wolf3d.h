@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 15:23:55 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/17 20:57:30 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/24 16:37:47 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@
 # include "player.h"
 # include "sprites.h"
 # include <dirent.h>
-# include <sdl.h>
-# include <fdf.h>
+# include "sdl.h"
+# include "fdf.h"
+# include "algebra.h"
 typedef struct			s_sort_util
 {
 	int					i;

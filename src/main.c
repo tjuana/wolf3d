@@ -6,12 +6,11 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:33:34 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/18 14:15:20 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/18 18:54:55 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
-
 
 int	main(int c, char **v)
 {
@@ -23,15 +22,12 @@ int	main(int c, char **v)
 		ft_error("Error: bad file");
 	read_file(w.fd, &w.map);
 	w.sdl = sdl_init(w.sdl);
-	
 	ft_init_wolf(&w);
-	
 	ft_load_png("/Textures/MFLR8_1.png", w.sdl);
-	
 	ft_load_textures(&w);
-	
-	// ft_bank_of_text("./Textures/", &w);
-	
+
+	//ft_bank_of_text("./Textures/", &w);
+
 	ft_init_anim(&w);
 	ft_init_view_map(&w);
 	ft_init_sound(&w);
@@ -45,11 +41,10 @@ int	main(int c, char **v)
 		
 		//fpsthink();
 	}
-	
+
 	ft_clean_sdl(&w);
-	
+
 	close(w.fd);
-	
+
 	return (0);
 }
-

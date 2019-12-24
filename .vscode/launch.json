@@ -5,12 +5,13 @@
 	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
 	"version": "0.2.0",
 	"configurations": [
+
 		{
 			"name": "gcc build and debug active file",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceRoot}/wolf3d",
-			"args": ["${workspaceRoot}/maps/empty.wolf3d"],
+			"program": "${workspaceRoot}/a.out",
+			// "args": ["${workspaceRoot}/maps/empty.wolf3d"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],

@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/17 14:46:34 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/18 15:48:05 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	ft_mouse_mv(SDL_Event *e, t_wolf3d *w)
 void	ft_test_mv_p(t_wolf3d *w)
 {
 	w->mouse_offset += 15;//camera up
-	//ft_pl_stats(w);
+	renderer(w);
+		//ft_pl_stats(w);
 	printf("P pressed\n");
 }
 
