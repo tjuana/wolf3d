@@ -6,7 +6,7 @@
 #    By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 11:40:58 by tjuana            #+#    #+#              #
-#    Updated: 2019/12/12 19:19:39 by tjuana           ###   ########.fr        #
+#    Updated: 2019/12/25 16:46:09 by tjuana           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,9 @@ SRCS_LIST = alg_wu_color.c\
 			check_map.c \
 			sprites.c \
 			sprites_help.c \
-			fps.c
+			fps.c \
+			vectors_1 \
+			vectors_2
 
 OBJS_DIRECTORY = objects/
 OBJS_LIST = $(patsubst %.c, %.o, $(SRCS_LIST))
