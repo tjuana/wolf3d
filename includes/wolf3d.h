@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 15:23:55 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/24 16:37:47 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/25 16:45:05 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,5 +264,18 @@ int						ft_sdl_init_error(t_sdl *sdl);
 // void					ft_bank_of_text(char *dir, t_wolf3d *w);
 SDL_Surface				*ft_load_png(char *name, t_sdl *sdl);
 
+//vectors 3))
 
+t_vector3				ft_vec3_create(t_vector3 *orig, t_vector3 *dest);
+double					ft_vec3_magnitude(t_vector3 this);
+t_vector3				ft_vec3_add(t_vector3 this, t_vector3 rhs);
+t_vector3				ft_vec3_sub(t_vector3 this, t_vector3 rhs);
+t_vector3				ft_vec3_cross_product(t_vector3 this, t_vector3 rhs);
+double					ft_vec3_dot_product(t_vector3 this, t_vector3 rhs);
+double					ft_vec3_cosinus(t_vector3 this, t_vector3 rhs);
+t_vector3				ft_vec3_opposite(t_vector3 this);
+t_vector3				ft_vec3_scalar_product(t_vector3 this, double k);
+t_vector3				ft_vec3_normalize(t_vector3 vtc);
+
+// 
 #endif
