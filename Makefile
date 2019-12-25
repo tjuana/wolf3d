@@ -6,7 +6,7 @@
 #    By: drafe <drafe@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 11:40:58 by tjuana            #+#    #+#              #
-#    Updated: 2019/12/18 19:33:55 by drafe            ###   ########.fr        #
+#    Updated: 2019/12/25 17:29:34 by drafe            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ LIBFT_HEADERS = ./libft/includes
 
 HEADERS_DIRECTORY = ./includes/
 
-HEADERS_LIST = bmp_parser.h\
+HEADERS_LIST = algebra.h\
+	bmp_parser.h\
 	constants.h\
 	door.h\
 	player.h\
@@ -74,7 +75,8 @@ SRCS_LIST = alg_wu_color.c\
 			sprites.c\
 			sprites_help.c\
 			textures.c\
-			threads.c
+			threads.c\
+			vectors_1.c
 
 OBJS_DIRECTORY = objects/
 

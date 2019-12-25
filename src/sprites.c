@@ -12,9 +12,9 @@ void	ft_draw_sprites(t_wolf3d *w)
 	while (++i < w->map.s_count)
 	{
 		w->map.s_ord[i] = i;
-		w->map.s_dst[i] = ((w->pl.pos.x - w->map.sprite[i]->crd.x) *
-		(w->pl.pos.x - w->map.sprite[i]->crd.x) + (w->pl.pos.y -
-		w->map.sprite[i]->crd.y) * (w->pl.pos.y - w->map.sprite[i]->crd.y));
+		w->map.s_dst[i] = ((w->pl.pos.x - w->map.sprite[i]->pos.x) *
+		(w->pl.pos.x - w->map.sprite[i]->pos.x) + (w->pl.pos.y -
+		w->map.sprite[i]->pos.y) * (w->pl.pos.y - w->map.sprite[i]->pos.y));
 
 	}
 
@@ -36,8 +36,8 @@ void	ft_draw_sprites(t_wolf3d *w)
 
 void	ft_calculate_sprites(t_wolf3d *w)
 {
-	w->spr.pos.x = w->map.sprite[w->map.s_ord[w->i]]->crd.x - w->pl.pos.x;
-	w->spr.pos.y = w->map.sprite[w->map.s_ord[w->i]]->crd.y - w->pl.pos.y;
+	w->spr.pos.x = w->map.sprite[w->map.s_ord[w->i]]->pos.x - w->pl.pos.x;
+	w->spr.pos.y = w->map.sprite[w->map.s_ord[w->i]]->pos.y - w->pl.pos.y;
 	
 	// printf("%f\n x:\n", w->map.sprite[w->map.s_ord[w->i]]->x);
 

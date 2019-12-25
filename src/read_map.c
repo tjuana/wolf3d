@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 15:17:47 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/18 19:24:00 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/24 16:23:19 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,8 @@ void		write_sprites(t_map *m)
 			&& m->map[y * m->m_wid + x] <= 23)
 			{
 				m->sprite[spr_num] = ft_my_malloc(sizeof(t_sprite) * 1);
-				m->sprite[spr_num]->crd.x = x == m->m_wid ? x - 0.5 : x + 0.5;
-				m->sprite[spr_num]->crd.y = y == m->m_hei ? y - 0.5 : y + 0.5;
+				m->sprite[spr_num]->pos.x = x == m->m_wid ? x - 0.5 : x + 0.5;
+				m->sprite[spr_num]->pos.y = y == m->m_hei ? y - 0.5 : y + 0.5;
 				m->sprite[spr_num]->texture = m->map[y * m->m_wid + x];
 				spr_num++;
 			}

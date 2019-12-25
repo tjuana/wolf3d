@@ -8,7 +8,8 @@
 		"sdl_ttf.h": "c",
 		"constants.h": "c",
 		"sdl_thread.h": "c",
-		"algorithm": "c"
+		"algorithm": "c",
+		"algebra.h": "c"
 	},
 	"debug.allowBreakpointsEverywhere": true
 }

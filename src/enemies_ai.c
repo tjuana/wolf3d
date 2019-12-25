@@ -6,73 +6,42 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/18 21:22:26 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/25 20:28:54 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-static void	ft_enemy_set_dir(t_wolf3d *w, char dir, int res)
-{
-	if (dir == 'L')
-	{
-		w->map.sprite[0]->crd.x -= MOB_SPD;
-		w->map.sprite[0]->dir.x = -1;
-		w->map.sprite[0]->dir.y = 1;
-		res = 2;
-	}
-	else if (dir == 'R')
-	{
-		w->map.sprite[0]->crd.x += MOB_SPD;
-		w->map.sprite[0]->dir.x = 1;
-		w->map.sprite[0]->dir.y = -1;
-		res = 3;
-	}
-	else if (dir == 'F')
-	{
-		w->map.sprite[0]->crd.y += MOB_SPD;
-		w->map.sprite[0]->dir.x = 1;
-		w->map.sprite[0]->dir.y = 1;
-		res = 4;
-	}
-	else if (dir == 'B')
-	{
-		w->map.sprite[0]->crd.y -= MOB_SPD;
-		w->map.sprite[0]->dir.x = -1;
-		w->map.sprite[0]->dir.y = -1;
-		res = 5;
-	}
-}
-
 /*
 ** **************************************************************************
-**	void ft_enemy_go(t_wolf3d *w, char dir)
-**	Function to move enemy left, right, forward, back
+**	void ft_enemy_chase(t_wolf3d *w, int s_nbr)
+**	Function helps enemy go to player pos
 ** **************************************************************************
 */
 
-int		ft_enemy_go(t_wolf3d *w, char dir)
+static void	ft_enemy_chase(t_wolf3d *w, int s_nbr)
 {
-	int	res;
-	int	pos;
+	double	pos_add;
+	double	pos_sub;
+	int		res;
 
+	pos_add = 0;
+	pos_sub = 0;
 	res = 0;
-	pos = 0;
-	dir == 'L' ? pos = (int)(w->map.m_wid * (int)w->map.sprite[0]->crd.y) \
-		+ (w->map.sprite[0]->crd.x - MOB_SPD - 0.5) : 0;
-	dir == 'R' ? pos = (int)(w->map.m_wid * (int)w->map.sprite[0]->crd.y) \
-		+ (w->map.sprite[0]->crd.x + MOB_SPD + 0.5) : 0;
-	dir == 'F' ? pos = (int)((int)(w->map.sprite[0]->crd.y + MOB_SPD + 0.5) \
-		* w->map.m_wid + w->map.sprite[0]->crd.x) : 0;
-	dir == 'B' ? pos = (int)((int)(w->map.sprite[0]->crd.y - MOB_SPD - 0.5) \
-		* w->map.m_wid + w->map.sprite[0]->crd.x) : 0;
-	w->temp = w->map.map[pos];
-	w->temp == 0 ? res++ : 0;
-	dir == 'L' && res == 1 ? ft_enemy_set_dir(w, dir, res) : 0;
-	dir == 'R' && res == 1 ? ft_enemy_set_dir(w, dir, res) : 0;
-	dir == 'F' && res == 1 ? ft_enemy_set_dir(w, dir, res) : 0;
-	dir == 'B' && res == 1 ? ft_enemy_set_dir(w, dir, res) : 0;
-	return (res);
+	pos_add = w->map.sprite[s_nbr]->pos.x + MB_SPD + 0.5;
+	pos_sub = w->map.sprite[s_nbr]->pos.x - MB_SPD - 0.5;
+	if (w->pl.pos.x > pos_add)
+		res = ft_enemy_go(w, 'R', s_nbr);
+	else if (w->pl.pos.x < pos_sub)
+		res = ft_enemy_go(w, 'L', s_nbr);
+	pos_add = w->map.sprite[s_nbr]->pos.y + MB_SPD + 0.5;
+	pos_sub = w->map.sprite[s_nbr]->pos.y - MB_SPD - 0.5;
+	//w->map.sprite[s_nbr]->go = res;
+	if (w->pl.pos.y > pos_add)
+		res = ft_enemy_go(w, 'F', s_nbr);
+	else if (w->pl.pos.y < pos_sub)
+		res = ft_enemy_go(w, 'B', s_nbr);
+	//res != 0 ? w->map.sprite[s_nbr]->go = res : 10;
 }
 
 /*
@@ -82,35 +51,27 @@ int		ft_enemy_go(t_wolf3d *w, char dir)
 ** **************************************************************************
 */
 
-void	ft_enemy_detect_pl(t_wolf3d *w)
+/*
+		distance to player in double
+		w->map.sprite[s_nbr]->dist = sqrt(pow((view_vec.x), 2) + \
+		pow((view_vec.y), 2));
+		printf("\n dirx==%f diry==%f   detect==%i\n", w->map.sprite[s_nbr]->dir.x, w->map.sprite[s_nbr]->dir.y, detect);
+*/
+
+int			ft_enemy_detect_pl(t_wolf3d *w, int s_nbr)
 {
 	t_coord	view_vec;
-	int		detect;
 
-	detect = 0;
-	view_vec.x = w->pl.pos.x - w->map.sprite[0]->crd.x;
-	view_vec.y = w->pl.pos.y - w->map.sprite[0]->crd.y;
-	detect = (view_vec.x * w->map.sprite[0]->dir.x) + (view_vec.y * w->map.sprite[0]->dir.y);
-	//printf("detect==%i dist==%f", detect, w->map.sprite[0]->distance);
-	if (detect == 1 && w->map.sprite[0]->distance < 5)
-		printf("\nYOU ARE DETECTED\n");
-	w->temp += 0;
+	view_vec.x = w->pl.pos.x - w->map.sprite[s_nbr]->pos.x;
+	view_vec.y = w->pl.pos.y - w->map.sprite[s_nbr]->pos.y;
+	w->map.sprite[s_nbr]->det = (view_vec.x * w->map.sprite[s_nbr]->dir.x) + \
+	(view_vec.y * w->map.sprite[s_nbr]->dir.y);
+	if ((w->map.sprite[s_nbr]->det > -MB_SPD) \
+	&& (w->map.sprite[s_nbr]->det < MB_SPD))
+	{
+		ft_enemy_chase(w, s_nbr);
+		return(0);
+		//printf("\nYOU ARE DETECTED by enemy#%d \n", s_nbr);
+	}
+	return(1);
 }
-
-/*
-
--find player pos+
--range of view
--move in 4 directions+
--dont move through blocks+
--player cant pass through enemy
--move from point to point
--move with obstacles
-
--dead
--waiting
--shooting
-
-
-
-*/

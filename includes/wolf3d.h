@@ -22,6 +22,7 @@
 # include "door.h"
 # include "player.h"
 # include "sprites.h"
+# include "algebra.h"
 
 typedef struct	s_sort_util
 {
@@ -328,10 +329,10 @@ double					ft_fdf_round(double x);
 double					ft_fdf_fpart(double x);
 int						ft_fdf_get_color(int color1, int color2, double f1);
 
-int						ft_enemy_go(t_wolf3d *w, char dir);
-void					ft_enemy_cycle(t_wolf3d *w);
-void					ft_enemy(t_wolf3d *w);
-void					ft_enemy_detect_pl(t_wolf3d *w);
+int						ft_enemy_go(t_wolf3d *w, char dir, int s_nbr);
+void					ft_enemy_cycle(t_wolf3d *w, int s_nbr);
+void					ft_enemy(t_wolf3d *w, int s_nbr);
+int						ft_enemy_detect_pl(t_wolf3d *w, int s_nbr);
 
 void					ft_sort(t_wolf3d *w);
 

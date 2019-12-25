@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/18 20:48:37 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/25 17:48:17 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	ft_test_mv_p(t_wolf3d *w)
 	printf("\npl_pos:	x==%f  y==%f \n", w->pl.pos.x, w->pl.pos.y);
 	printf("pl_dir:	x==%f  y==%f \n", w->pl.dir.x , w->pl.dir.y);
 	printf("sp_pos:	x==%f  y==%f \n", w->spr.pos.x, w->spr.pos.y);
-	printf("map_sp_pos:	x==%f  y==%f \n", w->map.sprite[0]->crd.x, w->map.sprite[0]->crd.y);
-	ft_enemy(w);
+	printf("map_sp_pos:	x==%f  y==%f \n", w->map.sprite[0]->pos.x, w->map.sprite[0]->pos.y);
+	ft_enemy(w, 0);
 	//w->mouse_offset += 15;//camera up
 	//ft_pl_stats(w);
 	printf("P pressed\n");
@@ -147,7 +147,7 @@ void	ft_print_map(t_wolf3d *w)
 
 void	ft_test_kp2(t_wolf3d *w)
 {
-	ft_enemy_go(w, 'B');		
+	ft_enemy_go(w, 'B', 0);		
 }
 
 /*
@@ -159,7 +159,7 @@ void	ft_test_kp2(t_wolf3d *w)
 
 void	ft_test_kp4(t_wolf3d *w)
 {
-	ft_enemy_go(w, 'L');
+	ft_enemy_go(w, 'L', 0);
 }
 
 /*
@@ -171,7 +171,7 @@ void	ft_test_kp4(t_wolf3d *w)
 
 void	ft_test_kp6(t_wolf3d *w)
 {
-	ft_enemy_go(w, 'R');
+	ft_enemy_go(w, 'R', 0);
 }
 
 /*
@@ -183,5 +183,7 @@ void	ft_test_kp6(t_wolf3d *w)
 
 void	ft_test_kp8(t_wolf3d *w)
 {
-	ft_enemy_go(w, 'F');
+	printf("PRESS 8  res==\n");
+	w->temp += 0;
+	//ft_enemy_go(w, 'F', 0);
 }
