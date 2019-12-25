@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/25 20:28:54 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/25 20:53:46 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,7 @@ int			ft_enemy_detect_pl(t_wolf3d *w, int s_nbr)
 	view_vec.y = w->pl.pos.y - w->map.sprite[s_nbr]->pos.y;
 	w->map.sprite[s_nbr]->det = (view_vec.x * w->map.sprite[s_nbr]->dir.x) + \
 	(view_vec.y * w->map.sprite[s_nbr]->dir.y);
-	if ((w->map.sprite[s_nbr]->det > -MB_SPD) \
-	&& (w->map.sprite[s_nbr]->det < MB_SPD))
+	if ((w->map.sprite[s_nbr]->det > -MB_DET) && (w->map.sprite[s_nbr]->det < MB_DET))
 	{
 		ft_enemy_chase(w, s_nbr);
 		return(0);

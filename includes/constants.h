@@ -13,7 +13,7 @@
 # define MAX_AMMO 280
 # define MAX_LIFE 200
 # define MB_SPD 0.000015
-# define MB_DET 2.0f
+# define MB_DET 3.1
 
 # define C_R 0x00FF0000
 # define C_G 0x0000FF00
