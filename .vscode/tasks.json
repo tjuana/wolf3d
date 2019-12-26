@@ -3,7 +3,8 @@
         {
             "type": "shell",
             "label": "gcc build active file",
-			"command": "make -j16",
+			// "command": "make -j16",
+			"command": "gcc -g src/matrix.c",
  
         }
     ],
