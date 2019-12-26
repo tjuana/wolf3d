@@ -6,13 +6,16 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/25 16:38:34 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/26 16:14:28 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/26 18:51:13 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include "wolf3d.h"
 #include <stdlib.h>
-#include <math.h>
+# include <math.h>
+# define DEG2RAD(angleDegrees) ((angleDegrees) * M_PI / 180.0)
+# define RAD2DEG(angleRadians) ((angleRadians) * 180.0 / M_PI)
+#define FOV (double)60
 
 typedef struct	s_vector3
 {
@@ -25,7 +28,7 @@ typedef struct	s_vector3
 t_vector3		ft_vec3_create(t_vector3 *orig, t_vector3 *dest)
 {
 	t_vector3	this;
-	
+
 	if (orig == NULL)
 	{
 		t_vector3	orig2;
@@ -169,15 +172,6 @@ t_matrix_4x4	ft_identify(t_matrix_4x4 neo)
 
 t_matrix_4x4	ft_scale(t_matrix_4x4 neo, double scale)
 {
-	// neo->i = -1;
-	//вопрос в том что там мусор либо для всех матриц 
-	//сначала делать identify иначе там мусор
-	// while (++neo->i < 4)
-	// {
-	// 	neo->j = -1;
-	// 	while (++neo->j < 4)
-	// 		neo->matrix[neo->i][neo->j] = 0;
-	// }
 	neo.matrix[0][0] = scale;
 	neo.matrix[1][1] = scale;
 	neo.matrix[2][2] = scale;
@@ -186,17 +180,8 @@ t_matrix_4x4	ft_scale(t_matrix_4x4 neo, double scale)
 	return (neo);
 }
 
-t_matrix_4x4	ft_translitation(t_matrix_4x4 neo,t_vector3 *vtc)
+t_matrix_4x4	ft_translitation(t_matrix_4x4 neo, t_vector3 *vtc)
 {
-	// neo.i = -1;
-		//вопрос в том что там мусор либо для всех матриц 
-	//сначала делать identify
-	// while (++neo.i < 4)
-	// {
-	// 	neo.j = -1;
-	// 	while (++neo.j < 4)
-	// 		neo.matrix[neo.i][neo.j] = 0;
-	// }
 	neo.matrix[0][0] = 1.00;
 	neo.matrix[1][1] = 1.00;
 	neo.matrix[2][2] = 1.00;
@@ -207,13 +192,103 @@ t_matrix_4x4	ft_translitation(t_matrix_4x4 neo,t_vector3 *vtc)
 	return (neo);
 }
 
+t_matrix_4x4	ft_rx_matrix(t_matrix_4x4 neo, double angle)
+{
+	neo.matrix[0][0] = 1.00;
+	neo.matrix[1][1] = cos(angle);
+	neo.matrix[1][2] = -sin(angle);
+	neo.matrix[2][1] = sin(angle);
+	neo.matrix[2][2] = cos(angle);
+	neo.matrix[3][3] = 1.00;
+	return (neo);
+}
+
+t_matrix_4x4	ft_ry_matrix(t_matrix_4x4 neo, double angle)
+{
+	neo.matrix[0][0] = cos(angle);
+	neo.matrix[0][2] = sin(angle);
+	neo.matrix[1][1] = 1.00;
+	neo.matrix[2][0] = -sin(angle);
+	neo.matrix[2][2] = cos(angle);
+	neo.matrix[3][3] = 1.00;
+	return (neo);
+}
+
+t_matrix_4x4	ft_rz_matrix(t_matrix_4x4 neo, double angle)
+{
+	neo.matrix[0][0] = cos(angle);
+	neo.matrix[0][1] = -sin(angle);
+	neo.matrix[1][0] = sin(angle);
+	neo.matrix[1][1] = cos(angle);
+	neo.matrix[2][2] = 1.00;
+	neo.matrix[3][3] = 1.00;
+	return (neo);
+}
+
+t_matrix_4x4	ft_projection(t_matrix_4x4 neo, double ratio, \
+double near, double far)
+{
+	neo.matrix[1][1] = 1 / tan(0.5 * DEG2RAD(FOV));
+	neo.matrix[0][0] = neo.matrix[1][1] / ratio;
+	neo.matrix[2][2] = -1 * (-near - far) / (near - far);
+	neo.matrix[3][2] = -1.00;
+	neo.matrix[2][3] = (2 * near * far) / (near - far);
+	neo.matrix[3][3] = 0.00;
+
+	return (neo);
+}
+
+t_matrix_4x4	ft_mult_matrix(t_matrix_4x4 this, t_matrix_4x4 rhs)
+{
+	t_matrix_4x4 reload;
+
+	reload.i = -1;
+	while (++reload.i < 4)
+	{
+		reload.j = -1;
+		while (++reload.j < 4)
+			reload.matrix[reload.i][reload.j] = 0;
+	}
+	reload.i = -1;
+	while (++reload.i < 4)
+	{
+		reload.j = -1;
+		while (++reload.j < 4)
+		{
+			reload.matrix[reload.i][reload.j] += this.matrix[reload.i][0] * rhs.matrix[0][reload.j];
+			reload.matrix[reload.i][reload.j] += this.matrix[reload.i][1] * rhs.matrix[1][reload.j];
+			reload.matrix[reload.i][reload.j] += this.matrix[reload.i][2] * rhs.matrix[2][reload.j];
+			reload.matrix[reload.i][reload.j] += this.matrix[reload.i][3] * rhs.matrix[3][reload.j];
+		}
+	}
+	return (reload);
+}
+
 int	main(void)
 {
 	t_matrix_4x4	ident;
-	t_matrix_4x4	TRANS;
+	t_matrix_4x4	trans;
 	t_matrix_4x4	scale;
 	t_matrix_4x4	RX;
+	t_matrix_4x4	RY;
+	t_matrix_4x4	RZ;
+	t_matrix_4x4	proj;
+	t_matrix_4x4	mult;
 	t_vector3		vtx;
+	double			angle;
+	double			angle2;
+	double			angle3;
+	double			ratio;
+	double			near;
+	double			far;
+
+	ratio = (double)640 / (double)480;
+	near = 1.0;
+	far = -50.0;
+
+	angle = M_PI_4;
+	angle2 = M_PI_2;
+	angle3 = 2 * M_PI;
 
 	vtx.x = 20.0;
 	vtx.y = 20.0;
@@ -223,14 +298,24 @@ int	main(void)
 
 	ident = ft_identify(ident);
 	RX = ft_identify(RX);
+	RY = ft_identify(RY);
+	RZ = ft_identify(RZ);
 	scale = ft_identify(scale);
-	TRANS = ft_identify(TRANS);
+	trans = ft_identify(trans);
+	proj = ft_identify(proj);
+	ident = ft_identify(mult);
 
-	TRANS = ft_translitation(TRANS, &vtx);
+	trans = ft_translitation(trans, &vtx);
 
 	scale = ft_scale(scale, 10);
 
-	RX = ft_RX_matrix(RX, angle)
+	RX = ft_rx_matrix(RX, angle);
+	RY = ft_ry_matrix(RY, angle2);
+	RZ = ft_rz_matrix(RZ, angle3);
+
+	proj = ft_projection(proj, ratio, near, far);
+
+	mult = ft_mult_matrix(ft_mult_matrix(ft_mult_matrix(trans, RX), RY), scale);
 	
 	return (0);
 }
