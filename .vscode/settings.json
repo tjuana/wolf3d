@@ -9,7 +9,8 @@
 		"constants.h": "c",
 		"sdl_thread.h": "c",
 		"algorithm": "c",
-		"algebra.h": "c"
+		"algebra.h": "c",
+		"iterator": "c"
 	},
 	"debug.allowBreakpointsEverywhere": true
 }

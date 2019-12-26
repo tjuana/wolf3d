@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/25 20:34:06 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/26 19:53:49 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_sdl		*sdl_init(t_sdl *sdl)
 {
 	sdl = ft_my_malloc(sizeof(t_sdl));
+
 	sdl->pixels = ft_my_malloc((sizeof(Uint32) * WIN_WIDTH) * WIN_HEIGHT);
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 	{
@@ -24,11 +25,12 @@ t_sdl		*sdl_init(t_sdl *sdl)
 	}
 	sdl->win = SDL_CreateWindow("WOLF3D", 650, 650, WIN_WIDTH, WIN_HEIGHT, 0);
 	sdl->renderer = SDL_CreateRenderer(sdl->win, 0, 0);
-
 	if (!(sdl->text = SDL_CreateTexture(sdl->renderer, SDL_PIXELFORMAT_ARGB8888\
 	, SDL_TEXTUREACCESS_STREAMING, WIN_WIDTH, WIN_HEIGHT)))
 		ft_error("SDL non textures");
 	sdl->running = 1;
+	if (TTF_Init() != 0)
+		ft_putstr("ft_sdl_error(w)\n");
 	return (sdl);
 }
 

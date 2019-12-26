@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/25 20:53:46 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/26 15:43:43 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,21 @@ static void	ft_enemy_chase(t_wolf3d *w, int s_nbr)
 {
 	double	pos_add;
 	double	pos_sub;
-	int		res;
 
 	pos_add = 0;
 	pos_sub = 0;
-	res = 0;
 	pos_add = w->map.sprite[s_nbr]->pos.x + MB_SPD + 0.5;
 	pos_sub = w->map.sprite[s_nbr]->pos.x - MB_SPD - 0.5;
 	if (w->pl.pos.x > pos_add)
-		res = ft_enemy_go(w, 'R', s_nbr);
+		ft_enemy_go(w, 'R', s_nbr);
 	else if (w->pl.pos.x < pos_sub)
-		res = ft_enemy_go(w, 'L', s_nbr);
+		ft_enemy_go(w, 'L', s_nbr);
 	pos_add = w->map.sprite[s_nbr]->pos.y + MB_SPD + 0.5;
 	pos_sub = w->map.sprite[s_nbr]->pos.y - MB_SPD - 0.5;
-	//w->map.sprite[s_nbr]->go = res;
 	if (w->pl.pos.y > pos_add)
-		res = ft_enemy_go(w, 'F', s_nbr);
+		ft_enemy_go(w, 'F', s_nbr);
 	else if (w->pl.pos.y < pos_sub)
-		res = ft_enemy_go(w, 'B', s_nbr);
+		ft_enemy_go(w, 'B', s_nbr);
 	//res != 0 ? w->map.sprite[s_nbr]->go = res : 10;
 }
 

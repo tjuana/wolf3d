@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/10 20:48:40 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/26 19:54:15 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,41 +39,32 @@ SDL_Rect	ft_create_rect(int w, int h, int x, int y)
 
 void			ft_putstr_sdl(t_wolf3d *w, char *str, int x, int y)
 {
-	SDL_Color			color = {85, 25, 20, 0};
-	//SDL_Color			bgcolor = {0, 0, 0, 0};
-	SDL_Surface			*text_surf;
-	SDL_Texture			*tmp_texture;
-	SDL_Rect			a;
+	SDL_Surface	*text_surf;
+	SDL_Texture	*tmp_texture;
+	SDL_Rect	a;
 	
 	if ((x < 0) || (y < 0) || (str == NULL) || (x > WIN_WIDTH) || (y > WIN_HEIGHT))
 		return ;
 	tmp_texture = NULL;
-	if (TTF_Init() == -1)
+	if (!(w->sdl->font.ptr = TTF_OpenFont("fonts/DooMLeft2.ttf", w->sdl->font.sz)))
+		ft_putstr("ft_sdl_error(w)\n");
+	if (TTF_SizeText(w->sdl->font.ptr, str, &w->sdl->font.w, &w->sdl->font.h) == -1)
 		ft_sdl_error(w);
-	if (!(w->sdl->font = TTF_OpenFont("fonts/procyon_si.ttf", w->pl.st.font_sz)))
-		ft_sdl_error(w);
-	if (TTF_SizeText(w->sdl->font, str, &a.w, &a.h) == -1)
-		ft_sdl_error(w);
-	//a = ft_create_rect(a.w, a.h, (WIN_WIDTH - a.w) / 2 , (WIN_HEIGHT - a.h) / 2);
-	a = ft_create_rect(a.w, a.h, x, y);
-	if (!(text_surf = TTF_RenderText_Blended(w->sdl->font, str, color)))
+	a = ft_create_rect(w->sdl->font.w, w->sdl->font.h, x, y);
+	if (!(text_surf = TTF_RenderText_Blended(w->sdl->font.ptr, str, w->sdl->font.color)))
 		ft_sdl_error(w);
 	else
 	{
 		tmp_texture = SDL_CreateTextureFromSurface(w->sdl->renderer, text_surf);
 		if (!tmp_texture)
 			ft_sdl_error(w);
-		//if (SDL_BlitSurface(text_surface, NULL, w->pl.st.jet_surf, NULL) == -1)
-		//	ft_sdl_error(w);
-		//perhaps we can reuse it, but I assume not for simplicity.
 		SDL_FreeSurface(text_surf);
 	}
 	if (SDL_RenderCopy(w->sdl->renderer, tmp_texture, 0, &a) == -1)
 		ft_sdl_error(w);
 	SDL_DestroyTexture(tmp_texture);
-	//SDL_RenderPresent(w->sdl->renderer);
-	TTF_CloseFont(w->sdl->font);
-	w->sdl->font = NULL;
+	TTF_CloseFont(w->sdl->font.ptr);
+	w->sdl->font.ptr = NULL;
 }
 
 /*	

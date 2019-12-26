@@ -6,7 +6,7 @@
 #    By: drafe <drafe@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 11:40:58 by tjuana            #+#    #+#              #
-#    Updated: 2019/12/25 17:29:34 by drafe            ###   ########.fr        #
+#    Updated: 2019/12/26 16:12:39 by drafe            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,31 +52,34 @@ SRCS_LIST = alg_wu_color.c\
 			check_map.c\
 			door.c\
 			draw_walls.c\
-			fpc.c\
-			floor.c\
-			help.c\
 			enemies_ai.c\
 			enemies.c\
-			events.c\
 			events_exp.c\
 			events_mouse.c\
+			events.c\
+			floor.c\
+			fpc.c\
+			help.c\
 			main.c\
-			map.c\
 			map_arrow.c\
+			map.c\
+			menu.c\
 			move.c\
 			player_stats.c\
+			player_ui.c\
 			putstr_sdl.c\
 			ray_casting.c\
 			read_map.c\
-			sdl.c\
 			sdl_error.c\
 			sdl_render.c\
+			sdl.c\
 			sound.c\
-			sprites.c\
 			sprites_help.c\
+			sprites.c\
 			textures.c\
 			threads.c\
-			vectors_1.c
+			vectors_1.c\
+			vectors_2.c
 
 OBJS_DIRECTORY = objects/
 

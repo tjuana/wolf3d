@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/25 17:48:17 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/26 18:15:38 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ void	ft_mouse_mv(t_wolf3d *w, SDL_Event e)
 	old_pl_x = w->pl.plane.x;
 	mou_x = e.motion.xrel;
 	mou_x /= WIN_HEIGHT;
-	if (SDL_SetRelativeMouseMode(SDL_TRUE) != 0)
-		ft_sdl_error(w);
+	printf("m_x%i  m_y%i  \n", e.motion.x, e.motion.y);
+
+	//if (SDL_SetRelativeMouseMode(SDL_TRUE) != 0)
+	//	ft_sdl_error(w);
 	//w->mouse_offset -= e->motion.yrel;
 	sign = -w->rs;
 	if (mou_x < 0)

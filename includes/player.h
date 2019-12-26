@@ -18,7 +18,6 @@ typedef struct	s_stats
 	
 	int			key[MAX_DOORS_NBR];
 	int			door_nbr;
-	int			font_sz;
 	int			life;
 	int			ammo;
 	int			money;

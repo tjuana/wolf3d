@@ -24,6 +24,16 @@
 # include "sprites.h"
 # include "algebra.h"
 
+typedef struct	s_font
+{
+	TTF_Font	*ptr;
+	SDL_Color	color;
+	int			sz;
+	int			w;
+	int			h;
+}				t_font;
+
+
 typedef struct	s_sort_util
 {
 	int			i;
@@ -70,7 +80,7 @@ typedef struct  s_sdl
 	Uint32				*wav_len;
 	Uint8				**wav_buff;
 	SDL_AudioDeviceID	*audio_device;
-	TTF_Font			*font;
+	t_font				font;
 	unsigned char		i;
 	
 }				t_sdl;
@@ -334,6 +344,8 @@ void					ft_enemy_cycle(t_wolf3d *w, int s_nbr);
 void					ft_enemy(t_wolf3d *w, int s_nbr);
 int						ft_enemy_detect_pl(t_wolf3d *w, int s_nbr);
 
+void					ft_menu(t_wolf3d *w);
+
 void					ft_sort(t_wolf3d *w);
 
 void					ft_draw_compass(t_wolf3d *w);
@@ -344,5 +356,16 @@ void					ft_calculate_sprites(t_wolf3d *w);
 void					ft_show_sprites(t_wolf3d *w);
 void					ft_transform_sprites(t_wolf3d *w);
 void					ft_sort(t_wolf3d *w);
+
+t_vector3				ft_vec3_create(t_vector3 *orig, t_vector3 *dest);
+double					ft_vec3_magnitude(t_vector3 this);
+t_vector3				ft_vec3_add(t_vector3 this, t_vector3 rhs);
+t_vector3				ft_vec3_sub(t_vector3 this, t_vector3 rhs);
+t_vector3				ft_vec3_cross_product(t_vector3 this, t_vector3 rhs);
+double					ft_vec3_dot_product(t_vector3 this, t_vector3 rhs);
+double					ft_vec3_cosinus(t_vector3 this, t_vector3 rhs);
+t_vector3				ft_vec3_opposite(t_vector3 this);
+t_vector3				ft_vec3_scalar_product(t_vector3 this, double k);
+t_vector3				ft_vec3_normalize(t_vector3 vtc);
 
 #endif
