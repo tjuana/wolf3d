@@ -6,152 +6,13 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/25 16:38:34 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/26 18:51:13 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/28 17:08:52 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "wolf3d.h"
-#include <stdlib.h>
-# include <math.h>
-# define DEG2RAD(angleDegrees) ((angleDegrees) * M_PI / 180.0)
-# define RAD2DEG(angleRadians) ((angleRadians) * 180.0 / M_PI)
-#define FOV (double)60
-
-typedef struct	s_vector3
-{
-	double		x;
-	double		y;
-	double		z;
-	double		w;
-}				t_vector3;
-
-t_vector3		ft_vec3_create(t_vector3 *orig, t_vector3 *dest)
-{
-	t_vector3	this;
-
-	if (orig == NULL)
-	{
-		t_vector3	orig2;
-		orig2.x = 0;
-		orig2.y = 0;
-		orig2.z = 0;
-		orig2.w = 1;
-		this.x = dest->x - orig2.x;
-		this.y = dest->y - orig2.y;
-		this.z = dest->z - orig2.z;
-		return (this);
-	}
-	this.x = dest->x - orig->x;
-	this.y = dest->y - orig->y;
-	this.z = dest->z - orig->z;
-	this.w = 0;
-	return (this);
-}
-
-double			ft_vec3_magnitude(t_vector3 this)
-{
-	return ((double)(sqrt(pow(this.x, 2) + pow(this.y, 2) + pow(this.z, 2))));
-}
-
-t_vector3			ft_vec3_add(t_vector3 this, t_vector3 rhs)
-{
-	t_vector3	res;
-
-	res.x = this.x + rhs.x;
-	res.y = this.y + rhs.y;
-	res.z = this.z + rhs.z;
-	res.w = 0;//вот тут хз чей коэф брать
-	return (res);
-}
-
-t_vector3			ft_vec3_sub(t_vector3 this, t_vector3 rhs)
-{
-	t_vector3	res;
-
-	res.x = this.x - rhs.x;
-	res.y = this.y - rhs.y;
-	res.z = this.z - rhs.z;
-	res.w = 0;//вот тут хз чей коэф брать
-	return (res);
-}
-
-t_vector3			ft_vec3_cross_product(t_vector3 this, t_vector3 rhs)
-{
-	t_vector3	res;
-
-	res.x = this.y * rhs.z - this.z * rhs.y;
-	res.y = this.z * rhs.x - this.x * rhs.z;
-	res.z = this.x * rhs.y - this.y * rhs.x
-	;
-	res.w = 0;//вот тут хз чей коэф брать
-	return (res);
-}
-
-double			ft_vec3_dot_product(t_vector3 this, t_vector3 rhs)
-{
-	double	res;
-
-	res = this.x * rhs.x + this.y * rhs.y + this.z * rhs.z;
-	return (res);
-}
-
-double			ft_vec3_cosinus(t_vector3 this, t_vector3 rhs)
-{
-	double	res;
-
-	res = ft_vec3_dot_product(this, rhs) / (ft_vec3_magnitude(this) * sqrt(pow(rhs.x, 2) + pow(rhs.y, 2) + pow(rhs.z, 2)));
-	return (res);
-}
-
-t_vector3			ft_vec3_opposite(t_vector3 this)
-{
-	t_vector3	res;
-
-	res.x = -this.x;
-	res.y = -this.y;
-	res.z = -this.z;
-	res.w = 1;
-	return (res);
-}
-
-t_vector3			ft_vec3_scalar_product(t_vector3 this, double k)
-{
-	t_vector3	res;
-
-	res.x = this.x * k;
-	res.y = this.y * k;
-	res.z = this.z * k;
-	res.w = 1;
-	return (res);
-}
-
-t_vector3		ft_vec3_normalize(t_vector3 vtc)
-{
-	t_vector3	v0;
-	t_vector3	v1;
-
-	if (ft_vec3_magnitude(vtc) == 1)
-		return (vtc);
-	else
-	{
-		v0.x = 0;
-		v0.y = 0;
-		v0.z = 0;
-		v1.x = vtc.x / ft_vec3_magnitude(vtc);
-		v1.y = vtc.y / ft_vec3_magnitude(vtc);
-		v1.z = vtc.z / ft_vec3_magnitude(vtc);
-		return (ft_vec3_create(&v0, &v1));
-	}
-}
+#include "wolf3d.h"
 
 ///we need more optimizeted@!@@@@!!!@
-
-typedef struct	s_matrix_4x4
-{
-	double		matrix[4][4];
-	int			i;
-	int			j;
-}				t_matrix_4x4;
 
 t_matrix_4x4	ft_identify(t_matrix_4x4 neo)
 {
@@ -166,7 +27,6 @@ t_matrix_4x4	ft_identify(t_matrix_4x4 neo)
 	neo.matrix[1][1] = 1.00;
 	neo.matrix[2][2] = 1.00;
 	neo.matrix[3][3] = 1.00;
-
 	return (neo);
 }
 
@@ -234,13 +94,12 @@ double near, double far)
 	neo.matrix[3][2] = -1.00;
 	neo.matrix[2][3] = (2 * near * far) / (near - far);
 	neo.matrix[3][3] = 0.00;
-
 	return (neo);
 }
 
 t_matrix_4x4	ft_mult_matrix(t_matrix_4x4 this, t_matrix_4x4 rhs)
 {
-	t_matrix_4x4 reload;
+	t_matrix_4x4	reload;
 
 	reload.i = -1;
 	while (++reload.i < 4)
@@ -264,58 +123,69 @@ t_matrix_4x4	ft_mult_matrix(t_matrix_4x4 this, t_matrix_4x4 rhs)
 	return (reload);
 }
 
-int	main(void)
+t_matrix_4x4		ft_oppositive_matrix(t_matrix_4x4 neo)
 {
-	t_matrix_4x4	ident;
+	t_matrix_4x4	trinity;
+	trinity.i = -1;
+	while (++trinity.i < 4)
+	{
+		trinity.j = -1;
+		while (++trinity.j < 4)
+			trinity.matrix[trinity.i][trinity.j] = 0;
+	}
+	trinity.i = -1;
+	while (++trinity.i < 4)
+	{
+		trinity.j = -1;
+		while (++trinity.j < 4)
+			trinity.matrix[trinity.i][trinity.j] = neo.matrix[trinity.j][trinity.i];
+	}
+	return (trinity);
+}
+
+
+
+t_vector3			ft_transform_vertex(t_vector3 this, t_matrix_4x4 neo)
+{
+	t_vector3	res;
+
+	res.x = (this.x * neo.matrix[0][0]) + (this.y * neo.matrix[0][1]) + (this.z * neo.matrix[0][2]) + \
+	(this.w * neo.matrix[0][3]);
+	res.y = (this.x * neo.matrix[1][0]) + (this.y * neo.matrix[1][1]) + (this.z * neo.matrix[1][2]) + \
+	(this.w * neo.matrix[1][3]);
+	res.z = (this.x * neo.matrix[2][0]) + (this.y * neo.matrix[2][1]) + (this.z * neo.matrix[2][2]) + \
+	(this.w * neo.matrix[2][3]);
+	res.w = (this.x * neo.matrix[3][0]) + (this.y * neo.matrix[3][1]) + (this.z * neo.matrix[3][2]) + \
+	(this.w * neo.matrix[3][3]);
+	return (res);
+}
+
+t_vector3		ft_camera(t_vector3 vtx_orig, t_matrix_4x4 orient, t_vector3 world_vertex)
+{
+	t_vector3		vertex0;// need to define
+	t_vector3		screen_vertex;
+	t_vector3		oppv;
 	t_matrix_4x4	trans;
-	t_matrix_4x4	scale;
-	t_matrix_4x4	RX;
-	t_matrix_4x4	RY;
-	t_matrix_4x4	RZ;
-	t_matrix_4x4	proj;
-	t_matrix_4x4	mult;
-	t_vector3		vtx;
-	double			angle;
-	double			angle2;
-	double			angle3;
-	double			ratio;
-	double			near;
-	double			far;
+	t_matrix_4x4	t_mult;
+	t_matrix_4x4	t_proj;
 
-	ratio = (double)640 / (double)480;
-	near = 1.0;
-	far = -50.0;
-
-	angle = M_PI_4;
-	angle2 = M_PI_2;
-	angle3 = 2 * M_PI;
-
-	vtx.x = 20.0;
-	vtx.y = 20.0;
-	vtx.z = 0;
-
-	vtx = ft_vec3_create(NULL, &vtx);
-
-	ident = ft_identify(ident);
-	RX = ft_identify(RX);
-	RY = ft_identify(RY);
-	RZ = ft_identify(RZ);
-	scale = ft_identify(scale);
+	t_mult = ft_identify(t_mult);
 	trans = ft_identify(trans);
-	proj = ft_identify(proj);
-	ident = ft_identify(mult);
+	t_proj = ft_identify(t_proj);
+	vertex0.x = 0;
+	vertex0.y = 0;
+	vertex0.z = 0;
+	vertex0.w = 1;
+	oppv = ft_vec3_create(&vtx_orig, &vertex0);
+	trans = ft_translitation(trans, &oppv);
+	orient = ft_oppositive_matrix(orient);
+	t_mult = ft_mult_matrix(orient, trans);
+	t_proj = ft_projection(t_proj, WIDTH / HIGHT, NEAR, FAR);
 
-	trans = ft_translitation(trans, &vtx);
-
-	scale = ft_scale(scale, 10);
-
-	RX = ft_rx_matrix(RX, angle);
-	RY = ft_ry_matrix(RY, angle2);
-	RZ = ft_rz_matrix(RZ, angle3);
-
-	proj = ft_projection(proj, ratio, near, far);
-
-	mult = ft_mult_matrix(ft_mult_matrix(ft_mult_matrix(trans, RX), RY), scale);
+	screen_vertex = ft_transform_vertex(world_vertex, t_mult);
+	screen_vertex = ft_transform_vertex(screen_vertex, t_proj);
+	screen_vertex.x = (1 - screen_vertex.x) / (screen_vertex.z / 11.3) * WIDTH / 2;
+	screen_vertex.y = (1 - screen_vertex.y) / (screen_vertex.z / 11.3) * HIGHT / 2;
 	
-	return (0);
+	return (screen_vertex);
 }
