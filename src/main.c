@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:33:34 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/26 18:30:58 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/28 18:12:08 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int c, char **v)
 	read_file(w.fd, &w.map);
 	w.sdl = sdl_init(w.sdl);
 	ft_init_wolf(&w);
-	w.sdl->wall_surface = ft_load_png("/Textures/MFLR8_1.png", w.sdl);
+	w.sdl->wall_surface = ft_load_png("/Textures/123.png", w.sdl);
 	ft_load_textures(&w);
 
 	//ft_bank_of_text("./Textures/", &w);
