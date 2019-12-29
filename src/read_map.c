@@ -6,11 +6,38 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 15:17:47 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/19 15:27:12 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/12/29 22:21:04 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
+
+void		ft_read_file_nmp(int fd, t_wolf3d *w)
+{
+	char	*line;
+	int		len;
+	int		res;
+	char	**map;
+	char	**temp_map;
+
+	len = 0;
+	while ((res = get_next_line(fd, &line)) > 0)
+	{
+		map = ft_strsplit(line, '\t');
+		if (ft_strcmp(map[0], "sector"))
+		{
+			// temp_map = ft_strsplit(map[1], ' ');
+			// need to set walls height
+			// free temp_map
+			
+			// need to set walls coord.
+		}
+		// parser
+		len++;
+		free(line);
+	}
+	free(line);
+}
 
 void		read_file(int fd, t_map *map)
 {

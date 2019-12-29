@@ -192,6 +192,8 @@ typedef struct			s_wolf3d
 	Uint8				*tex_col;
 	Uint32				color;
 
+	int					type;
+
 }						t_wolf3d;
 
 typedef struct			s_thread_help
@@ -358,5 +360,8 @@ double					ft_fdf_fpart(double x);
 int						ft_fdf_get_color(int color1, int color2, double f1);
 
 void					ft_draw_compass(t_wolf3d *w);
+
+static void				ft_set_line(t_wolf3d *w, t_line *line,
+							t_line temp_line, t_list *lst)
 
 #endif

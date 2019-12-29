@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:33:34 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/29 18:18:13 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/12/29 21:53:16 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,25 @@ int	main(int c, char **v)
 {
 	t_wolf3d	w;
 
-	if (c != 2)
+	// Set map type
+	w.type = 0;
+	if (c == 2)
+		w.type = 1;
+	if (c == 3 && ft_strcmp(v[2], "nmap"))
+		w.type = 2;
+
+	// Check arguments and file
+	if (w.type < 1)
 		ft_error("Error: wrong parameters");
 	if ((w.fd = open(v[1], O_RDONLY)) < 0)
 		ft_error("Error: bad file");
-	read_file(w.fd, &w.map);
+
+	// Get map
+	if (w.type == 1)
+		read_file(w.fd, &w.map);
+	else
+		ft_read_file_nmp(w.fd, &w);
+
 	w.sdl = sdl_init(w.sdl);
 	ft_init_wolf(&w);
 	// ft_print_lines(&w); // Print the vertexes of lines

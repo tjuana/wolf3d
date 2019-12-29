@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/29 17:41:59 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/12/29 22:01:47 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,8 @@ void		ft_init_wolf(t_wolf3d *w)
 	w->sdl->textures = ft_my_malloc(sizeof(SDL_Surface *) * TEXTURES_NUMBER);
 	w->t.flag = 1;
 	ft_we_need_more_init(w);
-	ft_init_lines(w);
+	if (w->type == 1)
+		ft_init_lines(w);
 }
 
 void		ft_we_need_more_init(t_wolf3d *w)
