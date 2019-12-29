@@ -1,3 +1,9 @@
+# My temp ignore file
+SDL2/build/
+bin/
+lib/
+share/
+
 # Prerequisites
 *.d
 

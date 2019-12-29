@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/28 16:59:22 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/12/29 17:41:59 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,17 +141,17 @@ void		ft_init_wolf(t_wolf3d *w)
 	w->fov = 1.5708; // 90 градусов
 	//w->fov = 3.00000;
 	//w->fov = 1.5708; // 90 градусов
-	w->l_p = WIN_WIDTH / (2 * tan(w->fov / 2));
+	w->l_p = WIN_WIDTH / (2 * tan(w->fov / 2)); // Расстояние до воображаемой стены
 
-	w->pl.pos.x = 1.5;
+	w->pl.pos.x = 1.5; // Позиция игрока
 	w->pl.pos.y = 1.5;
-	w->pl.dir.x = -1;
+	w->pl.dir.x = -1; // Направление игрока
 	w->pl.dir.y = 0;
 	w->pl.plane.x = 0;
-	w->pl.plane.y = (double)8 / 9; // ;) [Корректно: (W / 2) / H]
+	w->pl.plane.y = (double)(WIN_WIDTH / 2) / WIN_HEIGHT; // ;) [Корректно: (W / 2) / H]
 	w->hit = 0;
 	w->x = -1;
-	w->ms = 0.03; // ?!
+	w->ms = 0.02;
 	w->rs = 0.02;
 	w->c.crs = cos(w->rs);
 	w->c.srs = sin(w->rs);
