@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 16:50:27 by dorange-          #+#    #+#             */
-/*   Updated: 2019/11/14 16:55:45 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/12/30 19:47:35 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@ void		ft_fdf_plot(t_wolf3d *data, t_fdf_wu *wu, int x, int y)
 	int		pos;
 	double	o;
 
+	// Special rules for map frame
+	if (x < data->view_map.place.x ||
+		x > data->view_map.place.x + data->view_map.pframe.size.x ||
+		y < data->view_map.place.y ||
+		y > data->view_map.place.y + data->view_map.pframe.size.y)
+		return ;
 	wu->temp_f = 1 - wu->temp_f;
 	if (wu->steps == 0)
 		o = 0.0;

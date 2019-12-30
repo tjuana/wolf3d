@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:24:13 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/30 13:53:36 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/12/30 19:28:12 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,6 @@ void		ft_draw_map(t_wolf3d *w)
 	}
 	ft_draw_compass(w);
 }
-
-// ft_fdf_wu(&c1, &c2, w);
-
-
 
 void		ft_fill_frame(t_wolf3d *w)
 {
