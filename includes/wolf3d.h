@@ -36,6 +36,7 @@ typedef struct			s_line
 	t_coord				p1;			// Координаты первой точки
 	t_coord				p2;			// Координаты второй точки
 	double				height;		// Высота стены
+	double				floor;		// Высота ~ от z = 0
 	int					txtr;		// Номер текстуры
 }						t_line;
 
@@ -361,7 +362,10 @@ int						ft_fdf_get_color(int color1, int color2, double f1);
 
 void					ft_draw_compass(t_wolf3d *w);
 
-static void				ft_set_line(t_wolf3d *w, t_line *line,
-							t_line temp_line, t_list *lst)
+void					ft_set_line(t_wolf3d *w, t_line *line,
+							t_line temp_line, t_list *lst);
+
+void					ft_read_file_nmp(int fd, t_wolf3d *w);
+void					ft_draw_map_new(t_wolf3d *w);
 
 #endif

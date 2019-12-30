@@ -210,7 +210,7 @@ void		ft_new_ray_dir(t_threads *a)
 
 	// Длина пути до нашей стены
 	//a->w.l = l * (a->w.pl.cameraX + 1);// * atan2(a->w.pl.cameraX, a->w.l_p);
-	a->w.l = l;// * atan2(a->w.pl.cameraX, a->w.l_p);
+	a->w.l = l; // * atan2(a->w.pl.cameraX, a->w.l_p);
 
 	// Убираем эффект рыбьего глаза
 	a->w.l *= (a->w.fc_dir.x * a->w.pl.dir.x + a->w.fc_dir.y * a->w.pl.dir.y);
@@ -219,15 +219,21 @@ void		ft_new_ray_dir(t_threads *a)
 	// α -- a->w.fc_dir
 	// β -- a->w.pl.dir
 
+
 	// Увеличение/уменьшение -- проблема a->w.l_p
 	if (a->w.l != 0 && own_line != NULL)
 		a->w.line_height = own_line->height * a->w.l_p / (a->w.l * (WIN_HEIGHT));
 	else
+	{
 		a->w.line_height = 0;
+	}
+
 	if (own_line != NULL)
 		a->w.texture_num = own_line->txtr; // -1
 	else
 		a->w.texture_num = 0;
+
+	// printf("%f\t%d\t%f\t%f\n", a->w.l, a->w.line_height, own_line->height, a->w.l_p);
 
 	// Переменные:
 	// x1 = a->w.pl.pos.x;
@@ -242,6 +248,8 @@ void		ft_new_ray_dir(t_threads *a)
 
 void				ft_new_wall_draw_start(t_threads *a)
 {
+	//printf("check\n");
+
 	a->w.draw_start = a->w.half_height - (a->w.line_height >> 1);
 	a->w.draw_start < 0 ? a->w.draw_start = 0 : 0;
 	a->w.draw_end = (a->w.line_height >> 1) + a->w.half_height;
@@ -264,6 +272,7 @@ void				ft_new_draw_walls(t_threads *a)
 {
 	Uint32	i;
 	a->w.y = a->w.draw_start;
+	//printf("%d\t%d\n", a->w.y, a->w.draw_start);
 	while (a->w.y < a->w.draw_end)
 	{
 		a->w.sdl->pixels[a->t1 + (a->w.y * WIN_WIDTH)] = 0x120a8f;

@@ -6,12 +6,17 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:33:34 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/29 21:53:16 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/12/30 12:22:58 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
+/*
+	void ft_print_lines(t_wolf3d *w)
+	
+	Funtion that print the vertexes of lines.
+*/
 void	ft_print_lines(t_wolf3d *w)
 {
 	t_list	*ptr_list;
@@ -39,7 +44,6 @@ void	ft_print_lines(t_wolf3d *w)
 		ptr_list = ptr_list->next;
 		i++;
 	}
-	exit(1);
 }
 
 int	main(int c, char **v)
@@ -67,7 +71,8 @@ int	main(int c, char **v)
 
 	w.sdl = sdl_init(w.sdl);
 	ft_init_wolf(&w);
-	// ft_print_lines(&w); // Print the vertexes of lines
+	ft_print_lines(&w); // Print the vertexes of lines
+	// exit(1);
 	ft_load_textures(&w);
 	ft_init_anim(&w);
 	ft_init_view_map(&w);
@@ -79,7 +84,7 @@ int	main(int c, char **v)
 		ft_handle_events(&w);
 		ft_use_events(&w);
 		//fpsthink();
-		printf("PL:\tx:%f\ty:%f\n", w.pl.pos.x, w.pl.pos.y);
+		//printf("PL:\tx:%f\ty:%f\n", w.pl.pos.x, w.pl.pos.y);
 		//sleep(10);
 	}
 	ft_clean_sdl(&w);

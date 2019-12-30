@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 13:15:45 by tjuana            #+#    #+#             */
-/*   Updated: 2019/10/25 13:18:21 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/30 12:51:00 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int		ft_step_forward_check(t_wolf3d *w, unsigned char flag)
 {
+	// temp. check -> new rules for empty map -> need return 0
+	if (w->map.map == NULL)
+		return (1);
 	if (flag == 1)
 	{
 		w->temp = w->map.map[(int)(w->pl.pos.x + w->pl.dir.x * w->ms * 5)
@@ -33,6 +36,9 @@ int		ft_step_forward_check(t_wolf3d *w, unsigned char flag)
 
 int		ft_step_back_check(t_wolf3d *w, unsigned char flag)
 {
+	// temp. check -> new rules for empty map -> need return 0
+	if (w->map.map == NULL)
+		return (1);
 	if (flag == 1)
 	{
 		w->temp = w->map.map[(int)(w->pl.pos.x - w->pl.dir.x * w->ms * 5)

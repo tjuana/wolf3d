@@ -17,6 +17,20 @@
 			"externalConsole": false,
 			"MIMode": "lldb",
 			//"preLaunchTask": "gcc build active file"
+		},
+		{
+			"name": "debug new map",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceRoot}/wolf3d",
+			//"args": ["${workspaceRoot}/maps/map.txt"],
+			"args": ["${workspaceRoot}/maps/template.nmp", "nmp"],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}",
+			"environment": [],
+			"externalConsole": false,
+			"MIMode": "lldb",
+			//"preLaunchTask": "gcc build active file"
 		}
 	]
 }

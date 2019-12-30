@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/29 22:01:47 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/12/30 12:43:17 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int			ft_init_anim(t_wolf3d *wolf)
 
 
 // Set line
-static void	ft_set_line(t_wolf3d *w, t_line *line,
+void	ft_set_line(t_wolf3d *w, t_line *line,
 				t_line temp_line, t_list *lst)
 {
 	line = ft_my_malloc(sizeof(t_line));
@@ -117,20 +117,6 @@ static void	ft_init_lines(t_wolf3d *w)
 	{
 		if (w->map.map[i] != 0)
 			ft_create_line(w, i);
-		// На каждую текстуру нужно 4 линии
-		// Выделим 1 линию:
-		// temp_line.p1.x = i % w->map.m_wid;
-		// temp_line.p1.y = i / w->map.m_hei;
-		// temp_line.p2.x = temp_line.p1.x + 1;
-		// temp_line.p2.y = temp_line.p1.y;
-		// temp_line.height = WIN_HEIGHT;
-		// line = ft_my_malloc(sizeof(t_line));
-		// ft_memcpy(line, &temp_line, sizeof(t_line));
-		// lst = ft_lstnew(line, sizeof(t_line));
-		// if (w->line == NULL)
-		// 	w->line = lst;
-		// else
-		// 	ft_lstadd(&(w->line), lst);
 		i++;
 	}
 }
@@ -140,7 +126,6 @@ void		ft_init_wolf(t_wolf3d *w)
 	// fov и lp
 	w->fov = 1.5708; // 90 градусов
 	//w->fov = 3.00000;
-	//w->fov = 1.5708; // 90 градусов
 	w->l_p = WIN_WIDTH / (2 * tan(w->fov / 2)); // Расстояние до воображаемой стены
 
 	w->pl.pos.x = 1.5; // Позиция игрока

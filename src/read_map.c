@@ -6,12 +6,160 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 15:17:47 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/29 22:21:04 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/12/30 17:01:17 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
+/*
+	ft_free_array2(char **array, count)
+
+	Function that free array elements.
+*/
+void		ft_free_array2(void **array, int count)
+{
+	void	**ptr_array;
+	void	*ptr_array_elem;
+	int		i;
+
+	if (array == NULL)
+		return ;
+	i = 0;
+	while(i < count)
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+}
+
+/*
+	t_coord *ft_parse_vertex(char *str)
+
+	Function that parsing string and return vertex.
+*/
+t_coord		*ft_parse_vertex(char **ptr)
+{
+	t_coord	*p;
+
+	p = malloc(sizeof(t_coord));
+
+	(*ptr) = ft_strchr((*ptr), '{');
+	(*ptr)++;
+	p->x = (double)atof((*ptr));
+	(*ptr) = ft_strchr((*ptr), ',');
+	(*ptr)++;
+	p->y = (double)atof((*ptr));
+	return(p);
+}
+
+/*
+	int ft_get_vertexes_count(char *str)
+
+	Function that parsing string and return vertexes
+	count or -1 if map invalid.
+*/
+int			ft_get_vertexes_count(char *str)
+{
+	char			*ptr;
+	int				count[3];
+
+	ft_bzero(count, sizeof(int) * 3);
+	ptr = ft_strchr(str, '{');
+	while (ptr != NULL && *ptr != '\0')
+	{
+		count[0]++;
+
+		ptr++;
+		ptr = ft_strchr(ptr, ',');
+		if (*ptr == ',')
+			count[1]++;
+
+		ptr++;
+		ptr = ft_strchr(ptr, '}');
+		if (*ptr == '}')
+			count[2]++;
+
+		ptr++;
+		ptr = ft_strchr(ptr, '{');
+	}
+
+	if (count[0] != count[1] ||
+		count[1] != count[2] ||
+		count[2] != count[0])
+		return (-1);
+	return (count[0]);
+}
+
+/*
+	void ft_parsing_vertexes(t_wolf3d *w, char *str)
+
+	Function that parsing string and set vertexes.
+*/
+void		ft_parsing_vertexes(t_wolf3d *w, char *str)
+{
+	t_coord			**vertex;
+	int				count;
+	unsigned int	i;
+	// temp
+	t_line	temp_line;
+	t_line	*line;
+	t_list	*lst;
+	char	*ptr;
+
+	ptr = str;
+	count = ft_get_vertexes_count(str);
+	if (count < 2)
+		ft_error("map is failed");
+
+	vertex = malloc(sizeof(void*) * count);
+	i = 0;
+	while (i < count)
+	{
+		vertex[i] = ft_parse_vertex(&ptr);
+		i++;
+	}
+
+	i = 0;
+	while (i < count)
+	{
+		// Print sector vertexes
+		printf("VERTEX #%.2d\tx: %.2f\ty: %.2f\n", i, vertex[i]->x, vertex[i]->y);
+		i++;
+	}
+
+	// Set line (temp)
+	temp_line.height = WIN_HEIGHT; // standart height
+	i = 0;
+	while (i + 1 < count)
+	{
+		temp_line.p1.x = vertex[i]->x;
+		temp_line.p1.y = vertex[i]->y;
+		temp_line.p2.x = vertex[i + 1]->x;
+		temp_line.p2.y = vertex[i + 1]->y;
+		// printf("CURRENT LINE %.2d: %.2f, %.2f, %.2f, %.2f\n", i, temp_line.p1.x, temp_line.p1.y, temp_line.p2.x, temp_line.p2.y);
+		ft_set_line(w, line, temp_line, lst);
+		i++;
+	}
+
+	// Finish
+	temp_line.p1.x = vertex[count - 1]->x;
+	temp_line.p1.y = vertex[count - 1]->y;
+	temp_line.p2.x = vertex[0]->x;
+	temp_line.p2.y = vertex[0]->y;
+	
+	ft_set_line(w, line, temp_line, lst);
+	i++;
+
+
+	ft_free_array2((void**)vertex, count);
+}
+/*
+	void ft_read_file_nmp(int fd, t_wolf3d *w)
+
+	Function that read the file in .nmp format.
+*/
 void		ft_read_file_nmp(int fd, t_wolf3d *w)
 {
 	char	*line;
@@ -24,15 +172,20 @@ void		ft_read_file_nmp(int fd, t_wolf3d *w)
 	while ((res = get_next_line(fd, &line)) > 0)
 	{
 		map = ft_strsplit(line, '\t');
-		if (ft_strcmp(map[0], "sector"))
+		if (!ft_strcmp(map[0], "sector"))
 		{
 			// temp_map = ft_strsplit(map[1], ' ');
 			// need to set walls height
 			// free temp_map
 			
 			// need to set walls coord.
+
+			// for example, let's write the walls in a line (minor version)
+			ft_parsing_vertexes(w, map[2]);
 		}
-		// parser
+		// free map
+		ft_free_array2((void**)map, 3);
+		// parser?
 		len++;
 		free(line);
 	}
