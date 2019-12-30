@@ -66,19 +66,21 @@ typedef struct			s_anime
 
 typedef struct			s_player
 {
-	t_coord				pos;		// Позиция игрока
-	t_coord				dir;		// Вектор направления игрока
-	t_coord				plane;		// Зависимость от ширины и высоты экрана
-	t_coord				raydir;		// Направление луча
-	t_coord				side_dist;	// Длина смещения при поиске стены
-	t_coord				delta_dist;	// Шаг смещения при поиске стены
-	double				old_dirX;	// temp-переменная для хранения dir.x
-	double				old_planeX;	// temp-переменная для хранения plane.x
-	double				cameraX;	// Смещение луча от центра камеры
-	double				wall_dist;	// Дистанция до стены с коррекцией fish eyes
-	int					stepX;		// flag: направление луча по x
-	int					stepY;		// flag: направление луча по y
-	int					side;		// flag: сторона (например, подкрашивает стены)
+	t_coord				pos;			// Позиция игрока
+	t_coord				dir;			// Вектор направления игрока
+	t_coord				plane;			// Зависимость от ширины и высоты экрана
+	t_coord				raydir;			// Направление луча
+	t_coord				side_dist;		// Длина смещения при поиске стены (уст.)
+	t_coord				delta_dist;		// Шаг смещения при поиске стены (уст.)
+	double				old_dirX;		// temp-переменная для хранения dir.x
+	double				old_planeX;		// temp-переменная для хранения plane.x
+	double				cameraX;		// Смещение луча от центра камеры (-1.0 ... 1.0)
+	double				cameraH;		// Высота камеры (-1.0 ... 1.0)
+	double				camera_tilt;	// Смещение камеры
+	double				wall_dist;		// Дистанция до стены с коррекцией fish eyes
+	int					stepX;			// flag: направление луча по x (уст.)
+	int					stepY;			// flag: направление луча по y (уст.)
+	int					side;			// flag: сторона (например, подкрашивает стены)
 }						t_player;
 
 typedef struct			s_write
@@ -189,7 +191,7 @@ typedef struct			s_wolf3d
 	double				*z_buffer;
 	double				ms;
 	double				rs;
-	unsigned char		arr[6];
+	unsigned char		arr[10];
 	Uint8				*tex_col;
 	Uint32				color;
 

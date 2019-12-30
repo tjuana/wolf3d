@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/30 12:48:43 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/12/30 19:04:45 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ void			ft_handle_events(t_wolf3d *w)
 			e.key.keysym.scancode == SDL_SCANCODE_D ? w->arr[3] = 1 : 0;
 			e.key.keysym.scancode == SDL_SCANCODE_SPACE ? w->arr[4] = 1 : 0;
 			e.key.keysym.scancode == SDL_SCANCODE_Q ? w->arr[5] = 1 : 0;
+			e.key.keysym.scancode == SDL_SCANCODE_R ? w->arr[6] = 1 : 0;
+			e.key.keysym.scancode == SDL_SCANCODE_F ? w->arr[7] = 1 : 0;
+			e.key.keysym.scancode == SDL_SCANCODE_T ? w->arr[8] = 1 : 0;
+			e.key.keysym.scancode == SDL_SCANCODE_G ? w->arr[9] = 1 : 0;
 		}
 		if (e.type == SDL_KEYUP)
 		{
@@ -36,8 +40,10 @@ void			ft_handle_events(t_wolf3d *w)
 			e.key.keysym.scancode == SDL_SCANCODE_S ? w->arr[1] = 0 : 0;
 			e.key.keysym.scancode == SDL_SCANCODE_A ? w->arr[2] = 0 : 0;
 			e.key.keysym.scancode == SDL_SCANCODE_D ? w->arr[3] = 0 : 0;
-			e.key.keysym.scancode == SDL_SCANCODE_SPACE ? w->arr[4] = 0 : 0;
-			e.key.keysym.scancode == SDL_SCANCODE_Q ? w->arr[5] = 0 : 0;
+			e.key.keysym.scancode == SDL_SCANCODE_R ? w->arr[6] = 0 : 0;
+			e.key.keysym.scancode == SDL_SCANCODE_F ? w->arr[7] = 0 : 0;
+			e.key.keysym.scancode == SDL_SCANCODE_T ? w->arr[8] = 0 : 0;
+			e.key.keysym.scancode == SDL_SCANCODE_G ? w->arr[9] = 0 : 0;
 		}
 	}
 }
@@ -61,6 +67,34 @@ static void		ft_right_rotation(t_wolf3d *w)
 	w->pl.plane.x = w->pl.plane.x * w->c.mcrs - w->pl.plane.y * w->c.msrs;
 	w->pl.plane.y = w->pl.old_planeX * w->c.msrs
 		+ w->pl.plane.y * w->c.mcrs;
+}
+
+static void		ft_top_rotation(t_wolf3d *w)
+{
+	w->pl.cameraH += 0.02;
+	if (w->pl.cameraH > 10.0)
+		w->pl.cameraH = 10;
+}
+
+static void		ft_bottom_rotation(t_wolf3d *w)
+{
+	w->pl.cameraH -= 0.02;
+	if (w->pl.cameraH < 1.0)
+		w->pl.cameraH = 1;
+}
+
+static void		ft_top_camera_rotation(t_wolf3d *w)
+{
+	w->pl.camera_tilt += 0.01;
+	if (w->pl.camera_tilt > 0.5)
+		w->pl.camera_tilt = 0.5;
+}
+
+static void		ft_bottom_camera_rotation(t_wolf3d *w)
+{
+	w->pl.camera_tilt -= 0.01;
+	if (w->pl.camera_tilt < -0.5)
+		w->pl.camera_tilt = -0.5;
 }
 
 /*
@@ -90,4 +124,10 @@ void			ft_use_events(t_wolf3d *w)
 	w->arr[3] == 1 ? ft_right_rotation(w) : 0;
 	w->arr[4] == 1 ? ft_play_shot(w) : 0;
 	w->arr[5] == 1 ? ft_play_music(w) : 0;
+
+	// new functions for view transform
+	w->arr[6] == 1 ? ft_top_rotation(w) : 0;
+	w->arr[7] == 1 ? ft_bottom_rotation(w) : 0;
+	w->arr[8] == 1 ? ft_top_camera_rotation(w) : 0;
+	w->arr[9] == 1 ? ft_bottom_camera_rotation(w) : 0;
 }

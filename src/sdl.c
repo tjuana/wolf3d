@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/30 12:43:17 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/12/30 18:51:39 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,9 @@ void		ft_init_wolf(t_wolf3d *w)
 	w->fov = 1.5708; // 90 градусов
 	//w->fov = 3.00000;
 	w->l_p = WIN_WIDTH / (2 * tan(w->fov / 2)); // Расстояние до воображаемой стены
-
+	
+	w->pl.cameraH = 1; // Высота камеры
+	w->pl.camera_tilt = 0; // Смещение камеры
 	w->pl.pos.x = 1.5; // Позиция игрока
 	w->pl.pos.y = 1.5;
 	w->pl.dir.x = -1; // Направление игрока
@@ -167,6 +169,10 @@ void		ft_we_need_more_init(t_wolf3d *w)
 	w->arr[3] = 0;
 	w->arr[4] = 0;
 	w->arr[5] = 0;
+	w->arr[6] = 0;
+	w->arr[7] = 0;
+	w->arr[8] = 0;
+	w->arr[9] = 0;
 }
 
 void		ft_init_multi_wolf(t_threads_help *w, t_wolf3d *head)
@@ -176,6 +182,8 @@ void		ft_init_multi_wolf(t_threads_help *w, t_wolf3d *head)
 	//w->map.sprite = head->map.sprite;
 	//w->map.sprite_ord = head->map.sprite_ord;
 	//w->map.spr_dst = head->map.spr_dst;
+	w->pl.cameraH = head->pl.cameraH; // new
+	w->pl.camera_tilt = head->pl.camera_tilt; // new
 	w->map.m_wid = head->map.m_wid;
 	w->map.m_hei = head->map.m_wid;
 	w->pl.pos.x = head->pl.pos.x;

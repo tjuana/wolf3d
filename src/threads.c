@@ -248,31 +248,16 @@ void		ft_new_ray_dir(t_threads *a)
 
 void				ft_new_wall_draw_start(t_threads *a)
 {
-	//printf("check\n");
-
-	a->w.draw_start = a->w.half_height - (a->w.line_height >> 1);
-	a->w.draw_start < 0 ? a->w.draw_start = 0 : 0;
-	a->w.draw_end = (a->w.line_height >> 1) + a->w.half_height;
+	a->w.draw_end = (int)(a->w.pl.cameraH * WIN_HEIGHT) * a->w.l_p / (a->w.l * (WIN_HEIGHT)) + WIN_HEIGHT * a->w.pl.camera_tilt;
+	a->w.draw_start = a->w.draw_end - a->w.line_height;
 	a->w.draw_end >= WIN_HEIGHT ? a->w.draw_end = WIN_HEIGHT - 1 : 0;
-	//a->w.texture_num =\
-	//a->w.map.map[a->w.map.x + a->w.map.y * a->w.map.m_wid] - 1;
-	if (a->w.pl.side == 0)
-		a->w.wall_hit = a->w.pl.pos.y + a->w.pl.wall_dist * a->w.pl.raydir.y;
-	else
-		a->w.wall_hit = a->w.pl.pos.x + a->w.pl.wall_dist * a->w.pl.raydir.x;
-	a->w.wall_hit -= floor(a->w.wall_hit);
-	a->w.text_x = (int)(a->w.wall_hit * (double)(TEX_W));
-	if (a->w.pl.side == 0 && a->w.pl.raydir.x > 0)
-		a->w.text_x = TEX_W - a->w.text_x - 1;
-	if (a->w.pl.side == 1 && a->w.pl.raydir.y < 0)
-		a->w.text_x = TEX_W - a->w.text_x - 1;
+	a->w.draw_start < 0 ? a->w.draw_start = 0 : 0;
 }
 
 void				ft_new_draw_walls(t_threads *a)
 {
 	Uint32	i;
 	a->w.y = a->w.draw_start;
-	//printf("%d\t%d\n", a->w.y, a->w.draw_start);
 	while (a->w.y < a->w.draw_end)
 	{
 		a->w.sdl->pixels[a->t1 + (a->w.y * WIN_WIDTH)] = 0x120a8f;

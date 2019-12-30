@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 15:17:47 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/30 17:01:17 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/12/30 17:32:45 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int			ft_get_vertexes_count(char *str)
 
 	Function that parsing string and set vertexes.
 */
-void		ft_parsing_vertexes(t_wolf3d *w, char *str)
+void		ft_parsing_vertexes(t_wolf3d *w, char *str, double floor, double height)
 {
 	t_coord			**vertex;
 	int				count;
@@ -130,7 +130,8 @@ void		ft_parsing_vertexes(t_wolf3d *w, char *str)
 	}
 
 	// Set line (temp)
-	temp_line.height = WIN_HEIGHT; // standart height
+	temp_line.floor = floor; // standart height
+	temp_line.height = height * (WIN_HEIGHT / 10); // standart height
 	i = 0;
 	while (i + 1 < count)
 	{
@@ -155,6 +156,20 @@ void		ft_parsing_vertexes(t_wolf3d *w, char *str)
 
 	ft_free_array2((void**)vertex, count);
 }
+
+/*
+	void ft_parsing_sector_param(char *str, double floor, double height)
+
+	Function that parsing special param. for sector.
+*/
+void		ft_parsing_sector_param(char *str, double *floor, double *height)
+{
+	*floor = atof(str);
+	str = ft_strchr(str, ' ');
+	str++;
+	*height = atof(str);
+}
+
 /*
 	void ft_read_file_nmp(int fd, t_wolf3d *w)
 
@@ -167,6 +182,8 @@ void		ft_read_file_nmp(int fd, t_wolf3d *w)
 	int		res;
 	char	**map;
 	char	**temp_map;
+	double	floor;
+	double	height;
 
 	len = 0;
 	while ((res = get_next_line(fd, &line)) > 0)
@@ -174,6 +191,7 @@ void		ft_read_file_nmp(int fd, t_wolf3d *w)
 		map = ft_strsplit(line, '\t');
 		if (!ft_strcmp(map[0], "sector"))
 		{
+			ft_parsing_sector_param(map[1], &floor, &height);
 			// temp_map = ft_strsplit(map[1], ' ');
 			// need to set walls height
 			// free temp_map
@@ -181,7 +199,7 @@ void		ft_read_file_nmp(int fd, t_wolf3d *w)
 			// need to set walls coord.
 
 			// for example, let's write the walls in a line (minor version)
-			ft_parsing_vertexes(w, map[2]);
+			ft_parsing_vertexes(w, map[2], floor, height);
 		}
 		// free map
 		ft_free_array2((void**)map, 3);
