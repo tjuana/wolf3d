@@ -40,6 +40,16 @@ typedef struct			s_line
 	int					txtr;		// Номер текстуры
 }						t_line;
 
+// new struct for sector
+typedef struct			s_sector
+{
+	t_coord				**vertex;		// Указатель на массив вершин
+	int					vertex_count;
+	double				height;		// Высота стены
+	double				floor;		// Высота ~ от z = 0
+	int					txtr;		// Номер текстуры сектора (?)
+}						t_sector;
+
 typedef struct			s_sort_util	// Структура для спрайтов (?)
 {
 	int					i;
@@ -169,6 +179,8 @@ typedef struct			s_wolf3d
 {
 	// add list with lines
 	t_list				*line;
+	// add list with sector
+	t_list				*sector;
 	// spec param
 	double				fov;
 	double				l_p;
@@ -368,6 +380,7 @@ void					ft_set_line(t_wolf3d *w, t_line *line,
 							t_line temp_line, t_list *lst);
 
 void					ft_read_file_nmp(int fd, t_wolf3d *w);
-void					ft_draw_map_new(t_wolf3d *w);
+void					ft_draw_map_new_line(t_wolf3d *w);
+void					ft_draw_map_new_sector(t_wolf3d *w);
 
 #endif

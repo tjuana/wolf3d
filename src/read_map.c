@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 15:17:47 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/30 17:32:45 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/12/31 16:26:15 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,24 @@ int			ft_get_vertexes_count(char *str)
 	return (count[0]);
 }
 
+// Set sector
+void	ft_set_sectors(t_wolf3d *w, t_coord **vertex, int count)
+{
+	t_sector	*new_sector;
+	t_list		*list_item;
+	//t_coord		**coord;
+	int			i;
+
+	new_sector = ft_my_malloc(sizeof(t_sector));
+	new_sector->vertex = vertex;
+	new_sector->vertex_count = count;
+	list_item = ft_lstnew(new_sector, sizeof(t_sector));
+	if (w->sector == NULL)
+		w->sector = list_item;
+	else
+		ft_lstadd(&(w->sector), list_item);
+}
+
 /*
 	void ft_parsing_vertexes(t_wolf3d *w, char *str)
 
@@ -121,13 +139,15 @@ void		ft_parsing_vertexes(t_wolf3d *w, char *str, double floor, double height)
 		i++;
 	}
 
-	i = 0;
+	/*i = 0;
 	while (i < count)
 	{
 		// Print sector vertexes
 		printf("VERTEX #%.2d\tx: %.2f\ty: %.2f\n", i, vertex[i]->x, vertex[i]->y);
 		i++;
-	}
+	}*/
+
+
 
 	// Set line (temp)
 	temp_line.floor = floor; // standart height
@@ -151,10 +171,13 @@ void		ft_parsing_vertexes(t_wolf3d *w, char *str, double floor, double height)
 	temp_line.p2.y = vertex[0]->y;
 	
 	ft_set_line(w, line, temp_line, lst);
-	i++;
+	//i++;
 
 
-	ft_free_array2((void**)vertex, count);
+	// Set sector (new way)
+	ft_set_sectors(w, vertex, count);
+
+	// ft_free_array2((void**)vertex, count); // vertexes in sectors
 }
 
 /*

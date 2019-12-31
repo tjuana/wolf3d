@@ -6,16 +6,100 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:33:34 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/30 12:22:58 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/12/31 15:51:36 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
+# define DEG_30 0.52360
+
+/*
+	void ft_iso_vertexes(t_wolf3d *w)
+	
+	Function that transform vertexes to isometric projection.
+	It's a test function for map.
+*/
+void	ft_iso_vertexes(t_wolf3d *w)
+{
+	t_list		*ptr_list;
+	t_sector	*ptr_sector;
+	int			i;
+	int			j;
+	// for transform
+	double		temp_x;
+	double		temp_y;
+
+	ptr_list = w->sector;
+	i = 0;
+	while (ptr_list)
+	{
+		// Get sector values
+		ptr_sector = (t_sector*)ptr_list->content;
+
+		j = 0;
+		while (j < ptr_sector->vertex_count)
+		{
+			temp_x = ptr_sector->vertex[j]->x;
+			temp_y = ptr_sector->vertex[j]->y;
+
+			// ptr_sector->vertex[j]->x = (temp_x) * cos(1) - (temp_y) * sin(1);
+			// ptr_sector->vertex[j]->y = (temp_x) * sin(1) + (temp_y) * cos(1);
+
+			// origin iso. transform
+			//ptr_sector->vertex[j]->x = ((temp_x) - (temp_y)) * cos(DEG_30);
+			//ptr_sector->vertex[j]->y = ((temp_x) + (temp_y)) * sin(DEG_30);
+			j++;
+		}
+
+		// Get next sector
+		ptr_list = ptr_list->next;
+		i++;
+	}
+}
+
+/*
+	void ft_print_sectors(t_wolf3d *w)
+	
+	Function that print the map sectors.
+*/
+void	ft_print_sectors(t_wolf3d *w)
+{
+	t_list		*ptr_list;
+	t_sector	*ptr_sector;
+	int			i;
+	int			j;
+
+	ptr_list = w->sector;
+	i = 0;
+	while (ptr_list)
+	{
+		// Get sector values
+		ptr_sector = (t_sector*)ptr_list->content;
+
+		j = 0;
+		while (j < ptr_sector->vertex_count)
+		{
+			// Print the vertexes of sector
+			printf(
+				"SECTOR #%.2d\tVERTEX #%.2d\tx: %6.2f\ty: %6.2f\n",
+				i,
+				j,
+				ptr_sector->vertex[j]->x,
+				ptr_sector->vertex[j]->y
+			);
+			j++;
+		}
+
+		// Get next sector
+		ptr_list = ptr_list->next;
+		i++;
+	}
+}
 
 /*
 	void ft_print_lines(t_wolf3d *w)
 	
-	Funtion that print the vertexes of lines.
+	Function that print the vertexes of lines.
 */
 void	ft_print_lines(t_wolf3d *w)
 {
@@ -72,6 +156,8 @@ int	main(int c, char **v)
 	w.sdl = sdl_init(w.sdl);
 	ft_init_wolf(&w);
 	ft_print_lines(&w); // Print the vertexes of lines
+	ft_print_sectors(&w); // Print the map sectors
+	ft_iso_vertexes(&w); // Transform vertexes to isometric projection (for map) [test]
 	// exit(1);
 	ft_load_textures(&w);
 	ft_init_anim(&w);
