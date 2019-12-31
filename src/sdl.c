@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/30 18:51:39 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/12/31 16:54:44 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ int			ft_init_anim(t_wolf3d *wolf)
 {
 	wolf->anim.start_am = 0;
 	wolf->anim.frame = 0;
-	wolf->anim.pframe.size = (t_coord){512, 512};
-	wolf->anim.pframe.cd = (t_coord){0, 0};
-	wolf->anim.place = (t_coord){WIN_WIDTH / 2 - 512 / 2, WIN_HEIGHT - 512};
+	wolf->anim.pframe.size = (t_vector3){512, 512};
+	wolf->anim.pframe.cd = (t_vector3){0, 0};
+	wolf->anim.place = (t_vector3){WIN_WIDTH / 2 - 512 / 2, WIN_HEIGHT - 512};
 	wolf->anim.frames = 0;
 	return (0);
 }

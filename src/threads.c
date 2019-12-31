@@ -42,7 +42,7 @@ void		threading(t_wolf3d *w)
 }
 
 // Проверяем, лежит ли точка на отрезке (?!)
-int			ft_check_point_in_line_segment(t_coord p, t_coord p1, t_coord p2)
+int			ft_check_point_in_line_segment(t_vector3 p, t_vector3 p1, t_vector3 p2)
 {
 	double	d;
 	int		p_d;
@@ -64,7 +64,7 @@ int			ft_check_point_in_line_segment(t_coord p, t_coord p1, t_coord p2)
 	return (0);
 }
 
-int			ft_check_point(t_coord p, t_coord p1, t_coord p2, t_coord p1_pl, t_coord p2_pl)
+int			ft_check_point(t_vector3 p, t_vector3 p1, t_vector3 p2, t_vector3 p1_pl, t_vector3 p2_pl)
 {
 	// Определяем, в верном ли направлении лежит точка
 	double l1;
@@ -100,9 +100,9 @@ int			ft_check_div(double x1, double y1, double x2, double y2,double x3, double 
 	return 1;
 }
 
-t_coord		ft_find_intersect(double x1, double y1, double x2, double y2,double x3, double y3, double x4, double y4)
+t_vector3		ft_find_intersect(double x1, double y1, double x2, double y2,double x3, double y3, double x4, double y4)
 {
-	t_coord		xy;
+	t_vector3		xy;
 	double		d;
 
 	d = ft_math_vxs((x1)-(x2), (y1)-(y2), (x3)-(x4), (y3)-(y4));
@@ -120,11 +120,11 @@ void		ft_new_ray_dir(t_threads *a)
 	double	l;
 	double	temp_l;
 	double	p_d;
-	t_coord	p;
-	t_coord	i_vertex;
+	t_vector3	p;
+	t_vector3	i_vertex;
 
-	t_coord	p1_pl;
-	t_coord	p2_pl;
+	t_vector3	p1_pl;
+	t_vector3	p2_pl;
 
 	ptr_list = a->w.line; // List of lines
 	own_line = NULL;

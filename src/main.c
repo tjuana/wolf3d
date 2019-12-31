@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:33:34 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/31 15:51:36 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/12/31 17:35:39 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ int	main(int c, char **v)
 	ft_init_wolf(&w);
 	ft_print_lines(&w); // Print the vertexes of lines
 	ft_print_sectors(&w); // Print the map sectors
-	ft_iso_vertexes(&w); // Transform vertexes to isometric projection (for map) [test]
+	// ft_iso_vertexes(&w); // Transform vertexes to isometric projection (for map) [test]
 	// exit(1);
 	ft_load_textures(&w);
 	ft_init_anim(&w);

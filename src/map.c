@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:24:13 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/31 16:26:46 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/12/31 18:56:31 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int			ft_init_view_map(t_wolf3d *wolf)
 {
 	wolf->view_map.frame = 0;
-	wolf->view_map.pframe.size = (t_coord){256, 256};
-	wolf->view_map.place = (t_coord){0, WIN_HEIGHT - 256};
+	wolf->view_map.pframe.size = (t_vector3){256, 256};
+	wolf->view_map.place = (t_vector3){0, WIN_HEIGHT - 256};
 	return (0);
 }
 
@@ -108,7 +108,7 @@ void		ft_fill_frame(t_wolf3d *w)
 	}
 }
 
-int			ft_check_line_for_map(t_coord p1, t_coord p2)
+int			ft_check_line_for_map(t_vector3 p1, t_vector3 p2)
 {
 	return (1);
 }
@@ -123,8 +123,8 @@ void		ft_draw_map_new_line(t_wolf3d *w)
 	int		x;
 	int		y;
 	int		pos;
-	t_coord	c1;
-	t_coord	c2;
+	t_vector3	c1;
+	t_vector3	c2;
 	// for list
 	t_list	*ptr_list;
 	t_line	*ptr_line;
@@ -169,8 +169,8 @@ void		ft_draw_map_new_sector(t_wolf3d *w)
 	int		x;
 	int		y;
 	int		pos;
-	t_coord	c1;
-	t_coord	c2;
+	t_vector3	c1;
+	t_vector3	c2;
 	// for list
 	t_list	*ptr_list;
 	t_sector	*ptr_sector;
@@ -213,4 +213,116 @@ void		ft_draw_map_new_sector(t_wolf3d *w)
 	}
 
 	ft_draw_compass(w);
+}
+
+/*
+	void ft_get_angle(double sin, double cos)
+
+	Funtion that return angle in radians.
+*/
+double		ft_get_angle(double sin, double cos)
+{
+	if (sin > 0.0)
+		return (acos(cos));
+	return (acos(-cos) + M_PI);
+}
+
+/*
+	void ft_draw_map_new_sector(t_wolf3d *w)
+
+	Function that draw new maps (sector).
+*/
+void		ft_draw_map_new_sector_iso(t_wolf3d *w)
+{
+	int				x;
+	int				y;
+	int				pos;
+	int				i;
+	t_vector3		c1;
+	t_vector3		c2;
+	// for list
+	t_list			*ptr_list;
+	t_list			*ptr_list_origin;
+	t_sector		*ptr_sector;
+	t_sector		*ptr_sector_origin;
+	// for transform
+	t_matrix_4x4	temp_matrix;
+	double			angle;
+
+	ft_fill_frame(w);
+	ptr_list = w->map_sector;
+	ptr_list_origin = w->sector;
+	// angle = ft_get_angle(w->pl.dir.y, w->pl.dir.x);
+	angle = ft_get_angle(-w->pl.dir.x, -w->pl.dir.y);
+	while (ptr_list)
+	{
+		// Get line values
+		ptr_sector = (t_sector*)ptr_list->content;
+		ptr_sector_origin = (t_sector*)ptr_list_origin->content;
+
+		// Transform map coordinates
+		i = 0;
+		while (i < ptr_sector->vertex_count)
+		{
+			// turn camera
+			ptr_sector->vertex[i]->x = ptr_sector_origin->vertex[i]->x - w->pl.pos.x;
+			ptr_sector->vertex[i]->y = ptr_sector_origin->vertex[i]->y - w->pl.pos.y;
+
+			temp_matrix = ft_identify(temp_matrix);
+			temp_matrix = ft_rz_matrix(temp_matrix, angle);
+			// temp_matrix = ft_rx_matrix(temp_matrix, 1);
+
+			*ptr_sector->vertex[i] = ft_transform_vertex(*ptr_sector->vertex[i], temp_matrix);
+
+			ptr_sector->vertex[i]->x += w->pl.pos.x;
+			ptr_sector->vertex[i]->y += w->pl.pos.y;
+
+
+			// Isometric
+			/*ptr_sector->vertex[i]->x -= w->pl.pos.x;
+			ptr_sector->vertex[i]->y -= w->pl.pos.y;
+
+			temp_matrix = ft_identify(temp_matrix);
+			temp_matrix = ft_rx_matrix(temp_matrix, 0);
+			// printf("%f\t%f\t%f\t%f\n", temp_matrix.matrix[0][0], temp_matrix.matrix[1][1], temp_matrix.matrix[2][2], temp_matrix.matrix[3][3]);
+
+			*ptr_sector->vertex[i] = ft_transform_vertex(*ptr_sector->vertex[i], temp_matrix);
+
+			ptr_sector->vertex[i]->x += w->pl.pos.x;
+			ptr_sector->vertex[i]->y += w->pl.pos.y;*/
+			
+			i++;
+		}
+
+		i = 0;
+		while ((i + 1) < ptr_sector->vertex_count)
+		{
+			// Get line coordinates
+			// Scale and transform
+			c1.x = ptr_sector->vertex[i]->x * 32 - (w->pl.pos.x - 4) * 32 + w->view_map.place.x;
+			c1.y = ptr_sector->vertex[i]->y * 32 - (w->pl.pos.y - 4) * 32 + w->view_map.place.y;
+			c2.x = ptr_sector->vertex[i + 1]->x * 32 - (w->pl.pos.x - 4) * 32 + w->view_map.place.x;
+			c2.y = ptr_sector->vertex[i + 1]->y * 32 - (w->pl.pos.y - 4) * 32 + w->view_map.place.y;
+	
+			if (ft_check_line_for_map(c1, c2))
+				ft_fdf_wu(&c1, &c2, w);
+			i++;
+		}
+
+		// Last coordinates
+		c1.x = ptr_sector->vertex[ptr_sector->vertex_count - 1]->x * 32 - (w->pl.pos.x - 4) * 32 + w->view_map.place.x;
+		c1.y = ptr_sector->vertex[ptr_sector->vertex_count - 1]->y * 32 - (w->pl.pos.y - 4) * 32 + w->view_map.place.y;
+		c2.x = ptr_sector->vertex[0]->x * 32 - (w->pl.pos.x - 4) * 32 + w->view_map.place.x;
+		c2.y = ptr_sector->vertex[0]->y * 32 - (w->pl.pos.y - 4) * 32 + w->view_map.place.y;
+	
+		if (ft_check_line_for_map(c1, c2))
+			ft_fdf_wu(&c1, &c2, w);
+
+		// Get next line
+		ptr_list = ptr_list->next;
+		ptr_list_origin = ptr_list_origin->next;
+		i++;
+	}
+
+	ft_draw_compass_static(w);
 }

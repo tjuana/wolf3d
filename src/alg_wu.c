@@ -6,13 +6,13 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 16:50:24 by dorange-          #+#    #+#             */
-/*   Updated: 2019/11/14 17:04:10 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/12/31 16:54:44 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-void		ft_fdf_init_wu(t_fdf_wu **wu, t_coord *dot_1, t_coord *dot_2)
+void		ft_fdf_init_wu(t_fdf_wu **wu, t_vector3 *dot_1, t_vector3 *dot_2)
 {
 	(*wu) = ft_memalloc(sizeof(t_fdf_wu));
 	ft_bzero(*wu, sizeof(t_fdf_wu));
@@ -73,7 +73,7 @@ void		ft_fdf_draw_line_param(t_wolf3d *data, t_fdf_wu **wu)
 	ft_fdf_draw_line_last_pixels(data, wu);
 }
 
-void		ft_fdf_wu(t_coord *dot_1, t_coord *dot_2, t_wolf3d *data)
+void		ft_fdf_wu(t_vector3 *dot_1, t_vector3 *dot_2, t_wolf3d *data)
 {
 	t_fdf_wu	*wu;
 	double		x;

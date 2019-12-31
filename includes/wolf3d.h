@@ -23,18 +23,20 @@
 # include <math.h>
 # include <string.h>
 # include <libft.h>
-
-typedef struct			s_coord
-{
-	double				x;			// Координата точки по x
-	double				y;			// Координата точки по y
-}						t_coord;
+// matrix library
+//# include "matrix/constants.h"
+// # include "matrix/door.h"
+// # include "matrix/player.h"
+// # include "matrix/sprites.h"
+//# include "matrix/sdl.h"
+//# include "matrix/fdf.h"
+# include "algebra.h" // math library for matrix transform
 
 // new struct for line
 typedef struct			s_line
 {
-	t_coord				p1;			// Координаты первой точки
-	t_coord				p2;			// Координаты второй точки
+	t_vector3			p1;			// Координаты первой точки
+	t_vector3			p2;			// Координаты второй точки
 	double				height;		// Высота стены
 	double				floor;		// Высота ~ от z = 0
 	int					txtr;		// Номер текстуры
@@ -43,7 +45,7 @@ typedef struct			s_line
 // new struct for sector
 typedef struct			s_sector
 {
-	t_coord				**vertex;		// Указатель на массив вершин
+	t_vector3			**vertex;		// Указатель на массив вершин
 	int					vertex_count;
 	double				height;		// Высота стены
 	double				floor;		// Высота ~ от z = 0
@@ -60,8 +62,8 @@ typedef struct			s_sort_util	// Структура для спрайтов (?)
 
 typedef struct			s_rect
 {
-	t_coord				size;
-	t_coord				cd;
+	t_vector3			size;
+	t_vector3			cd;
 }						t_rect;
 
 
@@ -70,18 +72,18 @@ typedef struct			s_anime
 	int					start_am;
 	int					frame;
 	t_rect				pframe;
-	t_coord				place;
+	t_vector3			place;
 	int					frames;
 }						t_anime;
 
 typedef struct			s_player
 {
-	t_coord				pos;			// Позиция игрока
-	t_coord				dir;			// Вектор направления игрока
-	t_coord				plane;			// Зависимость от ширины и высоты экрана
-	t_coord				raydir;			// Направление луча
-	t_coord				side_dist;		// Длина смещения при поиске стены (уст.)
-	t_coord				delta_dist;		// Шаг смещения при поиске стены (уст.)
+	t_vector3			pos;			// Позиция игрока
+	t_vector3			dir;			// Вектор направления игрока
+	t_vector3			plane;			// Зависимость от ширины и высоты экрана
+	t_vector3			raydir;			// Направление луча
+	t_vector3			side_dist;		// Длина смещения при поиске стены (уст.)
+	t_vector3			delta_dist;		// Шаг смещения при поиске стены (уст.)
 	double				old_dirX;		// temp-переменная для хранения dir.x
 	double				old_planeX;		// temp-переменная для хранения plane.x
 	double				cameraX;		// Смещение луча от центра камеры (-1.0 ... 1.0)
@@ -181,6 +183,8 @@ typedef struct			s_wolf3d
 	t_list				*line;
 	// add list with sector
 	t_list				*sector;
+	// add temp list for map
+	t_list				*map_sector;
 	// spec param
 	double				fov;
 	double				l_p;
@@ -219,8 +223,8 @@ typedef struct			s_thread_help
 	double				l;
 	double				fov;
 	double				l_p;
-	t_coord				fc_dir;
-	t_coord				ln_dir;
+	t_vector3			fc_dir;
+	t_vector3			ln_dir;
 	double				ln_l;
 
 	t_player			pl;
@@ -352,12 +356,12 @@ void					ft_draw_map(t_wolf3d *w);
 void					ft_sort(t_wolf3d *w);
 void					write_sprites(t_map *m);
 
-void					ft_fdf_init_wu(t_fdf_wu **wu, t_coord *dot_1, \
-							t_coord *dot_2);
+void					ft_fdf_init_wu(t_fdf_wu **wu, t_vector3 *dot_1, \
+							t_vector3 *dot_2);
 void					ft_fdf_swap_double(double *n1, double *n2);
 void					ft_fdf_draw_line_swap(t_fdf_wu **wu);
 void					ft_fdf_draw_line_param(t_wolf3d *data, t_fdf_wu **wu);
-void					ft_fdf_wu(t_coord *dot_1, t_coord *dot_2, \
+void					ft_fdf_wu(t_vector3 *dot_1, t_vector3 *dot_2, \
 							t_wolf3d *data);
 
 void					ft_fdf_draw_line_first_pixels(t_wolf3d *data, \
@@ -375,6 +379,7 @@ double					ft_fdf_fpart(double x);
 int						ft_fdf_get_color(int color1, int color2, double f1);
 
 void					ft_draw_compass(t_wolf3d *w);
+void					ft_draw_compass_static(t_wolf3d *w);
 
 void					ft_set_line(t_wolf3d *w, t_line *line,
 							t_line temp_line, t_list *lst);
@@ -382,5 +387,6 @@ void					ft_set_line(t_wolf3d *w, t_line *line,
 void					ft_read_file_nmp(int fd, t_wolf3d *w);
 void					ft_draw_map_new_line(t_wolf3d *w);
 void					ft_draw_map_new_sector(t_wolf3d *w);
+void					ft_draw_map_new_sector_iso(t_wolf3d *w);
 
 #endif
