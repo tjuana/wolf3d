@@ -8,6 +8,8 @@
 # define TEX_H 64
 # define ONE_ANIM 20
 # define FULL_ANIM ONE_ANIM * 4 - 4
+# define T_CAM_HR_ANGLE 0.02 // transform angle for camera
+# define T_CAM_Z_ANGLE 0.01 // transform angle for camera
 
 # define C_R 0x00FF0000
 # define C_G 0x0000FF00
@@ -46,10 +48,10 @@ typedef struct			s_line
 typedef struct			s_sector
 {
 	t_vector3			**vertex;		// Указатель на массив вершин
-	int					vertex_count;
-	double				height;		// Высота стены
-	double				floor;		// Высота ~ от z = 0
-	int					txtr;		// Номер текстуры сектора (?)
+	int					vertex_count;	// Кол-во вершин в секторе
+	double				height;			// Высота стены
+	double				floor;			// Высота ~ от z = 0
+	int					txtr;			// Номер текстуры сектора (?)
 }						t_sector;
 
 typedef struct			s_sort_util	// Структура для спрайтов (?)
@@ -60,7 +62,7 @@ typedef struct			s_sort_util	// Структура для спрайтов (?)
 	char				swap;
 }						t_sort_util;
 
-typedef struct			s_rect
+typedef struct			s_rect		// (?)
 {
 	t_vector3			size;
 	t_vector3			cd;
@@ -78,24 +80,15 @@ typedef struct			s_anime
 
 typedef struct			s_player
 {
+	t_vector3			camera_vector;	// Основной вектор камеры
 	t_vector3			pos;			// Позиция игрока
-	t_vector3			dir;			// Вектор направления игрока
-	t_vector3			plane;			// Зависимость от ширины и высоты экрана
-	t_vector3			raydir;			// Направление луча
-	t_vector3			side_dist;		// Длина смещения при поиске стены (уст.)
-	t_vector3			delta_dist;		// Шаг смещения при поиске стены (уст.)
-	double				old_dirX;		// temp-переменная для хранения dir.x
-	double				old_planeX;		// temp-переменная для хранения plane.x
-	double				cameraX;		// Смещение луча от центра камеры (-1.0 ... 1.0)
+	double				cameraX;		// temp: Смещение луча от центра камеры (-1.0 ... 1.0)
 	double				cameraH;		// Высота камеры (-1.0 ... 1.0)
-	double				camera_tilt;	// Смещение камеры
-	double				wall_dist;		// Дистанция до стены с коррекцией fish eyes
-	int					stepX;			// flag: направление луча по x (уст.)
-	int					stepY;			// flag: направление луча по y (уст.)
+	double				wall_dist;		// temp: Дистанция до стены с коррекцией fish eyes
 	int					side;			// flag: сторона (например, подкрашивает стены)
 }						t_player;
 
-typedef struct			s_write
+typedef struct			s_write			// Для чтения карты
 {
 	t_list				*lst;
 	char				**s;
@@ -142,27 +135,21 @@ typedef struct			s_map
 	double				*s_dst;
 }						t_map;
 
-typedef struct			s_const
+/*
+	Some point about crs, src, mcrs and msrs constants.
+	These constants are helpers for rotations. If we will use them,
+	our calculations will be simpler. But we don't have
+	matrix functions for constant parameters.
+*/
+typedef struct			s_const			// structure for constants
 {
-	double				crs;
-	double				srs;
-	double				mcrs;
-	double				msrs;
-	double				camera_x_cnst;
-	int					half_height;
+	double				crs;			// [now not use]
+	double				srs;			// [now not use]
+	double				mcrs;			// [now not use]
+	double				msrs;			// [now not use]
+	double				camera_x_cnst;	// useful constant for camera offset
+	int					half_height;	// [not use]
 }						t_const;
-
-typedef struct			s_floor
-{
-	double				xwall;
-	double				ywall;
-	double				cur_dst;
-	double				weight;
-	double				cur_x;
-	double				cur_y;
-	int					text_x;
-	int					text_y;
-}						t_floor;
 
 typedef struct			s_time
 {
@@ -198,7 +185,6 @@ typedef struct			s_wolf3d
 	SDL_Surface			*map_texture;
 	t_anime				anim;
 	t_anime				view_map;
-	t_floor				flr;
 	int					temp;
 	int					fd;
 	int					x;
@@ -229,7 +215,6 @@ typedef struct			s_thread_help
 
 	t_player			pl;
 	t_map				map;
-	t_floor				flr;
 	t_sdl				*sdl;
 	void				*tex_col;
 	double				*z_buffer;
@@ -324,16 +309,11 @@ void					ft_use_events(t_wolf3d *w);
 int						ft_step_back_check(t_wolf3d *w, unsigned char flag);
 int						ft_step_forward_check(t_wolf3d *w, unsigned char flag);
 
-void					ft_wall_hit(t_threads *a);
-void					ft_wall_draw_start(t_threads *a);
-void					ft_draw_walls(t_threads *a);
-
 void					threading(t_wolf3d *w);
 
 void					*begin_game(void *w);
 int						ft_step_back_check(t_wolf3d *w, unsigned char flag);
 int						ft_step_forward_check(t_wolf3d *w, unsigned char flag);
-void					ft_ray_dir_calculations(t_threads *a);
 
 // fps
 void					fpsthink(void);
@@ -341,9 +321,6 @@ void					fpsinit(void);
 
 void					ft_draw_animation(t_wolf3d *w);
 void					ft_animation_play(t_wolf3d *w);
-
-void					ft_draw_floor(t_threads *a);
-void					ft_get_floor_coordinates(t_threads *a);
 
 void					ft_init_sound(t_wolf3d *w);
 void					ft_load_sound(t_wolf3d *w);

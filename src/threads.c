@@ -34,10 +34,6 @@ void		threading(t_wolf3d *w)
 		pthread_join(threads[x], NULL);
 	w->pl.pos.x = args[x - 1].w.pl.pos.x;
 	w->pl.pos.y = args[x - 1].w.pl.pos.y;
-	w->pl.plane.x = args[x - 1].w.pl.plane.x;
-	w->pl.plane.y = args[x - 1].w.pl.plane.y;
-	w->pl.dir.x = args[x - 1].w.pl.dir.x;
-	w->pl.dir.y = args[x - 1].w.pl.dir.y;
 	//ft_draw_sprites(w);
 }
 
@@ -146,10 +142,8 @@ void		ft_new_ray_dir(t_threads *a)
 	// Угол смещения -- половина fov, помноженная на отклонение
 	// fc_dir -- вектор камеры
 
-	// cos(α+β)=cosα⋅cosβ−sinα⋅sinβ
-	a->w.fc_dir.x = a->w.pl.dir.x * cos(a->w.pl.cameraX * (a->w.fov / 2)) - a->w.pl.dir.y * sin(a->w.pl.cameraX * (a->w.fov / 2));
-	// sin(α±β)=sinα⋅cosβ±cosα⋅sinβ 
-	a->w.fc_dir.y = a->w.pl.dir.y * cos(a->w.pl.cameraX * (a->w.fov / 2)) + a->w.pl.dir.x * sin(a->w.pl.cameraX * (a->w.fov / 2));
+	a->w.fc_dir.x = a->w.pl.camera_vector.x * cos(a->w.pl.cameraX * (a->w.fov / 2)) - a->w.pl.camera_vector.y * sin(a->w.pl.cameraX * (a->w.fov / 2));
+	a->w.fc_dir.y = a->w.pl.camera_vector.y * cos(a->w.pl.cameraX * (a->w.fov / 2)) + a->w.pl.camera_vector.x * sin(a->w.pl.cameraX * (a->w.fov / 2));
 
 	// Необходимо связать это с FOV.
 	while (ptr_list)
@@ -213,12 +207,7 @@ void		ft_new_ray_dir(t_threads *a)
 	a->w.l = l; // * atan2(a->w.pl.cameraX, a->w.l_p);
 
 	// Убираем эффект рыбьего глаза
-	a->w.l *= (a->w.fc_dir.x * a->w.pl.dir.x + a->w.fc_dir.y * a->w.pl.dir.y);
-
-	// cos(α-β)=cosα⋅cosβ+sinα⋅sinβ
-	// α -- a->w.fc_dir
-	// β -- a->w.pl.dir
-
+	a->w.l *= (a->w.fc_dir.x * a->w.pl.camera_vector.x + a->w.fc_dir.y * a->w.pl.camera_vector.y);
 
 	// Увеличение/уменьшение -- проблема a->w.l_p
 	if (a->w.l != 0 && own_line != NULL)
@@ -248,7 +237,7 @@ void		ft_new_ray_dir(t_threads *a)
 
 void				ft_new_wall_draw_start(t_threads *a)
 {
-	a->w.draw_end = (int)(a->w.pl.cameraH * WIN_HEIGHT) * a->w.l_p / (a->w.l * (WIN_HEIGHT)) + WIN_HEIGHT * a->w.pl.camera_tilt;
+	a->w.draw_end = (int)(a->w.pl.cameraH * WIN_HEIGHT) * a->w.l_p / (a->w.l * (WIN_HEIGHT)) + WIN_HEIGHT * a->w.pl.camera_vector.z;
 	a->w.draw_start = a->w.draw_end - a->w.line_height;
 	a->w.draw_end >= WIN_HEIGHT ? a->w.draw_end = WIN_HEIGHT - 1 : 0;
 	a->w.draw_start < 0 ? a->w.draw_start = 0 : 0;

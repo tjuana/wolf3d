@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/31 16:54:44 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/02 15:12:04 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,22 +128,28 @@ void		ft_init_wolf(t_wolf3d *w)
 	//w->fov = 3.00000;
 	w->l_p = WIN_WIDTH / (2 * tan(w->fov / 2)); // Расстояние до воображаемой стены
 	
+	// Set camera vector
+	w->pl.camera_vector.x = 0;
+	w->pl.camera_vector.y = 1;
+	w->pl.camera_vector.z = 0;
+	w->pl.camera_vector.w = 0;
+
 	w->pl.cameraH = 1; // Высота камеры
-	w->pl.camera_tilt = 0; // Смещение камеры
+	// w->pl.camera_tilt = 0; // Смещение камеры
 	w->pl.pos.x = 1.5; // Позиция игрока
 	w->pl.pos.y = 1.5;
-	w->pl.dir.x = -1; // Направление игрока
-	w->pl.dir.y = 0;
-	w->pl.plane.x = 0;
-	w->pl.plane.y = (double)(WIN_WIDTH / 2) / WIN_HEIGHT; // ;) [Корректно: (W / 2) / H]
 	w->hit = 0;
 	w->x = -1;
+
+	// transform
+	// w->transform_angle = 0.02;
 	w->ms = 0.02;
 	w->rs = 0.02;
 	w->c.crs = cos(w->rs);
 	w->c.srs = sin(w->rs);
 	w->c.mcrs = cos(-w->rs);
 	w->c.msrs = sin(-w->rs);
+
 	w->c.half_height = (WIN_HEIGHT >> 1);
 	w->c.camera_x_cnst = 2 / (double)WIN_WIDTH;
 	w->z_buffer = ft_my_malloc(sizeof(double) * WIN_WIDTH);
@@ -183,15 +189,12 @@ void		ft_init_multi_wolf(t_threads_help *w, t_wolf3d *head)
 	//w->map.sprite_ord = head->map.sprite_ord;
 	//w->map.spr_dst = head->map.spr_dst;
 	w->pl.cameraH = head->pl.cameraH; // new
-	w->pl.camera_tilt = head->pl.camera_tilt; // new
+	// w->pl.camera_tilt = head->pl.camera_tilt; // new
+	w->pl.camera_vector = head->pl.camera_vector; // new
 	w->map.m_wid = head->map.m_wid;
 	w->map.m_hei = head->map.m_wid;
 	w->pl.pos.x = head->pl.pos.x;
 	w->pl.pos.y = head->pl.pos.y;
-	w->pl.dir.x = head->pl.dir.x;
-	w->pl.dir.y = head->pl.dir.y;
-	w->pl.plane.x = head->pl.plane.x;
-	w->pl.plane.y = head->pl.plane.y;
 	w->z_buffer = head->z_buffer;
 	w->half_height = head->c.half_height;
 	w->camera_x_cnst = head->c.camera_x_cnst;

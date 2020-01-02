@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:24:13 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/31 18:56:31 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/02 15:08:14 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,8 +252,7 @@ void		ft_draw_map_new_sector_iso(t_wolf3d *w)
 	ft_fill_frame(w);
 	ptr_list = w->map_sector;
 	ptr_list_origin = w->sector;
-	// angle = ft_get_angle(w->pl.dir.y, w->pl.dir.x);
-	angle = ft_get_angle(-w->pl.dir.x, -w->pl.dir.y);
+	angle = ft_get_angle(-w->pl.camera_vector.x, -w->pl.camera_vector.y);
 	while (ptr_list)
 	{
 		// Get line values
@@ -265,32 +264,37 @@ void		ft_draw_map_new_sector_iso(t_wolf3d *w)
 		while (i < ptr_sector->vertex_count)
 		{
 			// turn camera
+			/*ptr_sector->vertex[i]->x = 0;
+			ptr_sector->vertex[i]->y = 0;
+
 			ptr_sector->vertex[i]->x = ptr_sector_origin->vertex[i]->x - w->pl.pos.x;
 			ptr_sector->vertex[i]->y = ptr_sector_origin->vertex[i]->y - w->pl.pos.y;
 
 			temp_matrix = ft_identify(temp_matrix);
 			temp_matrix = ft_rz_matrix(temp_matrix, angle);
-			// temp_matrix = ft_rx_matrix(temp_matrix, 1);
 
 			*ptr_sector->vertex[i] = ft_transform_vertex(*ptr_sector->vertex[i], temp_matrix);
 
 			ptr_sector->vertex[i]->x += w->pl.pos.x;
 			ptr_sector->vertex[i]->y += w->pl.pos.y;
-
-
+*/
 			// Isometric
-			/*ptr_sector->vertex[i]->x -= w->pl.pos.x;
-			ptr_sector->vertex[i]->y -= w->pl.pos.y;
+			ptr_sector->vertex[i]->x = ptr_sector_origin->vertex[i]->x - w->pl.pos.x;
+			ptr_sector->vertex[i]->y = ptr_sector_origin->vertex[i]->y - w->pl.pos.y;
 
 			temp_matrix = ft_identify(temp_matrix);
-			temp_matrix = ft_rx_matrix(temp_matrix, 0);
 			// printf("%f\t%f\t%f\t%f\n", temp_matrix.matrix[0][0], temp_matrix.matrix[1][1], temp_matrix.matrix[2][2], temp_matrix.matrix[3][3]);
+			// temp_matrix = ft_rx_matrix(temp_matrix, 0.02);
+			temp_matrix = ft_rz_matrix(temp_matrix, angle);
 
+				
 			*ptr_sector->vertex[i] = ft_transform_vertex(*ptr_sector->vertex[i], temp_matrix);
 
 			ptr_sector->vertex[i]->x += w->pl.pos.x;
-			ptr_sector->vertex[i]->y += w->pl.pos.y;*/
-			
+			ptr_sector->vertex[i]->y += w->pl.pos.y;
+
+			// if (i == 0)
+			// 	printf("S:%f\t%f\t%f\n", ptr_sector->vertex[i]->x, ptr_sector->vertex[i]->y, ptr_sector->vertex[i]->z);
 			i++;
 		}
 

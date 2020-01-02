@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 15:22:19 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/31 17:14:11 by dorange-         ###   ########.fr       */
+/*   Updated: 2019/12/31 19:02:42 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,17 @@
 # include "wolf3d.h"
 # define DEG2RAD(angleDegrees) ((angleDegrees) * M_PI / 180.0)
 # define RAD2DEG(angleRadians) ((angleRadians) * 180.0 / M_PI)
-# define FOV (double)60
-# define WIDTH (double)640
-# define HIGHT (double)480
-# define NEAR (double)1
-# define FAR (double)100
+// # define FOV (double)60.0
+// # define WIDTH (double)640.0
+// # define HIGHT (double)480.0
+// # define NEAR (double)1.0
+// # define FAR (double)100.0
+
+# define FOV (double)90.0
+# define WIDTH (double)WIN_WIDTH
+# define HIGHT (double)WIN_HEIGHT
+# define NEAR (double)1.0
+# define FAR (double)100.0
 
 // t_vector3 == vertex (?)
 typedef struct  s_vector3
