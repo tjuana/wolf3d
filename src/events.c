@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/02 15:09:18 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/02 19:23:00 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void		ft_left_rotation(t_wolf3d *w)
 
 	// transform
 	rotation_matrix = ft_identify(rotation_matrix);
-	rotation_matrix = ft_rz_matrix(rotation_matrix, -T_CAM_Z_ANGLE);
+	rotation_matrix = ft_rz_matrix(rotation_matrix, -T_CAM_HR_ANGLE);
 	w->pl.camera_vector = ft_transform_vertex(w->pl.camera_vector, rotation_matrix);
 
 	printf("%.2f\t%.2f\t%.2f\t%.2f\n", w->pl.camera_vector.x, w->pl.camera_vector.y, w->pl.camera_vector.z, w->pl.camera_vector.w);

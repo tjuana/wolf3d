@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:24:13 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/02 15:08:14 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/02 19:25:12 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,38 +263,19 @@ void		ft_draw_map_new_sector_iso(t_wolf3d *w)
 		i = 0;
 		while (i < ptr_sector->vertex_count)
 		{
-			// turn camera
-			/*ptr_sector->vertex[i]->x = 0;
-			ptr_sector->vertex[i]->y = 0;
-
-			ptr_sector->vertex[i]->x = ptr_sector_origin->vertex[i]->x - w->pl.pos.x;
-			ptr_sector->vertex[i]->y = ptr_sector_origin->vertex[i]->y - w->pl.pos.y;
-
-			temp_matrix = ft_identify(temp_matrix);
-			temp_matrix = ft_rz_matrix(temp_matrix, angle);
-
-			*ptr_sector->vertex[i] = ft_transform_vertex(*ptr_sector->vertex[i], temp_matrix);
-
-			ptr_sector->vertex[i]->x += w->pl.pos.x;
-			ptr_sector->vertex[i]->y += w->pl.pos.y;
-*/
 			// Isometric
 			ptr_sector->vertex[i]->x = ptr_sector_origin->vertex[i]->x - w->pl.pos.x;
 			ptr_sector->vertex[i]->y = ptr_sector_origin->vertex[i]->y - w->pl.pos.y;
+			ptr_sector->vertex[i]->z = ptr_sector_origin->vertex[i]->z;
 
 			temp_matrix = ft_identify(temp_matrix);
-			// printf("%f\t%f\t%f\t%f\n", temp_matrix.matrix[0][0], temp_matrix.matrix[1][1], temp_matrix.matrix[2][2], temp_matrix.matrix[3][3]);
-			// temp_matrix = ft_rx_matrix(temp_matrix, 0.02);
 			temp_matrix = ft_rz_matrix(temp_matrix, angle);
-
 				
 			*ptr_sector->vertex[i] = ft_transform_vertex(*ptr_sector->vertex[i], temp_matrix);
 
 			ptr_sector->vertex[i]->x += w->pl.pos.x;
 			ptr_sector->vertex[i]->y += w->pl.pos.y;
 
-			// if (i == 0)
-			// 	printf("S:%f\t%f\t%f\n", ptr_sector->vertex[i]->x, ptr_sector->vertex[i]->y, ptr_sector->vertex[i]->z);
 			i++;
 		}
 
@@ -303,10 +284,10 @@ void		ft_draw_map_new_sector_iso(t_wolf3d *w)
 		{
 			// Get line coordinates
 			// Scale and transform
-			c1.x = ptr_sector->vertex[i]->x * 32 - (w->pl.pos.x - 4) * 32 + w->view_map.place.x;
-			c1.y = ptr_sector->vertex[i]->y * 32 - (w->pl.pos.y - 4) * 32 + w->view_map.place.y;
-			c2.x = ptr_sector->vertex[i + 1]->x * 32 - (w->pl.pos.x - 4) * 32 + w->view_map.place.x;
-			c2.y = ptr_sector->vertex[i + 1]->y * 32 - (w->pl.pos.y - 4) * 32 + w->view_map.place.y;
+			c1.x = ptr_sector->vertex[i]->x * 16 - (w->pl.pos.x - 8) * 16 + w->view_map.place.x;
+			c1.y = ptr_sector->vertex[i]->y * 16 - (w->pl.pos.y - 8) * 16 + w->view_map.place.y;
+			c2.x = ptr_sector->vertex[i + 1]->x * 16 - (w->pl.pos.x - 8) * 16 + w->view_map.place.x;
+			c2.y = ptr_sector->vertex[i + 1]->y * 16 - (w->pl.pos.y - 8) * 16 + w->view_map.place.y;
 	
 			if (ft_check_line_for_map(c1, c2))
 				ft_fdf_wu(&c1, &c2, w);
@@ -314,10 +295,10 @@ void		ft_draw_map_new_sector_iso(t_wolf3d *w)
 		}
 
 		// Last coordinates
-		c1.x = ptr_sector->vertex[ptr_sector->vertex_count - 1]->x * 32 - (w->pl.pos.x - 4) * 32 + w->view_map.place.x;
-		c1.y = ptr_sector->vertex[ptr_sector->vertex_count - 1]->y * 32 - (w->pl.pos.y - 4) * 32 + w->view_map.place.y;
-		c2.x = ptr_sector->vertex[0]->x * 32 - (w->pl.pos.x - 4) * 32 + w->view_map.place.x;
-		c2.y = ptr_sector->vertex[0]->y * 32 - (w->pl.pos.y - 4) * 32 + w->view_map.place.y;
+		c1.x = ptr_sector->vertex[ptr_sector->vertex_count - 1]->x * 16 - (w->pl.pos.x - 8) * 16 + w->view_map.place.x;
+		c1.y = ptr_sector->vertex[ptr_sector->vertex_count - 1]->y * 16 - (w->pl.pos.y - 8) * 16 + w->view_map.place.y;
+		c2.x = ptr_sector->vertex[0]->x * 16 - (w->pl.pos.x - 8) * 16 + w->view_map.place.x;
+		c2.y = ptr_sector->vertex[0]->y * 16 - (w->pl.pos.y - 8) * 16 + w->view_map.place.y;
 	
 		if (ft_check_line_for_map(c1, c2))
 			ft_fdf_wu(&c1, &c2, w);

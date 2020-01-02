@@ -52,6 +52,7 @@ typedef struct			s_sector
 	double				height;			// Высота стены
 	double				floor;			// Высота ~ от z = 0
 	int					txtr;			// Номер текстуры сектора (?)
+	int					color;			// Цвет сектора
 }						t_sector;
 
 typedef struct			s_sort_util	// Структура для спрайтов (?)
@@ -365,5 +366,7 @@ void					ft_read_file_nmp(int fd, t_wolf3d *w);
 void					ft_draw_map_new_line(t_wolf3d *w);
 void					ft_draw_map_new_sector(t_wolf3d *w);
 void					ft_draw_map_new_sector_iso(t_wolf3d *w);
+
+void					ft_debug_matrix(t_matrix_4x4 matrix);
 
 #endif
