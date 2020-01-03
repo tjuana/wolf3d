@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 15:23:55 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/25 16:45:05 by tjuana           ###   ########.fr       */
+/*   Updated: 2020/01/03 18:32:48 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # include "sdl.h"
 # include "fdf.h"
 # include "algebra.h"
+# include "image.h"
 typedef struct			s_sort_util
 {
 	int					i;
@@ -278,4 +279,6 @@ t_vector3				ft_vec3_scalar_product(t_vector3 this, double k);
 t_vector3				ft_vec3_normalize(t_vector3 vtc);
 
 // 
+SDL_Texture		*load_text_sdl(char *name, t_sdl *sdl);
+int		loadmedia(t_sdl	sdl);
 #endif

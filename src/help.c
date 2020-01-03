@@ -6,7 +6,7 @@
 /*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 14:10:50 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/18 18:11:47 by tjuana           ###   ########.fr       */
+/*   Updated: 2020/01/03 18:44:22 by tjuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,38 @@
     // closedir(dr);
 // }
 
+// SDL_Texture		*load_text_sdl(char *name, t_sdl *sdl)
+// {
+// 	SDL_Texture	*new_text = NULL;
+	
+// 	SDL_Surface *load = IMG_Load(name);
+
+// 	new_text = SDL_CreateTextureFromSurface(sdl->renderer, load);
+// 	// SDL_FreeSurface(load);
+// 	return (new_text);
+// }
+
+// int		loadmedia(t_sdl	sdl)
+// {	
+// 	sdl.test = load_text_sdl("/Textures/MFLR8_1.png", &sdl);
+//     if( sdl.test == NULL )
+//     {
+//         printf( "Failed to load texture image!\n" );
+//         return (0);
+//     }
+// 	return (1);
+// }
+
 SDL_Surface		*ft_load_png(char *name, t_sdl *sdl)
 {
 	SDL_Surface *load = NULL;
 	
-	sdl->win_surface = SDL_GetWindowSurface(sdl->win);
+	// sdl->win_surface = SDL_GetWindowSurface(sdl->win);
 	if(!(IMG_Init(IMG_INIT_PNG)& IMG_INIT_PNG))
 		ft_sdl_init_error(sdl);
 	if((load = IMG_Load(name)) == NULL)
 		ft_sdl_init_error(sdl);
+	
 	// else
 	// 	sdl->wall_surface = load;
 	//  SDL_SetSurfaceAlphaMod(sdl->win_surface, (Uint8)3350);
@@ -116,7 +139,7 @@ void			*ft_my_malloc(size_t s)
 int				ft_cleanmem(t_list **lst)
 {
 	t_list	*next;
-
+	
 	while (*lst)
 	{
 		next = (*lst)->next;
@@ -158,6 +181,7 @@ void			ft_clean_sdl(t_wolf3d *w)
 	//free(w->sdl);
 	
 	SDL_DestroyTexture(w->sdl->text);
+
 	w->sdl->text = NULL;
 	
 	// SDL_DestroyTexture(w->sdl->test);

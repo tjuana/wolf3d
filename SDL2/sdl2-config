@@ -1,6 +1,6 @@
 #!/bin/sh
 
-prefix=/Users/tjuana/wolf3d
+prefix=/Users/tjuana/DooM
 exec_prefix=${prefix}
 exec_prefix_set=no
 libdir=${exec_prefix}/lib
