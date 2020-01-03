@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/03 17:53:42 by drafe            ###   ########.fr       */
+/*   Updated: 2020/01/03 20:55:51 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,32 @@ static void	ft_menu_lit(t_wolf3d *w, int id)
 	id == 4 ? x = WIN_WIDTH * 0.8 : 0;
 	id == 5 ? x = WIN_WIDTH : 0;
 	
-	tmp_rect = ft_create_rect(WIN_WIDTH * 0.2, WIN_HEIGHT, x - (WIN_WIDTH * 0.2), 0);
-	/*if (id != 0)
+	if (w->sdl->font.half_menu != id)
 	{
-		//printf("id==%d  x==%d\n", id, x);
-		tmp_rect = ft_create_rect(WIN_WIDTH * 0.2, WIN_HEIGHT, x - (WIN_WIDTH * 0.2), 0);
-		tmp_texture = SDL_CreateTextureFromSurface(w->sdl->renderer, w->sdl->font.menu_surf);
 		SDL_RenderClear(w->sdl->renderer);
-		SDL_RenderCopy(w->sdl->renderer, tmp_texture, NULL, NULL);
-	}*/
-	SDL_RenderClear(w->sdl->renderer);
-	ft_menu(w);
+		tmp_texture = SDL_CreateTextureFromSurface(w->sdl->renderer, w->sdl->font.surf[0]);
+		tmp_texture == NULL ? ft_sdl_error(w) : 0;
+		SDL_SetTextureBlendMode(tmp_texture, SDL_BLENDMODE_NONE) != 0 ? ft_sdl_error(w) : 0;
+		SDL_RenderCopy(w->sdl->renderer, tmp_texture, NULL, NULL) != 0 ? ft_sdl_error(w) : 0;
+		SDL_DestroyTexture(tmp_texture);
+		ft_menu(w);
+		tmp_rect = ft_create_rect(WIN_WIDTH * 0.1, WIN_HEIGHT * 0.2, x - (WIN_WIDTH * 0.15), WIN_HEIGHT * 0.2);
+		tmp_texture = SDL_CreateTextureFromSurface(w->sdl->renderer, w->sdl->font.surf[id]);
+		tmp_texture == NULL ? ft_sdl_error(w) : 0;
+		SDL_SetTextureBlendMode(tmp_texture, SDL_BLENDMODE_BLEND) != 0 ? ft_sdl_error(w) : 0;
+
+		SDL_RenderCopy(w->sdl->renderer, tmp_texture, NULL, &tmp_rect) != 0 ? ft_sdl_error(w) : 0;
+		SDL_DestroyTexture(tmp_texture);
+		tmp_rect = ft_create_rect(WIN_WIDTH * 0.1, WIN_HEIGHT * 0.2, x - (WIN_WIDTH * 0.15), 0);
+		tmp_texture = SDL_CreateTextureFromSurface(w->sdl->renderer, w->sdl->font.surf[6]);
+		tmp_texture == NULL ? ft_sdl_error(w) : 0;
+		SDL_SetTextureBlendMode(tmp_texture, SDL_BLENDMODE_BLEND) != 0 ? ft_sdl_error(w) : 0;
+		SDL_RenderCopy(w->sdl->renderer, tmp_texture, NULL, &tmp_rect) != 0 ? ft_sdl_error(w) : 0;
+		SDL_DestroyTexture(tmp_texture);
+		//w->sdl->font.half_menu = 1;
+		w->sdl->font.half_menu = id;
+	}
 	return ;
-	ft_menu(w);
 }
 	
 /*
@@ -101,8 +114,9 @@ a = ft_create_rect(w->sdl->font.w, w->sdl->font.h, x, y);
 
 static void	ft_menu_authors(t_wolf3d *w)
 {
-	int	x;
-	int	y;
+	int			x;
+	int			y;
+
 
 	ft_font_preset(w, 72, 24, 73);
 	x = (WIN_WIDTH / 2) - (5.5 * w->sdl->font.g_sz);
@@ -112,6 +126,7 @@ static void	ft_menu_authors(t_wolf3d *w)
 	ft_putstr_sdl(w, "tjuana", x, y);
 	ft_putstr_sdl(w, "drafe", x, y + (w->sdl->font.f_sz));
 	TTF_CloseFont(w->sdl->font.ptr);
+	
 }
 
 /*
@@ -186,11 +201,11 @@ void		ft_menu(t_wolf3d *w)
 	ft_font_preset(w, 72, 24, 73);
 	menu_x = (WIN_WIDTH * 0.5) - (5 * w->sdl->font.g_sz);
 	menu_y = WIN_HEIGHT * 0.6;
-	ft_putstr_sdl(w, "Play", menu_x * 0.2, menu_y);
+	ft_putstr_sdl(w, "Play", menu_x * 0.15, menu_y);
 	ft_putstr_sdl(w, "How to play", menu_x * 0.5, menu_y);
-	ft_putstr_sdl(w, "Map editor", menu_x, menu_y);
+	ft_putstr_sdl(w, "Map editor", menu_x * 1.05, menu_y);
 	ft_putstr_sdl(w, "Authors", menu_x * 1.6, menu_y);
-	ft_putstr_sdl(w, "Exit", menu_x * 2.2, menu_y);
+	ft_putstr_sdl(w, "Exit", menu_x * 2.15, menu_y);
 	TTF_CloseFont(w->sdl->font.ptr);
 	return ;
 }

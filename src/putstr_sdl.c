@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/03 18:24:07 by drafe            ###   ########.fr       */
+/*   Updated: 2020/01/03 19:43:29 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,7 @@ void			ft_putstr_sdl(t_wolf3d *w, char *str, int x, int y)
 	else
 	{
 		tmp_texture = SDL_CreateTextureFromSurface(w->sdl->renderer, text_surf);
-		if (!tmp_texture)
-			ft_sdl_error(w);
+		tmp_texture == NULL ? ft_sdl_error(w) : 0;
 		SDL_FreeSurface(text_surf);
 	}
 	if (SDL_RenderCopy(w->sdl->renderer, tmp_texture, 0, &a) != 0)

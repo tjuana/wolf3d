@@ -28,13 +28,15 @@
 
 typedef struct	s_font
 {
-	SDL_Surface	*menu_surf;
+	SDL_Surface	*surf[7];
+
 	TTF_Font	*ptr;
 	SDL_Color	color;
 	int			f_sz;
 	int			g_sz;
 	int			w;
 	int			h;
+	int			half_menu;
 }				t_font;
 
 
@@ -352,6 +354,7 @@ int						ft_enemy_detect_pl(t_wolf3d *w, int s_nbr);
 
 int						ft_menu_button(t_wolf3d *w, int x, int click);
 void					ft_menu(t_wolf3d *w);
+void					ft_menu_back(t_wolf3d *w);
 
 void					ft_sort(t_wolf3d *w);
 

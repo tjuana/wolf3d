@@ -6,7 +6,7 @@
 #    By: drafe <drafe@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 11:40:58 by tjuana            #+#    #+#              #
-#    Updated: 2019/12/30 16:27:39 by drafe            ###   ########.fr        #
+#    Updated: 2020/01/03 19:13:01 by drafe            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,7 @@ SRCS_LIST = alg_wu_color.c\
 			main.c\
 			map_arrow.c\
 			map.c\
+			menu_exp.c\
 			menu.c\
 			move.c\
 			player_stats.c\

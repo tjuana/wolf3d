@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/03 18:22:57 by drafe            ###   ########.fr       */
+/*   Updated: 2020/01/03 20:31:48 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	ft_mouse_mv(t_wolf3d *w, SDL_Event e)
 	}
 	else
 	{
+		//ft_menu_button(w, e.motion.x, 0);
 		//e.button.type == SDL_MOUSEBUTTONDOWN ? \
 		//ft_menu_button(w, e.motion.x, 1) : 0;
 		

@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/03 17:52:06 by drafe            ###   ########.fr       */
+/*   Updated: 2020/01/03 20:53:41 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,12 @@ t_sdl		*sdl_init(t_sdl *sdl)
 		return (0);
 	}
 	IMG_Init(IMG_INIT_PNG) == 0 ? ft_putstr_fd(IMG_GetError(), 2) : 0;
-	sdl->font.menu_surf = IMG_Load("menu_clear.png");
-	sdl->font.menu_surf == NULL ? ft_putstr_fd(IMG_GetError(), 2) : 0;
 	sdl->win = SDL_CreateWindow("WOLF3D", 650, 650, WIN_WIDTH, WIN_HEIGHT, 0);
 	sdl->renderer = SDL_CreateRenderer(sdl->win, -1, SDL_RENDERER_ACCELERATED);
-	sdl->text = SDL_CreateTextureFromSurface(sdl->renderer, sdl->font.menu_surf);
-	SDL_RenderClear(sdl->renderer);
-	SDL_RenderCopy(sdl->renderer, sdl->text, NULL, NULL);
-	SDL_DestroyTexture(sdl->text);
 	if (!(sdl->text = SDL_CreateTexture(sdl->renderer, SDL_PIXELFORMAT_ARGB8888\
 	, SDL_TEXTUREACCESS_STREAMING, WIN_WIDTH, WIN_HEIGHT)))
 		ft_error("SDL non textures");
 	sdl->running = 1;
-	
 	if (TTF_Init() != 0)
 		ft_putstr("ft_sdl_error(w)\n");
 	return (sdl);
@@ -104,7 +97,9 @@ void		ft_we_need_more_init(t_wolf3d *w)
 	while (++i < KEYS_NBR - 1)
 		w->arr[i] = 0;
 	w->pl.menu = 1;
+	w->sdl->font.half_menu = 0;
 	w->lol = 0;
+	ft_menu_back(w);
 	//SDL_WarpMouseInWindow(w->sdl->win, 650, 650);
 }
 
