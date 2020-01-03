@@ -6,7 +6,7 @@
 #    By: drafe <drafe@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 11:40:58 by tjuana            #+#    #+#              #
-#    Updated: 2019/12/26 16:12:39 by drafe            ###   ########.fr        #
+#    Updated: 2019/12/30 16:27:39 by drafe            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ CC = gcc
 
 LIBRARIES = -lft -L$(LIBFT_DIRECTORY)\
 	-lSDL2 -lSDL2main -L/Users/drafe/.brew/Cellar/sdl2/2.0.10/lib\
-	-lSDL2_ttf -L/Users/drafe/.brew/Cellar/sdl2_ttf/2.0.15/lib
+	-lSDL2_ttf -L/Users/drafe/.brew/Cellar/sdl2_ttf/2.0.15/lib\
+	-lSDL2_image -L/Users/drafe/.brew/Cellar/sdl2_image/2.0.5/lib
 
 INCLUDES = -I$(HEADERS_DIRECTORY) -I$(LIBFT_HEADERS)\
 	

@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/11 17:51:17 by drafe            ###   ########.fr       */
+/*   Updated: 2020/01/03 17:25:58 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ void			ft_handle_events(t_wolf3d *w)
 			ft_keydown(w, e);
 		if (e.type == SDL_KEYUP)
 			ft_keyup(w, e);
-		if (e.button.type == SDL_MOUSEBUTTONDOWN)
+		if ((e.button.type == SDL_MOUSEBUTTONDOWN) && (w->pl.menu == 0))
 			e.button.button == 1 ? w->arr[4] = 1 : 0;
-		if (e.button.type == SDL_MOUSEBUTTONUP)
+		if ((e.button.type == SDL_MOUSEBUTTONUP) && (w->pl.menu == 0))
 			e.button.button == 1 ? w->arr[4] = 0 : 0;
 		if (e.type == SDL_MOUSEMOTION)
 			ft_mouse_mv(w, e);

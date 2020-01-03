@@ -14,10 +14,20 @@
 # define MAX_LIFE 200
 # define MB_SPD 0.000015
 # define MB_DET 3.1
-
 # define C_R 0x00FF0000
 # define C_G 0x0000FF00
 # define C_B 0x000000FF
+# define FONT_PATH "fonts/DooMLeft2.ttf"
+
+/*
+# define FONT_PATH "fonts/procyon_si.ttf"
+# define FONT_PATH "fonts/DooMLeft.ttf"
+# define FONT_PATH "fonts/DooMLeft2.ttf"
+# define FONT_PATH "fonts/DooMLeftOutline.ttf"
+# define FONT_PATH "fonts/DooMRight.ttf"
+# define FONT_PATH "fonts/DooMRight2.ttf"
+# define FONT_PATH "fonts/DooMRightOutline.ttf"
+*/
 
 typedef struct			s_const
 {

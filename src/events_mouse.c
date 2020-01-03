@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/26 18:15:38 by drafe            ###   ########.fr       */
+/*   Updated: 2020/01/03 18:22:57 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	ft_mouse_mv(t_wolf3d *w, SDL_Event e)
 	old_pl_x = w->pl.plane.x;
 	mou_x = e.motion.xrel;
 	mou_x /= WIN_HEIGHT;
-	printf("m_x%i  m_y%i  \n", e.motion.x, e.motion.y);
-
-	//if (SDL_SetRelativeMouseMode(SDL_TRUE) != 0)
-	//	ft_sdl_error(w);
-	//w->mouse_offset -= e->motion.yrel;
+	//printf("m_x%i  m_y%i  \n", e.motion.x, e.motion.y);
+	if (w->pl.menu == 0)
+	{
+		if (SDL_SetRelativeMouseMode(SDL_TRUE) != 0)
+			ft_sdl_error(w);
 	sign = -w->rs;
 	if (mou_x < 0)
 		sign = w->rs;
@@ -43,6 +43,17 @@ void	ft_mouse_mv(t_wolf3d *w, SDL_Event e)
 	w->pl.dir.y = old_dir_x * sin(sign) + w->pl.dir.y * cos(sign);
 	w->pl.plane.x = w->pl.plane.x * cos(sign) - w->pl.plane.y * sin(sign);
 	w->pl.plane.y = old_pl_x * sin(sign) + w->pl.plane.y * cos(sign);
+	}
+	else
+	{
+		//e.button.type == SDL_MOUSEBUTTONDOWN ? \
+		//ft_menu_button(w, e.motion.x, 1) : 0;
+		
+		//if (e.button.type == SDL_MOUSEBUTTONUP)
+			
+	}
+	
+	//w->mouse_offset -= e->motion.yrel;//up and down
 	//printf("mo_x%i  mo_y%i sign=%f \n", e.motion.xrel, e.motion.yrel, sign);
 }
 
@@ -55,14 +66,17 @@ void	ft_mouse_mv(t_wolf3d *w, SDL_Event e)
 
 void	ft_test_mv_p(t_wolf3d *w)
 {
-	printf("\npl_pos:	x==%f  y==%f \n", w->pl.pos.x, w->pl.pos.y);
-	printf("pl_dir:	x==%f  y==%f \n", w->pl.dir.x , w->pl.dir.y);
+	/*printf("\npl_pos:	x==%f  y==%f \n", w->pl.pos.x, w->pl.pos.y);
+	printf("pl_dir:	x==%f  y==%f \n", w->pl.dir.x, w->pl.dir.y);
 	printf("sp_pos:	x==%f  y==%f \n", w->spr.pos.x, w->spr.pos.y);
 	printf("map_sp_pos:	x==%f  y==%f \n", w->map.sprite[0]->pos.x, w->map.sprite[0]->pos.y);
-	ft_enemy(w, 0);
 	//w->mouse_offset += 15;//camera up
-	//ft_pl_stats(w);
+	//ft_pl_stats(w);*/
 	printf("P pressed\n");
+	//SDL_RenderClear(w->sdl->renderer);
+	//SDL_UpdateTexture(w->sdl->text, 0, w->sdl->pixels, WIN_WIDTH * 4);
+	//SDL_RenderCopy(w->sdl->renderer, w->sdl->text, NULL, NULL);
+	ft_menu(w);
 }
 
 /*
@@ -74,7 +88,7 @@ void	ft_test_mv_p(t_wolf3d *w)
 
 void	ft_test_mv_l(t_wolf3d *w)
 {
-	w->lol += 1;
+	w->pl.menu = 0;
 	//w->mouse_offset -= 15;//camera down
 	/*
 	old

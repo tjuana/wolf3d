@@ -10,7 +10,9 @@
 		"sdl_thread.h": "c",
 		"algorithm": "c",
 		"algebra.h": "c",
-		"iterator": "c"
+		"iterator": "c",
+		"sdl_image.h": "c",
+		"stdlib.h": "c"
 	},
 	"debug.allowBreakpointsEverywhere": true
 }

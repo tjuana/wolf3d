@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/19 17:38:45 by drafe            ###   ########.fr       */
+/*   Updated: 2019/12/30 17:07:30 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,26 @@ void		ft_sdl_error(t_wolf3d *w)
 	//	SDL_FreeSurface(w->sdl->surf);
 	SDL_Quit();
 	exit(-1);
+}
+
+int		ft_sdl_init_error(t_sdl *sdl)
+{
+	SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, \
+	"Couldn't create window and renderer: %s", SDL_GetError());
+	if (sdl->wav_buff)
+		free(sdl->wav_buff);
+	if (sdl->wav_spect)
+		free(sdl->wav_spect);	
+	
+	
+	if (sdl->text)
+		SDL_DestroyTexture(sdl->text);
+	if (sdl->renderer)
+		SDL_DestroyRenderer(sdl->renderer);
+	if (sdl->win)
+		SDL_DestroyWindow(sdl->win);
+	IMG_Quit();
+	SDL_Quit();
+	exit(-1);
+	return (0);
 }

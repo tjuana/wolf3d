@@ -4,6 +4,7 @@
 # include "SDL2/SDL.h"
 # include "SDL2/SDL_thread.h"
 # include "SDL2/SDL_ttf.h"
+# include "SDL2/SDL_image.h"
 /*
 # include <SDL2/SDL.h>
 # include <SDL2/SDL_thread.h>
@@ -23,12 +24,15 @@
 # include "player.h"
 # include "sprites.h"
 # include "algebra.h"
+# include <dirent.h>
 
 typedef struct	s_font
 {
+	SDL_Surface	*menu_surf;
 	TTF_Font	*ptr;
 	SDL_Color	color;
-	int			sz;
+	int			f_sz;
+	int			g_sz;
 	int			w;
 	int			h;
 }				t_font;
@@ -75,6 +79,7 @@ typedef struct  s_sdl
 	SDL_Renderer		*renderer;
 	Uint32				*pixels;
 	SDL_Texture			*text;
+	SDL_Texture			*test;
 	SDL_Surface			**surfaces;
 	SDL_AudioSpec		*wav_spect;
 	Uint32				*wav_len;
@@ -82,7 +87,6 @@ typedef struct  s_sdl
 	SDL_AudioDeviceID	*audio_device;
 	t_font				font;
 	unsigned char		i;
-	
 }				t_sdl;
 
 typedef struct	s_map
@@ -292,6 +296,8 @@ int					ft_step_right_check(t_wolf3d *w, unsigned char flag);
 void				ft_pl_stats(t_wolf3d *w);
 void				ft_putstr_sdl(t_wolf3d *w, char *str, int x, int y);
 SDL_Rect			ft_create_rect(int w, int h, int x, int y);
+int					ft_font_preset(t_wolf3d *w, int b, int g, int r);
+
 
 //int					ft_check_run(t_wolf3d *w);
 
@@ -344,6 +350,7 @@ void					ft_enemy_cycle(t_wolf3d *w, int s_nbr);
 void					ft_enemy(t_wolf3d *w, int s_nbr);
 int						ft_enemy_detect_pl(t_wolf3d *w, int s_nbr);
 
+int						ft_menu_button(t_wolf3d *w, int x, int click);
 void					ft_menu(t_wolf3d *w);
 
 void					ft_sort(t_wolf3d *w);
@@ -368,4 +375,6 @@ t_vector3				ft_vec3_opposite(t_vector3 this);
 t_vector3				ft_vec3_scalar_product(t_vector3 this, double k);
 t_vector3				ft_vec3_normalize(t_vector3 vtc);
 
+SDL_Texture				*ft_load_png(char *name, t_sdl *sdl);
+int						ft_sdl_init_error(t_sdl *sdl);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
+/*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:33:34 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/12 15:29:09 by tjuana           ###   ########.fr       */
+/*   Updated: 2019/12/29 19:40:45 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int	main(int c, char **v)
 	fpsinit();
 	while (w.sdl->running)
 	{
-		renderer(&w);
 		ft_handle_events(&w);
+		renderer(&w);
 		ft_use_events(&w);
 		fpsthink();
 	}

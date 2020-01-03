@@ -40,6 +40,7 @@ typedef struct	s_player
 	int			stepx; //?????
 	int			stepy;
 	int			side;
+	int			menu;
 }				t_player;
 
 
