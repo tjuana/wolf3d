@@ -354,6 +354,7 @@ int						ft_enemy_detect_pl(t_wolf3d *w, int s_nbr);
 
 int						ft_menu_button(t_wolf3d *w, int x, int click);
 void					ft_menu(t_wolf3d *w);
+void					ft_menu_play(t_wolf3d *w);
 void					ft_menu_back(t_wolf3d *w);
 
 void					ft_sort(t_wolf3d *w);

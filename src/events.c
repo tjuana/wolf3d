@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/03 20:49:18 by drafe            ###   ########.fr       */
+/*   Updated: 2020/01/05 17:03:36 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@
 
 static void		ft_keydown(t_wolf3d *w, SDL_Event e)
 {
-	e.key.keysym.scancode == SDL_SCANCODE_ESCAPE ?
+	e.key.keysym.scancode == SDL_SCANCODE_ESCAPE && w->pl.menu == 1 ?
 	w->sdl->running = 0 : 0;
+	e.key.keysym.scancode == SDL_SCANCODE_ESCAPE && w->pl.menu != 1 ?
+	w->pl.menu = 1 : 0;
 	e.key.keysym.scancode == SDL_SCANCODE_W ? w->arr[0] = 1 : 0;
 	e.key.keysym.scancode == SDL_SCANCODE_S ? w->arr[1] = 1 : 0;
 	e.key.keysym.scancode == SDL_SCANCODE_A ? w->arr[13] = 1 : 0;
@@ -33,7 +35,6 @@ static void		ft_keydown(t_wolf3d *w, SDL_Event e)
 	e.key.keysym.scancode == SDL_SCANCODE_P ? w->arr[6] = 1 : 0;
 	e.key.keysym.scancode == SDL_SCANCODE_L ? w->arr[7] = 1 : 0;
 	e.key.keysym.scancode == SDL_SCANCODE_LSHIFT ? w->arr[8] = 1 : 0;
-	//e.key.keysym.scancode == SDL_SCANCODE_RSHIFT ? w->arr[9] = 1 : 0;
 	e.key.keysym.scancode == SDL_SCANCODE_SPACE ? w->arr[12] = 1 : 0;
 	e.key.keysym.scancode == SDL_SCANCODE_KP_2 ? w->arr[15] = 1 : 0;
 	e.key.keysym.scancode == SDL_SCANCODE_KP_4 ? w->arr[16] = 1 : 0;
@@ -60,7 +61,6 @@ static void		ft_keyup(t_wolf3d *w, SDL_Event e)
 	e.key.keysym.scancode == SDL_SCANCODE_P ? w->arr[6] = 0 : 0;
 	e.key.keysym.scancode == SDL_SCANCODE_L ? w->arr[7] = 0 : 0;
 	e.key.keysym.scancode == SDL_SCANCODE_LSHIFT ? w->arr[8] = 0 : 0;
-	//e.key.keysym.scancode == SDL_SCANCODE_RSHIFT ? w->arr[9] = 0 : 0;
 	e.key.keysym.scancode == SDL_SCANCODE_SPACE ? w->arr[12] = 0 : 0;
 	e.key.keysym.scancode == SDL_SCANCODE_KP_2 ? w->arr[15] = 0 : 0;
 	e.key.keysym.scancode == SDL_SCANCODE_KP_4 ? w->arr[16] = 0 : 0;
@@ -90,8 +90,9 @@ void			ft_handle_events(t_wolf3d *w)
 			e.button.button == 1 ? w->arr[4] = 1 : 0;
 		if ((e.button.type == SDL_MOUSEBUTTONUP) && (w->pl.menu == 0))
 			e.button.button == 1 ? w->arr[4] = 0 : 0;
+		e.button.button == 1 && w->pl.menu == 1 ? \
+		ft_menu_button(w, e.motion.x, 1) : ft_menu_button(w, e.motion.x, 0);
 		if (e.type == SDL_MOUSEMOTION)
 			ft_mouse_mv(w, e);
-		ft_menu_button(w, e.motion.x, 0);
 	}
 }
