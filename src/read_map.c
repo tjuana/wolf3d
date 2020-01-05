@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 15:17:47 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/31 17:34:41 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/05 15:05:58 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,30 +95,17 @@ int			ft_get_vertexes_count(char *str)
 	return (count[0]);
 }
 
-// Set sector
-void	ft_set_sector(t_wolf3d *w, t_vector3 **vertex, int count)
+void	ft_copy_sector(t_wolf3d *w, t_vector3 **vertex, t_list **ptr, int count)
 {
+	int			i;
 	t_sector	*new_sector;
 	t_vector3	**p;
 	t_list		*list_item;
-	//t_vector3		**coord;
-	int			i;
 
 	new_sector = ft_my_malloc(sizeof(t_sector));
-	new_sector->vertex = vertex;
-	new_sector->vertex_count = count;
-	list_item = ft_lstnew(new_sector, sizeof(t_sector));
-	if (w->sector == NULL)
-		w->sector = list_item;
-	else
-		ft_lstadd(&(w->sector), list_item);
-
-
-
-	// set sector for map
-	new_sector = ft_my_malloc(sizeof(t_sector));
-	
 	p = ft_my_malloc(sizeof(void*) * count);
+
+	// Copy all values
 	i = 0;
 	while (i < count)
 	{
@@ -133,10 +120,33 @@ void	ft_set_sector(t_wolf3d *w, t_vector3 **vertex, int count)
 	new_sector->vertex = p;
 	new_sector->vertex_count = count;
 	list_item = ft_lstnew(new_sector, sizeof(t_sector));
-	if (w->map_sector == NULL)
-		w->map_sector = list_item;
+	if (*ptr == NULL)
+		*ptr = list_item;
 	else
-		ft_lstadd(&(w->map_sector), list_item);
+		ft_lstadd(ptr, list_item);
+
+	// намудрил с указателями
+}
+
+// Set sector
+void	ft_set_sector(t_wolf3d *w, t_vector3 **vertex, int count)
+{
+	t_sector	*new_sector;
+	t_vector3	**p;
+	t_list		*list_item;
+	int			i;
+
+	new_sector = ft_my_malloc(sizeof(t_sector));
+	new_sector->vertex = vertex;
+	new_sector->vertex_count = count;
+	list_item = ft_lstnew(new_sector, sizeof(t_sector));
+	if (w->sector == NULL)
+		w->sector = list_item;
+	else
+		ft_lstadd(&(w->sector), list_item);
+
+	ft_copy_sector(w, vertex, &w->map_sector, count);
+	ft_copy_sector(w, vertex, &w->map_sector_top, count);
 }
 
 /*
@@ -168,16 +178,6 @@ void		ft_parsing_vertexes(t_wolf3d *w, char *str, double floor, double height)
 		i++;
 	}
 
-	/*i = 0;
-	while (i < count)
-	{
-		// Print sector vertexes
-		printf("VERTEX #%.2d\tx: %.2f\ty: %.2f\n", i, vertex[i]->x, vertex[i]->y);
-		i++;
-	}*/
-
-
-
 	// Set line (temp)
 	temp_line.floor = floor; // standart height
 	temp_line.height = height * (WIN_HEIGHT / 10); // standart height
@@ -188,7 +188,6 @@ void		ft_parsing_vertexes(t_wolf3d *w, char *str, double floor, double height)
 		temp_line.p1.y = vertex[i]->y;
 		temp_line.p2.x = vertex[i + 1]->x;
 		temp_line.p2.y = vertex[i + 1]->y;
-		// printf("CURRENT LINE %.2d: %.2f, %.2f, %.2f, %.2f\n", i, temp_line.p1.x, temp_line.p1.y, temp_line.p2.x, temp_line.p2.y);
 		ft_set_line(w, line, temp_line, lst);
 		i++;
 	}
@@ -200,8 +199,6 @@ void		ft_parsing_vertexes(t_wolf3d *w, char *str, double floor, double height)
 	temp_line.p2.y = vertex[0]->y;
 	
 	ft_set_line(w, line, temp_line, lst);
-	//i++;
-
 
 	// Set sector (new way)
 	ft_set_sector(w, vertex, count);

@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/02 19:23:00 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/05 14:53:46 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void		ft_left_rotation(t_wolf3d *w)
 	rotation_matrix = ft_rz_matrix(rotation_matrix, -T_CAM_HR_ANGLE);
 	w->pl.camera_vector = ft_transform_vertex(w->pl.camera_vector, rotation_matrix);
 
-	printf("%.2f\t%.2f\t%.2f\t%.2f\n", w->pl.camera_vector.x, w->pl.camera_vector.y, w->pl.camera_vector.z, w->pl.camera_vector.w);
+	// printf("%.2f\t%.2f\t%.2f\t%.2f\n", w->pl.camera_vector.x, w->pl.camera_vector.y, w->pl.camera_vector.z, w->pl.camera_vector.w);
 }
 
 static void		ft_right_rotation(t_wolf3d *w)
@@ -69,7 +69,7 @@ static void		ft_right_rotation(t_wolf3d *w)
 	rotation_matrix = ft_rz_matrix(rotation_matrix, T_CAM_HR_ANGLE);
 	w->pl.camera_vector = ft_transform_vertex(w->pl.camera_vector, rotation_matrix);
 
-	printf("%.2f\t%.2f\t%.2f\t%.2f\n", w->pl.camera_vector.x, w->pl.camera_vector.y, w->pl.camera_vector.z, w->pl.camera_vector.w);
+	// printf("%.2f\t%.2f\t%.2f\t%.2f\n", w->pl.camera_vector.x, w->pl.camera_vector.y, w->pl.camera_vector.z, w->pl.camera_vector.w);
 }
 
 static void		ft_top_rotation(t_wolf3d *w)

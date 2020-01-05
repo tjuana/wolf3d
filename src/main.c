@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:33:34 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/31 17:35:39 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/05 15:26:05 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,18 @@ void	ft_iso_vertexes(t_wolf3d *w)
 }
 
 /*
-	void ft_print_sectors(t_wolf3d *w)
+	void ft_print_sectors(t_list *ptr_list)
 	
 	Function that print the map sectors.
 */
-void	ft_print_sectors(t_wolf3d *w)
+void	ft_print_sectors(t_list *ptr_list)
 {
-	t_list		*ptr_list;
+	// t_list		*ptr_list;
 	t_sector	*ptr_sector;
 	int			i;
 	int			j;
 
-	ptr_list = w->sector;
+	// ptr_list = w->sector;
 	i = 0;
 	while (ptr_list)
 	{
@@ -155,8 +155,8 @@ int	main(int c, char **v)
 
 	w.sdl = sdl_init(w.sdl);
 	ft_init_wolf(&w);
-	ft_print_lines(&w); // Print the vertexes of lines
-	ft_print_sectors(&w); // Print the map sectors
+	// ft_print_lines(&w); // Print the vertexes of lines
+	// ft_print_sectors(w.sector);
 	// ft_iso_vertexes(&w); // Transform vertexes to isometric projection (for map) [test]
 	// exit(1);
 	ft_load_textures(&w);

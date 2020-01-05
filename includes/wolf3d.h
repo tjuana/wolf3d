@@ -11,6 +11,8 @@
 # define T_CAM_HR_ANGLE 0.02 // transform angle for camera
 # define T_CAM_Z_ANGLE 0.01 // transform angle for camera
 
+# define DEG_30 0.52360
+
 # define C_R 0x00FF0000
 # define C_G 0x0000FF00
 # define C_B 0x000000FF
@@ -173,6 +175,8 @@ typedef struct			s_wolf3d
 	t_list				*sector;
 	// add temp list for map
 	t_list				*map_sector;
+	// add temp list for map (top vertex)
+	t_list				*map_sector_top;
 	// spec param
 	double				fov;
 	double				l_p;
