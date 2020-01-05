@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:24:13 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/05 16:24:36 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/05 18:12:25 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ void		ft_draw_map_new_line(t_wolf3d *w)
 }
 
 /*
+	[] This is deprecated function.
 	void ft_draw_map_new_sector(t_wolf3d *w)
 
 	Function that draw new maps (sector).
@@ -228,11 +229,11 @@ double		ft_get_angle(double sin, double cos)
 }
 
 /*
-	void ft_map_transform_vertex(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr_sector_origin, double diff)
+	void ft_map_transform_vertexes(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr_sector_origin, double diff)
 
 	Transform map vertex.
 */
-void		ft_map_transform_vertex(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr_sector_origin, double diff)
+void		ft_map_transform_vertexes(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr_sector_origin, double diff)
 {
 	int				i;
 	double			angle;
@@ -337,15 +338,16 @@ void		ft_draw_walls_for_map(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr_sec
 	t_matrix_4x4	temp_matrix;
 
 	// Transform map coordinates
-	ft_map_transform_vertex(w, ptr_sector, ptr_sector_origin, 0.7);
-	ft_map_transform_vertex(w, ptr_sector_top, ptr_sector_origin, 0.7 + (double)ptr_sector_origin->height * 0.03);
+	// ft_map_transform_vertexes(w, ptr_sector, ptr_sector_origin, 1); // 2D map
+	// ft_map_transform_vertexes(w, ptr_sector, ptr_sector_origin, 0.7);
+	// ft_map_transform_vertexes(w, ptr_sector_top, ptr_sector_origin, 0.7 + (double)ptr_sector_origin->height * 0.03);
 
 	// Draw map walls
 	ft_map_draw_walls(w, ptr_sector);
-	ft_map_draw_walls(w, ptr_sector_top);
+	// ft_map_draw_walls(w, ptr_sector_top);
 
 	// Draw walls height
-	ft_map_draw_walls_height(w, ptr_sector, ptr_sector_top);
+	// ft_map_draw_walls_height(w, ptr_sector, ptr_sector_top);
 }
 
 /*
@@ -361,6 +363,9 @@ void		ft_draw_map_new_sector_iso(t_wolf3d *w)
 	t_sector		*ptr_sector;
 	t_sector		*ptr_sector_top;
 	t_sector		*ptr_sector_origin;
+	// Need to create function that return special coordinates for our map
+	t_vector3		c1;
+	t_vector3		c2;
 
 	ft_fill_frame(w); // fill
 	ptr_list = w->map_sector;
@@ -381,5 +386,20 @@ void		ft_draw_map_new_sector_iso(t_wolf3d *w)
 		ptr_list_origin = ptr_list_origin->next;
 	}
 
-	ft_draw_compass_static(w);
+	c1.x = 1.00 * 16 - (w->pl.pos.x - 8) * 16 + w->view_map.place.x;
+	c1.y = 1.00 * 16 - (w->pl.pos.y - 8) * 16 + w->view_map.place.y;
+	c2.x = w->pl.pos.x * 16 - (w->pl.pos.x - 8) * 16 + w->view_map.place.x;
+	c2.y = w->pl.pos.y * 16 - (w->pl.pos.y - 8) * 16 + w->view_map.place.y;
+
+	ft_fdf_wu_color(&c1, &c2, w, 0xFF0000);
+
+	//c.x = 0.0;
+	//c.y = 0.0;
+
+	// ft_fdf_wu_color(&(t_vector3){0.0, 0.0}, &w->pl.pos, w, 0xFF0000);
+	// ft_fdf_wu_color(&c, &w->pl.pos, w, 0xFF0000);
+	// ft_fdf_wu(&c, )
+
+	// ft_draw_compass_static(w);
+	ft_draw_compass(w);
 }

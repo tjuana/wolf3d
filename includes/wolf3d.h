@@ -54,7 +54,7 @@ typedef struct			s_sector
 	double				height;			// Высота стены
 	double				floor;			// Высота ~ от z = 0
 	int					txtr;			// Номер текстуры сектора (?)
-	int					color;			// Цвет сектора
+	int					color;			// Цвет сектора (временно)
 }						t_sector;
 
 typedef struct			s_sort_util	// Структура для спрайтов (?)
@@ -346,6 +346,11 @@ void					ft_fdf_draw_line_param(t_wolf3d *data, t_fdf_wu **wu);
 void					ft_fdf_wu(t_vector3 *dot_1, t_vector3 *dot_2, \
 							t_wolf3d *data);
 
+void					ft_fdf_wu_color(t_vector3 *dot_1, t_vector3 *dot_2, \
+							t_wolf3d *data, int color);
+void					ft_fdf_init_wu_color(t_fdf_wu **wu, t_vector3 *dot_1, \
+							t_vector3 *dot_2, int color);
+
 void					ft_fdf_draw_line_first_pixels(t_wolf3d *data, \
 							t_fdf_wu **wu);
 void					ft_fdf_draw_line_last_pixels(t_wolf3d *data, \
@@ -372,5 +377,10 @@ void					ft_draw_map_new_sector(t_wolf3d *w);
 void					ft_draw_map_new_sector_iso(t_wolf3d *w);
 
 void					ft_debug_matrix(t_matrix_4x4 matrix);
+
+int						ft_check_point_in_line_segment(t_vector3 p, t_vector3 p1, t_vector3 p2);
+int						ft_check_div(double x1, double y1, double x2, double y2,double x3, double y3, double x4, double y4);
+t_vector3				ft_find_intersect(double x1, double y1, double x2, double y2,double x3, double y3, double x4, double y4);
+int						ft_get_player_sector(t_wolf3d *w);
 
 #endif
