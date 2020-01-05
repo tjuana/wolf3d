@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:24:13 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/05 15:48:07 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/05 16:24:36 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,11 +228,11 @@ double		ft_get_angle(double sin, double cos)
 }
 
 /*
-	void ft_map_transform_vertex(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr_sector_origin, double c)
+	void ft_map_transform_vertex(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr_sector_origin, double diff)
 
 	Transform map vertex.
 */
-void		ft_map_transform_vertex(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr_sector_origin, double c)
+void		ft_map_transform_vertex(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr_sector_origin, double diff)
 {
 	int				i;
 	double			angle;
@@ -253,7 +253,8 @@ void		ft_map_transform_vertex(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr_s
 		*ptr_sector->vertex[i] = ft_transform_vertex(*ptr_sector->vertex[i], temp_matrix);
 
 		// isometric (no)
-		ptr_sector->vertex[i]->y *= c;
+		ptr_sector->vertex[i]->x *= diff;
+		ptr_sector->vertex[i]->y *= diff;
 
 		ptr_sector->vertex[i]->x += w->pl.pos.x;
 		ptr_sector->vertex[i]->y += w->pl.pos.y;
@@ -310,7 +311,6 @@ void		ft_map_draw_walls_height(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr_
 	i = 0;
 	while (i < ptr_sector->vertex_count)
 	{
-		//printf("!!!\n");
 		c1.x = ptr_sector->vertex[i]->x * 16 - (w->pl.pos.x - 8) * 16 + w->view_map.place.x;
 		c1.y = ptr_sector->vertex[i]->y * 16 - (w->pl.pos.y - 8) * 16 + w->view_map.place.y;
 		c2.x = ptr_sector_top->vertex[i]->x * 16 - (w->pl.pos.x - 8) * 16 + w->view_map.place.x;
@@ -324,11 +324,11 @@ void		ft_map_draw_walls_height(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr_
 }
 
 /*
-	void ft_draw_walls_for_map_new(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr_sector_origin)
+	void ft_draw_walls_for_map(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr_sector_origin)
 
 	New function that draw walls for map.
 */
-void		ft_draw_walls_for_map_new(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr_sector_top, t_sector *ptr_sector_origin)
+void		ft_draw_walls_for_map(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr_sector_top, t_sector *ptr_sector_origin)
 {
 	int				i;
 	t_vector3		c1;
@@ -337,8 +337,8 @@ void		ft_draw_walls_for_map_new(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr
 	t_matrix_4x4	temp_matrix;
 
 	// Transform map coordinates
-	ft_map_transform_vertex(w, ptr_sector, ptr_sector_origin, 0.6);
-	ft_map_transform_vertex(w, ptr_sector_top, ptr_sector_origin, 0.9);
+	ft_map_transform_vertex(w, ptr_sector, ptr_sector_origin, 0.7);
+	ft_map_transform_vertex(w, ptr_sector_top, ptr_sector_origin, 0.7 + (double)ptr_sector_origin->height * 0.03);
 
 	// Draw map walls
 	ft_map_draw_walls(w, ptr_sector);
@@ -346,68 +346,6 @@ void		ft_draw_walls_for_map_new(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr
 
 	// Draw walls height
 	ft_map_draw_walls_height(w, ptr_sector, ptr_sector_top);
-}
-
-/*
-	void ft_draw_walls_for_map(t_wolf3d *w, t_sector *sector)
-
-	Function that draw walls for map.
-*/
-void		ft_draw_walls_for_map(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr_sector_origin)
-{
-	int				i;
-	t_vector3		c1;
-	t_vector3		c2;
-	double			angle;
-	t_matrix_4x4	temp_matrix;
-
-	// Transform map coordinates
-	i = 0;
-	angle = ft_get_angle(-w->pl.camera_vector.x, -w->pl.camera_vector.y);
-	while (i < ptr_sector->vertex_count)
-	{
-		ptr_sector->vertex[i]->x = ptr_sector_origin->vertex[i]->x - w->pl.pos.x;
-		ptr_sector->vertex[i]->y = ptr_sector_origin->vertex[i]->y - w->pl.pos.y;
-		ptr_sector->vertex[i]->z = ptr_sector_origin->vertex[i]->z;
-
-		temp_matrix = ft_identify(temp_matrix);
-		temp_matrix = ft_rz_matrix(temp_matrix, angle);
-			
-		*ptr_sector->vertex[i] = ft_transform_vertex(*ptr_sector->vertex[i], temp_matrix);
-
-		// isometric (no)
-		ptr_sector->vertex[i]->y *= 0.5;
-
-		ptr_sector->vertex[i]->x += w->pl.pos.x;
-		ptr_sector->vertex[i]->y += w->pl.pos.y;
-
-		i++;
-	}
-
-	i = 0;
-	while ((i + 1) < ptr_sector->vertex_count)
-	{
-		// Get line coordinates
-		// Scale and transform
-		c1.x = ptr_sector->vertex[i]->x * 16 - (w->pl.pos.x - 8) * 16 + w->view_map.place.x;
-		c1.y = ptr_sector->vertex[i]->y * 16 - (w->pl.pos.y - 8) * 16 + w->view_map.place.y;
-		c2.x = ptr_sector->vertex[i + 1]->x * 16 - (w->pl.pos.x - 8) * 16 + w->view_map.place.x;
-		c2.y = ptr_sector->vertex[i + 1]->y * 16 - (w->pl.pos.y - 8) * 16 + w->view_map.place.y;
-
-		if (ft_check_line_for_map(c1, c2))
-			ft_fdf_wu(&c1, &c2, w);
-
-		i++;
-	}
-
-	// Last coordinates
-	c1.x = ptr_sector->vertex[ptr_sector->vertex_count - 1]->x * 16 - (w->pl.pos.x - 8) * 16 + w->view_map.place.x;
-	c1.y = ptr_sector->vertex[ptr_sector->vertex_count - 1]->y * 16 - (w->pl.pos.y - 8) * 16 + w->view_map.place.y;
-	c2.x = ptr_sector->vertex[0]->x * 16 - (w->pl.pos.x - 8) * 16 + w->view_map.place.x;
-	c2.y = ptr_sector->vertex[0]->y * 16 - (w->pl.pos.y - 8) * 16 + w->view_map.place.y;
-
-	if (ft_check_line_for_map(c1, c2))
-		ft_fdf_wu(&c1, &c2, w);
 }
 
 /*
@@ -435,8 +373,7 @@ void		ft_draw_map_new_sector_iso(t_wolf3d *w)
 		ptr_sector_origin = (t_sector*)ptr_list_origin->content;
 		ptr_sector_top = (t_sector*)ptr_list_top->content;
 
-		// ft_draw_walls_for_map(w, ptr_sector, ptr_sector_origin);
-		ft_draw_walls_for_map_new(w, ptr_sector, ptr_sector_top, ptr_sector_origin);
+		ft_draw_walls_for_map(w, ptr_sector, ptr_sector_top, ptr_sector_origin);
 
 		// Get next line
 		ptr_list = ptr_list->next;

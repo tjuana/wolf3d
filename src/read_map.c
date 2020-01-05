@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 15:17:47 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/05 15:05:58 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/05 16:19:46 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void	ft_copy_sector(t_wolf3d *w, t_vector3 **vertex, t_list **ptr, int count)
 }
 
 // Set sector
-void	ft_set_sector(t_wolf3d *w, t_vector3 **vertex, int count)
+void	ft_set_sector(t_wolf3d *w, t_vector3 **vertex, int count, double floor, double height)
 {
 	t_sector	*new_sector;
 	t_vector3	**p;
@@ -139,6 +139,8 @@ void	ft_set_sector(t_wolf3d *w, t_vector3 **vertex, int count)
 	new_sector = ft_my_malloc(sizeof(t_sector));
 	new_sector->vertex = vertex;
 	new_sector->vertex_count = count;
+	new_sector->floor = floor;
+	new_sector->height = height;
 	list_item = ft_lstnew(new_sector, sizeof(t_sector));
 	if (w->sector == NULL)
 		w->sector = list_item;
@@ -201,7 +203,7 @@ void		ft_parsing_vertexes(t_wolf3d *w, char *str, double floor, double height)
 	ft_set_line(w, line, temp_line, lst);
 
 	// Set sector (new way)
-	ft_set_sector(w, vertex, count);
+	ft_set_sector(w, vertex, count, floor, height);
 
 	// ft_free_array2((void**)vertex, count); // vertexes in sectors
 }
