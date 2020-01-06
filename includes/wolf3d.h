@@ -211,6 +211,8 @@ typedef struct			s_thread_help
 {
 	// add list with lines
 	t_list				*line;
+	// add list with sector
+	t_list				*sector;
 	// spec param
 	double				l;
 	double				fov;
@@ -384,5 +386,9 @@ int						ft_check_point_in_line_segment(t_vector3 p, t_vector3 p1, t_vector3 p2)
 int						ft_check_div(double x1, double y1, double x2, double y2,double x3, double y3, double x4, double y4);
 t_vector3				ft_find_intersect(double x1, double y1, double x2, double y2,double x3, double y3, double x4, double y4);
 int						ft_get_player_sector(t_wolf3d *w);
+
+int						ft_check_point(t_vector3 p, t_vector3 p1, t_vector3 p2, t_vector3 p1_pl, t_vector3 p2_pl);
+
+void					ft_sector_list_cast(t_threads *a);
 
 #endif

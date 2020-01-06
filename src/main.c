@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:33:34 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/05 17:54:22 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/06 18:21:58 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ int	main(int c, char **v)
 		ft_handle_events(&w);
 		ft_use_events(&w);
 		// ft_get_player_sector(&w);
-		printf("PLAYER SECTOR: %d,     PLAYER COORD.: x_%5.2f, y_%5.2f\n", ft_get_player_sector(&w), w.pl.pos.x, w.pl.pos.y);
+		// printf("PLAYER SECTOR: %d,     PLAYER COORD.: x_%5.2f, y_%5.2f\n", ft_get_player_sector(&w), w.pl.pos.x, w.pl.pos.y);
 		//fpsthink();
 		//printf("PL:\tx:%f\ty:%f\n", w.pl.pos.x, w.pl.pos.y);
 		//sleep(10);

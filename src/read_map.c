@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 15:17:47 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/06 16:40:07 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/06 18:27:30 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,8 @@ void	ft_set_sector(t_wolf3d *w, t_vector3 **vertex, int count, double floor, dou
 	new_sector->vertex = vertex;
 	new_sector->vertex_count = count;
 	new_sector->floor = floor;
-	new_sector->height = height;
+	// new_sector->height = height;
+	new_sector->height = height * (WIN_HEIGHT / 10);
 	new_sector->color = color;
 	list_item = ft_lstnew(new_sector, sizeof(t_sector));
 	if (w->sector == NULL)

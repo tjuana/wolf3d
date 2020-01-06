@@ -265,9 +265,10 @@ void		*begin_game(void *w)
 	p = (t_threads *)w;
 	while (p->t1 < p->t2)
 	{
-		ft_new_ray_dir(p); // Пускаем луч, рассчитываем высоту стены
-		ft_new_wall_draw_start(p); // Рассчитываем стартовые координаты стены
-		ft_new_draw_walls(p); // Отрисовываем стену
+		ft_sector_list_cast(p);
+		// ft_new_ray_dir(p); // Пускаем луч, рассчитываем высоту стены
+		// ft_new_wall_draw_start(p); // Рассчитываем стартовые координаты стены
+		// ft_new_draw_walls(p); // Отрисовываем стену
 		p->t1++;
 	}
 	return (NULL);

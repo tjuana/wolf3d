@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/02 15:12:04 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/06 16:58:34 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,7 @@ void		ft_init_multi_wolf(t_threads_help *w, t_wolf3d *head)
 	w->half_height = head->c.half_height;
 	w->camera_x_cnst = head->c.camera_x_cnst;
 	w->line = head->line;
+	w->sector = head->sector;
 	w->fov = head->fov;
 	w->l_p = head->l_p;
 }
