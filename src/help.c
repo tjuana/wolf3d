@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 14:10:50 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/03 16:36:33 by drafe            ###   ########.fr       */
+/*   Updated: 2020/01/06 18:14:51 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ SDL_Texture		*ft_load_png(char *name, t_sdl *sdl)
 	
 	TempSurface = IMG_Load(name);
 	
-	int w = WIN_HEIGHT;
-	int h = WIN_WIDTH;
+	int w = WIN_H;
+	int h = WIN_W;
 
 	// if(TempSurface == NULL) {
 	// 	Log("Unable to load image : %s : %s", name, IMG_GetError());

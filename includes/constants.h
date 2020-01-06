@@ -1,7 +1,7 @@
 #ifndef CONSTANTS_H
 # define CONSTANTS_H
-# define WIN_HEIGHT 800
-# define WIN_WIDTH 1420
+# define WIN_H 800
+# define WIN_W 1420
 # define TEXTURES_NUMBER 23
 # define THREADS 10
 # define TEX_W 64

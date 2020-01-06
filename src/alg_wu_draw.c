@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alg_wu_draw.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 16:50:27 by dorange-          #+#    #+#             */
-/*   Updated: 2019/11/14 16:55:45 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/06 18:09:33 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void		ft_fdf_plot(t_wolf3d *data, t_fdf_wu *wu, int x, int y)
 		o = 0.0;
 	else
 		o = (double)wu->step / wu->steps;
-	pos = x + (y * WIN_WIDTH);
+	pos = x + (y * WIN_W);
 	color = wu->color1;
 	color = ft_fdf_get_color(color, (int)data->sdl->pixels[pos], wu->temp_f);
-	if ((pos >= WIN_HEIGHT * WIN_WIDTH || pos < 0))
+	if ((pos >= WIN_H * WIN_W || pos < 0))
 		return ;
 	data->sdl->pixels[pos] = color;
 }

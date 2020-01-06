@@ -12,7 +12,9 @@
 		"algebra.h": "c",
 		"iterator": "c",
 		"sdl_image.h": "c",
-		"stdlib.h": "c"
+		"stdlib.h": "c",
+		"__locale": "c",
+		"locale": "c"
 	},
 	"debug.allowBreakpointsEverywhere": true
 }

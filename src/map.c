@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:24:13 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/22 14:13:19 by drafe            ###   ########.fr       */
+/*   Updated: 2020/01/06 18:14:00 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int			ft_init_view_map(t_wolf3d *wolf)
 {
 	wolf->view_map.frame = 0;
 	wolf->view_map.pframe.size = (t_coord){256, 256};
-	wolf->view_map.place = (t_coord){0, WIN_HEIGHT - 256};
+	wolf->view_map.place = (t_coord){0, WIN_H - 256};
 	return (0);
 }
 
@@ -48,7 +48,7 @@ void		ft_draw_map_text(t_wolf3d *w, int pos, int x, int y)
 		w->color = *(Uint32 *)w->tex_col;
 		w->color &= 0xFFFFFF;
 		if (w->color != 0xFF00FF)
-			w->sdl->pixels[x + (y * WIN_WIDTH)] = w->color;
+			w->sdl->pixels[x + (y * WIN_W)] = w->color;
 	}
 }
 
@@ -74,13 +74,13 @@ void		ft_draw_map(t_wolf3d *w)
 		{
 			pos = pos_calc(w, x, y);
 			if (ft_check_map_pos(w, pos, x, y))
-				w->sdl->pixels[x + (y * WIN_WIDTH)] = 0x000000;
+				w->sdl->pixels[x + (y * WIN_W)] = 0x000000;
 			else
 			{
 				if (w->map.map[pos] != 0)
 					ft_draw_map_text(w, pos, x, y);
 				else
-					w->sdl->pixels[x + (y * WIN_WIDTH)] = 0x000000;
+					w->sdl->pixels[x + (y * WIN_W)] = 0x000000;
 			}
 			x++;
 		}

@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:01:59 by tjuana            #+#    #+#             */
-/*   Updated: 2019/12/18 15:40:09 by drafe            ###   ########.fr       */
+/*   Updated: 2020/01/06 18:09:02 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void			ft_wall_hit_switch(t_threads *a)
 	else
 		a->w.pl.wall_dist = (a->w.map.y - a->w.pl.pos.y +\
 		((1 - a->w.pl.stepy) >> 1)) / a->w.pl.raydir.y;
-	a->w.line_height = (int)(WIN_HEIGHT / a->w.pl.wall_dist);
+	a->w.line_height = (int)(WIN_H / a->w.pl.wall_dist);
 }
 
 void				ft_wall_hit(t_threads *a)
@@ -55,7 +55,7 @@ void				ft_wall_draw_start(t_threads *a)
 	a->w.draw_start += a->w.mouse_offset;
 	a->w.draw_end += a->w.mouse_offset;
 	a->w.draw_start < 0 ? a->w.draw_start = 0 : 0;
-	a->w.draw_end >= WIN_HEIGHT ? a->w.draw_end = WIN_HEIGHT - 1 : 0;
+	a->w.draw_end >= WIN_H ? a->w.draw_end = WIN_H - 1 : 0;
 
 	//printf("222-start:%i end:%i line:%i\n", a->w.draw_start, a->w.draw_end, a->w.line_height);
 	a->w.texture_num =\
@@ -77,14 +77,14 @@ void				ft_draw_walls(t_threads *a)
 	a->w.y = a->w.draw_start;
 	while (a->w.y < a->w.draw_end)
 	{
-		a->w.temp = (a->w.y << 8) - (WIN_HEIGHT << 7) + (a->w.line_height << 7);
+		a->w.temp = (a->w.y << 8) - (WIN_H << 7) + (a->w.line_height << 7);
 		a->w.text_y = (((a->w.temp * TEX_H) / a->w.line_height) >> 8);
 		a->w.tex_col = &((Uint8*)(a->w.sdl->surfaces\
 		[a->w.texture_num]->pixels))[TEX_H * 3 * a->w.text_y + a->w.text_x * 3];
 		a->w.color = *(Uint32*)(a->w.tex_col);
 		if (a->w.pl.side == 1)
 			a->w.color = (a->w.color >> 1) & 0x7F7F7F;
-		a->w.sdl->pixels[a->t1 + (a->w.y * WIN_WIDTH)] = a->w.color;
+		a->w.sdl->pixels[a->t1 + (a->w.y * WIN_W)] = a->w.color;
 		a->w.y++;
 	}
 	a->w.z_buffer[a->t1] = a->w.pl.wall_dist;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
+/*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 13:32:26 by tjuana            #+#    #+#             */
-/*   Updated: 2019/11/14 12:27:19 by tjuana           ###   ########.fr       */
+/*   Updated: 2020/01/06 18:10:05 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		ft_draw_animation(t_wolf3d *w)
 			w->color = *(Uint32 *)w->tex_col;
 			w->color &= 0xFFFFFF;
 			if (w->color != 0xFF00FF)
-				w->sdl->pixels[x + (y * WIN_WIDTH)] = w->color;
+				w->sdl->pixels[x + (y * WIN_W)] = w->color;
 			x++;
 		}
 		y++;

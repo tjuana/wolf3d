@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/05 17:01:08 by drafe            ###   ########.fr       */
+/*   Updated: 2020/01/06 18:30:14 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,21 @@ void	ft_mouse_mv(t_wolf3d *w, SDL_Event e)
 	old_dir_x = w->pl.dir.x;
 	old_pl_x = w->pl.plane.x;
 	mou_x = e.motion.xrel;
-	mou_x /= WIN_HEIGHT;
-//	if (w->pl.menu == 0)
-//	{
-		if (SDL_SetRelativeMouseMode(SDL_TRUE) != 0)
-			ft_sdl_error(w);
+	mou_x /= WIN_H;
+	if (w->pl.menu == 0)
+	{
+		SDL_SetRelativeMouseMode(SDL_TRUE) != 0 ? ft_sdl_error(w) : 0;
 		sign = -w->rs;
 		if (mou_x < 0)
 			sign = w->rs;
-		sign -= e.motion.xrel / WIN_WIDTH;
+		sign -= e.motion.xrel / WIN_W;
 		w->pl.dir.x = w->pl.dir.x * cos(sign) - w->pl.dir.y * sin(sign);
 		w->pl.dir.y = old_dir_x * sin(sign) + w->pl.dir.y * cos(sign);
 		w->pl.plane.x = w->pl.plane.x * cos(sign) - w->pl.plane.y * sin(sign);
 		w->pl.plane.y = old_pl_x * sin(sign) + w->pl.plane.y * cos(sign);
-
-	
+	}
+	else
+		SDL_SetRelativeMouseMode(SDL_FALSE) != 0 ? ft_sdl_error(w) : 0;
 	//w->mouse_offset -= e->motion.yrel;//up and down
 	//printf("mo_x%i  mo_y%i sign=%f \n", e.motion.xrel, e.motion.yrel, sign);
 }

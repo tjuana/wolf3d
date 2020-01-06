@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/03 20:53:41 by drafe            ###   ########.fr       */
+/*   Updated: 2020/01/06 18:16:06 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_sdl		*sdl_init(t_sdl *sdl)
 {
 	sdl = ft_my_malloc(sizeof(t_sdl));
 
-	sdl->pixels = ft_my_malloc((sizeof(Uint32) * WIN_WIDTH) * WIN_HEIGHT);
+	sdl->pixels = ft_my_malloc((sizeof(Uint32) * WIN_W) * WIN_H);
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, \
@@ -24,10 +24,10 @@ t_sdl		*sdl_init(t_sdl *sdl)
 		return (0);
 	}
 	IMG_Init(IMG_INIT_PNG) == 0 ? ft_putstr_fd(IMG_GetError(), 2) : 0;
-	sdl->win = SDL_CreateWindow("WOLF3D", 650, 650, WIN_WIDTH, WIN_HEIGHT, 0);
+	sdl->win = SDL_CreateWindow("WOLF3D", 650, 650, WIN_W, WIN_H, 0);
 	sdl->renderer = SDL_CreateRenderer(sdl->win, -1, SDL_RENDERER_ACCELERATED);
 	if (!(sdl->text = SDL_CreateTexture(sdl->renderer, SDL_PIXELFORMAT_ARGB8888\
-	, SDL_TEXTUREACCESS_STREAMING, WIN_WIDTH, WIN_HEIGHT)))
+	, SDL_TEXTUREACCESS_STREAMING, WIN_W, WIN_H)))
 		ft_error("SDL non textures");
 	sdl->running = 1;
 	if (TTF_Init() != 0)
@@ -41,7 +41,7 @@ int			ft_init_anim(t_wolf3d *wolf)
 	wolf->anim.frame = 0;
 	wolf->anim.pframe.size = (t_coord){512, 512};
 	wolf->anim.pframe.cd = (t_coord){0, 0};
-	wolf->anim.place = (t_coord){WIN_WIDTH / 2 - 512 / 2, WIN_HEIGHT - 512};
+	wolf->anim.place = (t_coord){WIN_W / 2 - 512 / 2, WIN_H - 512};
 	wolf->anim.frames = 0;
 	return (0);
 }
@@ -62,9 +62,9 @@ void		ft_init_wolf(t_wolf3d *w)
 	w->c.srs = sin(w->rs);
 	w->c.mcrs = cos(-w->rs);
 	w->c.msrs = sin(-w->rs);
-	w->c.half_height = (WIN_HEIGHT >> 1);
-	w->c.camera_x_cnst = 2 / (double)WIN_WIDTH;
-	w->z_buffer = ft_my_malloc(sizeof(double) * WIN_WIDTH);
+	w->c.half_height = (WIN_H >> 1);
+	w->c.camera_x_cnst = 2 / (double)WIN_W;
+	w->z_buffer = ft_my_malloc(sizeof(double) * WIN_W);
 	w->sdl->surfaces = ft_my_malloc(sizeof(w->sdl->surfaces) * TEXTURES_NUMBER);
 	w->t.flag = 1;
 	ft_we_need_more_init(w);

@@ -290,17 +290,6 @@ void				threading(t_wolf3d *w);
 
 void				*begin_game(void *w);
 
-int					ft_step_back_check(t_wolf3d *w, unsigned char flag);
-int					ft_step_forward_check(t_wolf3d *w, unsigned char flag);
-int					ft_step_left_check(t_wolf3d *w, unsigned char flag);
-int					ft_step_right_check(t_wolf3d *w, unsigned char flag);
-
-void				ft_pl_stats(t_wolf3d *w);
-void				ft_putstr_sdl(t_wolf3d *w, char *str, int x, int y);
-SDL_Rect			ft_create_rect(int w, int h, int x, int y);
-int					ft_font_preset(t_wolf3d *w, int b, int g, int r);
-
-
 //int					ft_check_run(t_wolf3d *w);
 
 void				ft_ray_dir_calculations(t_threads *a);
@@ -347,6 +336,11 @@ double					ft_fdf_round(double x);
 double					ft_fdf_fpart(double x);
 int						ft_fdf_get_color(int color1, int color2, double f1);
 
+int						ft_step_back_check(t_wolf3d *w, unsigned char flag);
+int						ft_step_forward_check(t_wolf3d *w, unsigned char flag);
+int						ft_step_left_check(t_wolf3d *w, unsigned char flag);
+int						ft_step_right_check(t_wolf3d *w, unsigned char flag);
+
 int						ft_enemy_go(t_wolf3d *w, char dir, int s_nbr);
 void					ft_enemy_cycle(t_wolf3d *w, int s_nbr);
 void					ft_enemy(t_wolf3d *w, int s_nbr);
@@ -354,8 +348,12 @@ int						ft_enemy_detect_pl(t_wolf3d *w, int s_nbr);
 
 int						ft_menu_button(t_wolf3d *w, int x, int click);
 void					ft_menu(t_wolf3d *w);
-void					ft_menu_play(t_wolf3d *w);
 void					ft_menu_back(t_wolf3d *w);
+
+void					ft_pl_stats(t_wolf3d *w);
+void					ft_putstr_sdl(t_wolf3d *w, char *str, int x, int y);
+SDL_Rect				*ft_create_rect(int w, int h, int x, int y);
+int						ft_font_preset(t_wolf3d *w, int b, Uint8 g, Uint8 r);
 
 void					ft_sort(t_wolf3d *w);
 

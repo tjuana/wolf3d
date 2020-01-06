@@ -6,7 +6,7 @@
 /*   By: drafe <drafe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 12:54:16 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/05 17:03:36 by drafe            ###   ########.fr       */
+/*   Updated: 2020/01/06 19:19:27 by drafe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,33 @@
 
 static void		ft_keydown(t_wolf3d *w, SDL_Event e)
 {
-	e.key.keysym.scancode == SDL_SCANCODE_ESCAPE && w->pl.menu == 1 ?
-	w->sdl->running = 0 : 0;
-	e.key.keysym.scancode == SDL_SCANCODE_ESCAPE && w->pl.menu != 1 ?
-	w->pl.menu = 1 : 0;
-	e.key.keysym.scancode == SDL_SCANCODE_W ? w->arr[0] = 1 : 0;
-	e.key.keysym.scancode == SDL_SCANCODE_S ? w->arr[1] = 1 : 0;
-	e.key.keysym.scancode == SDL_SCANCODE_A ? w->arr[13] = 1 : 0;
-	e.key.keysym.scancode == SDL_SCANCODE_LEFT ? w->arr[10] = 1 : 0;
-	e.key.keysym.scancode == SDL_SCANCODE_D ? w->arr[14] = 1 : 0;
-	e.key.keysym.scancode == SDL_SCANCODE_RIGHT ? w->arr[11] = 1 : 0;
-	e.key.keysym.scancode == SDL_SCANCODE_Q ? w->arr[5] = 1 : 0;
-	e.key.keysym.scancode == SDL_SCANCODE_P ? w->arr[6] = 1 : 0;
-	e.key.keysym.scancode == SDL_SCANCODE_L ? w->arr[7] = 1 : 0;
-	e.key.keysym.scancode == SDL_SCANCODE_LSHIFT ? w->arr[8] = 1 : 0;
-	e.key.keysym.scancode == SDL_SCANCODE_SPACE ? w->arr[12] = 1 : 0;
-	e.key.keysym.scancode == SDL_SCANCODE_KP_2 ? w->arr[15] = 1 : 0;
-	e.key.keysym.scancode == SDL_SCANCODE_KP_4 ? w->arr[16] = 1 : 0;
-	e.key.keysym.scancode == SDL_SCANCODE_KP_6 ? w->arr[17] = 1 : 0;
-	e.key.keysym.scancode == SDL_SCANCODE_KP_8 ? w->arr[18] = 1 : 0;
+	if (e.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+	{
+		w->pl.menu == 1 ? w->sdl->running = 0 : 0;
+		if (w->pl.menu != 1)
+		{
+			w->pl.menu = 1;
+			ft_menu(w);
+		}
+	}
+	if (w->pl.menu == 0)
+	{
+		e.key.keysym.scancode == SDL_SCANCODE_W ? w->arr[0] = 1 : 0;
+		e.key.keysym.scancode == SDL_SCANCODE_S ? w->arr[1] = 1 : 0;
+		e.key.keysym.scancode == SDL_SCANCODE_A ? w->arr[13] = 1 : 0;
+		e.key.keysym.scancode == SDL_SCANCODE_LEFT ? w->arr[10] = 1 : 0;
+		e.key.keysym.scancode == SDL_SCANCODE_D ? w->arr[14] = 1 : 0;
+		e.key.keysym.scancode == SDL_SCANCODE_RIGHT ? w->arr[11] = 1 : 0;
+		e.key.keysym.scancode == SDL_SCANCODE_Q ? w->arr[5] = 1 : 0;
+		e.key.keysym.scancode == SDL_SCANCODE_P ? w->arr[6] = 1 : 0;
+		e.key.keysym.scancode == SDL_SCANCODE_L ? w->arr[7] = 1 : 0;
+		e.key.keysym.scancode == SDL_SCANCODE_LSHIFT ? w->arr[8] = 1 : 0;
+		e.key.keysym.scancode == SDL_SCANCODE_SPACE ? w->arr[12] = 1 : 0;
+		e.key.keysym.scancode == SDL_SCANCODE_KP_2 ? w->arr[15] = 1 : 0;
+		e.key.keysym.scancode == SDL_SCANCODE_KP_4 ? w->arr[16] = 1 : 0;
+		e.key.keysym.scancode == SDL_SCANCODE_KP_6 ? w->arr[17] = 1 : 0;
+		e.key.keysym.scancode == SDL_SCANCODE_KP_8 ? w->arr[18] = 1 : 0;
+	}
 }
 
 /*
@@ -84,7 +92,7 @@ void			ft_handle_events(t_wolf3d *w)
 		e.type == SDL_QUIT ? w->sdl->running = 0 : 0;
 		if (e.type == SDL_KEYDOWN)
 			ft_keydown(w, e);
-		if (e.type == SDL_KEYUP)
+		if (e.type == SDL_KEYUP && w->pl.menu == 0)
 			ft_keyup(w, e);
 		if ((e.button.type == SDL_MOUSEBUTTONDOWN) && (w->pl.menu == 0))
 			e.button.button == 1 ? w->arr[4] = 1 : 0;
