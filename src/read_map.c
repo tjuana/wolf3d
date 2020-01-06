@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 15:17:47 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/05 16:19:46 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/06 16:40:07 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void	ft_copy_sector(t_wolf3d *w, t_vector3 **vertex, t_list **ptr, int count)
 }
 
 // Set sector
-void	ft_set_sector(t_wolf3d *w, t_vector3 **vertex, int count, double floor, double height)
+void	ft_set_sector(t_wolf3d *w, t_vector3 **vertex, int count, double floor, double height, int color)
 {
 	t_sector	*new_sector;
 	t_vector3	**p;
@@ -141,6 +141,7 @@ void	ft_set_sector(t_wolf3d *w, t_vector3 **vertex, int count, double floor, dou
 	new_sector->vertex_count = count;
 	new_sector->floor = floor;
 	new_sector->height = height;
+	new_sector->color = color;
 	list_item = ft_lstnew(new_sector, sizeof(t_sector));
 	if (w->sector == NULL)
 		w->sector = list_item;
@@ -156,7 +157,7 @@ void	ft_set_sector(t_wolf3d *w, t_vector3 **vertex, int count, double floor, dou
 
 	Function that parsing string and set vertexes.
 */
-void		ft_parsing_vertexes(t_wolf3d *w, char *str, double floor, double height)
+void		ft_parsing_vertexes(t_wolf3d *w, char *str, double floor, double height, int color)
 {
 	t_vector3			**vertex;
 	int				count;
@@ -183,6 +184,7 @@ void		ft_parsing_vertexes(t_wolf3d *w, char *str, double floor, double height)
 	// Set line (temp)
 	temp_line.floor = floor; // standart height
 	temp_line.height = height * (WIN_HEIGHT / 10); // standart height
+	temp_line.color = color;
 	i = 0;
 	while (i + 1 < count)
 	{
@@ -203,7 +205,7 @@ void		ft_parsing_vertexes(t_wolf3d *w, char *str, double floor, double height)
 	ft_set_line(w, line, temp_line, lst);
 
 	// Set sector (new way)
-	ft_set_sector(w, vertex, count, floor, height);
+	ft_set_sector(w, vertex, count, floor, height, color);
 
 	// ft_free_array2((void**)vertex, count); // vertexes in sectors
 }
@@ -213,12 +215,24 @@ void		ft_parsing_vertexes(t_wolf3d *w, char *str, double floor, double height)
 
 	Function that parsing special param. for sector.
 */
-void		ft_parsing_sector_param(char *str, double *floor, double *height)
+void		ft_parsing_sector_param(char *str, double *floor, double *height, int *color)
 {
 	*floor = atof(str);
 	str = ft_strchr(str, ' ');
+	if (str == NULL)
+		ft_error("INCORRECT MAP\n");
 	str++;
 	*height = atof(str);
+	str = ft_strchr(str, ' ');
+	if (str == NULL)
+	{
+		*color = 0x120a8f;
+		return;
+	}
+	str++;
+
+	*color = strtol(str, NULL, 16);
+	//ft_error("INCORRECT MAP\n");
 }
 
 /*
@@ -235,6 +249,7 @@ void		ft_read_file_nmp(int fd, t_wolf3d *w)
 	char	**temp_map;
 	double	floor;
 	double	height;
+	int		color;
 
 	sector_count = 0;
 	while ((res = get_next_line(fd, &line)) > 0)
@@ -242,7 +257,7 @@ void		ft_read_file_nmp(int fd, t_wolf3d *w)
 		map = ft_strsplit(line, '\t');
 		if (!ft_strcmp(map[0], "sector"))
 		{
-			ft_parsing_sector_param(map[1], &floor, &height);
+			ft_parsing_sector_param(map[1], &floor, &height, &color);
 			// temp_map = ft_strsplit(map[1], ' ');
 			// need to set walls height
 			// free temp_map
@@ -250,7 +265,7 @@ void		ft_read_file_nmp(int fd, t_wolf3d *w)
 			// need to set walls coord.
 
 			// for example, let's write the walls in a line (minor version)
-			ft_parsing_vertexes(w, map[2], floor, height);
+			ft_parsing_vertexes(w, map[2], floor, height, color);
 		}
 		// free map
 		ft_free_array2((void**)map, 3);

@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 16:27:33 by dorange-          #+#    #+#             */
-/*   Updated: 2020/01/05 18:07:17 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/05 19:11:43 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,20 +64,21 @@ int		ft_check_walls_vertex_cross(t_wolf3d *w, t_sector *ptr_sector)
 
 		if (
 			ft_check_point_in_line_segment(p, *ptr_sector->vertex[vtx1_n], *ptr_sector->vertex[vtx2_n]) &&
-			ft_check_point_in_line_segment(p, (t_vector3){0.0, 0.0, 0.0, 0.0}, w->pl.pos)			
+			ft_check_point_in_line_segment(p, (t_vector3){0.0, 0.0, 0.0, 0.0}, w->pl.pos)
+			//!ft_check_point_in_line_segment(p, *ptr_sector->vertex[0], w->pl.pos)
 		)
 		{
-			printf("P%02d: x_%5.2f, y_%5.2f | ", count + 1, p.x, p.y);
+			// printf("P%02d: x_%5.2f, y_%5.2f | ", count + 1, p.x, p.y);
 			count++;
 		}
 
-		printf("X%02d: x_%5.2f, y_%5.2f | ", count + 1, p.x, p.y);
+		// printf("X%02d: x_%5.2f, y_%5.2f | ", count + 1, p.x, p.y);
 
 
 		i++;
 	}
 
-	printf("%d\n", count);
+	// printf("%d\n", count);
 
 	if (count % 2 == 0)
 		return (0);

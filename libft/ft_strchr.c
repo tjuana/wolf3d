@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjuana <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 16:21:17 by tjuana            #+#    #+#             */
-/*   Updated: 2019/04/08 14:05:17 by tjuana           ###   ########.fr       */
+/*   Updated: 2020/01/06 16:23:46 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@ char	*ft_strchr(const char *s, int c)
 {
 	while (*s != (t_byte)c)
 		if (!*s++)
-			return (0);
+			return (NULL);
 	return ((char *)s);
 }

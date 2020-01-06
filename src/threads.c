@@ -196,6 +196,7 @@ void		ft_new_ray_dir(t_threads *a)
 		{
 			l = temp_l;
 			own_line = ptr_line;
+			a->w.wall_color = ptr_line->color;
 		}
 
 		// Переход к следующей линии
@@ -249,7 +250,9 @@ void				ft_new_draw_walls(t_threads *a)
 	a->w.y = a->w.draw_start;
 	while (a->w.y < a->w.draw_end)
 	{
-		a->w.sdl->pixels[a->t1 + (a->w.y * WIN_WIDTH)] = 0x120a8f;
+		//a->w.wall_color
+		a->w.sdl->pixels[a->t1 + (a->w.y * WIN_WIDTH)] = a->w.wall_color;
+		// a->w.sdl->pixels[a->t1 + (a->w.y * WIN_WIDTH)] = 0x120a8f;
 		a->w.y++;
 	}
 	a->w.z_buffer[a->t1] = a->w.pl.wall_dist;

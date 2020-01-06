@@ -44,6 +44,7 @@ typedef struct			s_line
 	double				height;		// Высота стены
 	double				floor;		// Высота ~ от z = 0
 	int					txtr;		// Номер текстуры
+	int					color;		// Цвет стены (временно)
 }						t_line;
 
 // new struct for sector
@@ -232,6 +233,7 @@ typedef struct			s_thread_help
 	int					draw_start;
 	int					draw_end;
 	int					texture_num;
+	int					wall_color; // temp
 	int					text_x;
 	int					text_y;
 	int					temp;
