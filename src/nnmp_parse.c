@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 18:21:54 by dorange-          #+#    #+#             */
-/*   Updated: 2020/01/09 18:02:34 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/09 20:29:21 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ int			ft_get_vertexes_count(char *str)
 		ptr = ft_strchr(ptr, '[');
 	}
 
-	// printf("%d\n", count[0]);
-
 	if (count[0] != count[1] ||
 		count[1] != count[2] ||
 		count[2] != count[0])
@@ -82,53 +80,43 @@ int			ft_get_vertexes_count(char *str)
 	return (count[0]);
 }
 
-/*
-	t_vector3 *ft_parse_vertex(char *str)
-
-	Function that parsing string and return vertex.
-*/
-// Написать парсер vertex
-
-/*
-
-	Виды валидных vertex:
-	[]
-	[0]
-	[0, 0]
-	[0, 0, 0]
-	[0, 0, 0, 0]
-
-*/
-
-t_vector3		*ft_parse_vertex_new(char **ptr)
+t_vector3		ft_parse_get_vertex(char **ptr, char *ptr_finish)
 {
-	char		*ptr_start;
-	char		*ptr_finish;
+	int			i;
+	double		coord[4];
+	char		*ptr_comma;
+
+	ft_bzero(coord, sizeof(int) * 4);
+	if ((*ptr) == ptr_finish)
+		return ((t_vector3){0.0, 0.0, 0.0, 0.0});
+	i = 0;
+	coord[i++] = (double)ft_atoi(*ptr);
+	ptr_comma = ft_strchr((*ptr), ',');
+	while (ptr_comma != NULL && ptr_comma++ < ptr_finish && *ptr_comma != '\0')
+	{
+		(*ptr) = ptr_comma + sizeof(char);
+		coord[i++] = (double)ft_atoi(*ptr);
+		ptr_comma = ft_strchr((*ptr), ',');
+	}
+	return ((t_vector3){coord[0], coord[1], coord[2], coord[3]});
 }
 
 t_vector3		*ft_parse_vertex(char **ptr)
 {
 	t_vector3	*p;
-	int			n[4];
-	char		*ptr_comma;
 	char		*ptr_finish;
-	
+
 	p = malloc(sizeof(t_vector3));
+	ft_bzero(p, sizeof(t_vector3));
 	(*ptr) = ft_strchr((*ptr), '[');
 	if ((*ptr) == NULL)
 		ft_error("MAP INCORRENT");
 	(*ptr)++;
-
-	p->x = (double)ft_atoi((*ptr));
-	(*ptr) = ft_strchr((*ptr), ',');
-	if (*ptr == NULL)
+	ptr_finish = ft_strchr((*ptr), ']');
+	if (ptr_finish == NULL)
 		ft_error("MAP INCORRENT");
-	(*ptr)++;
-
-	p->y = (double)ft_atoi((*ptr));
-	// for transformation
-	p->z = 0;
-	p->w = 0;
+	ptr_finish++;
+	*p = ft_parse_get_vertex(ptr, ptr_finish);
 	return (p);
 }
 
@@ -188,9 +176,6 @@ void	ft_parsing_file_nnmp_sector_param(t_wolf3d *w, char **line, t_sector *secto
 	sector->txtr_ceil = ft_parsing_get_param(*line, " txtr_ceil:");
 }
 
-/*
-	void ft_parsing_file_nnmp_sector(t_wolf3d *w, char **line)
-*/
 void		ft_parsing_file_nnmp_sector(t_wolf3d *w, char **line)
 {
 	t_sector	*sector;
@@ -211,7 +196,20 @@ void		ft_parsing_file_nnmp_sector(t_wolf3d *w, char **line)
 
 void	ft_parsing_file_nnmp_player(t_wolf3d *w, char **line)
 {
-	return ;
+	t_vector3		*vertex;
+	int				count;
+	char			*ptr;
+
+	ptr = ft_parsing_search_param(*line, " vertex:");
+	vertex = ft_parse_vertex(&ptr);
+	w->pl.pos = (t_vector3){vertex->x, vertex->y, vertex->z, vertex->w};
+	w->pl.cameraH = vertex->z;
+	free(vertex);
+
+	ptr = ft_parsing_search_param(*line, " camera:");
+	vertex = ft_parse_vertex(&ptr);
+	w->pl.camera_vector = (t_vector3){vertex->x, vertex->y, vertex->z, vertex->w};
+	free(vertex);
 }
 
 void	ft_parsing_file_nnmp_sprite(t_wolf3d *w, char **line)

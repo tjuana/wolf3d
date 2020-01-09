@@ -111,6 +111,9 @@ typedef struct			s_sdl
 	
 }						t_sdl;
 
+/*
+	Old sprite struct
+*/
 typedef struct			s_sprite
 {
 	double				x;
@@ -118,6 +121,17 @@ typedef struct			s_sprite
 	double				distance;
 	int					texture;
 }						t_sprite;
+
+/*
+	New sprite struct (example)
+*/
+typedef struct			s_sprite_new
+{
+	int					type;			// 0: static, 1: dynamic (enemy?)
+	t_vector3			pos;			// xyz-w coord.
+	double				distance;
+	int					texture;
+}						t_sprite_new;
 
 typedef struct			s_map
 {
@@ -172,6 +186,8 @@ typedef struct			s_wolf3d
 	// spec param
 	double				fov;
 	double				l_p;
+
+	t_list				*sprites;
 
 	t_sdl				*sdl; //structe for handle sdl  stuff
 	t_map				map;

@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/08 15:40:09 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/09 20:32:57 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int			ft_init_anim(t_wolf3d *wolf)
 {
 	wolf->anim.start_am = 0;
 	wolf->anim.frame = 0;
-	wolf->anim.pframe.size = (t_vector3){512, 512};
-	wolf->anim.pframe.cd = (t_vector3){0, 0};
+	wolf->anim.pframe.size = (t_vector3){512, 512, 0, 0};
+	wolf->anim.pframe.cd = (t_vector3){0, 0, 0, 0};
 	wolf->anim.place = (t_vector3){WIN_WIDTH / 2 - 512 / 2, WIN_HEIGHT - 512};
 	wolf->anim.frames = 0;
 	return (0);
@@ -54,16 +54,15 @@ void		ft_init_wolf(t_wolf3d *w)
 	//w->fov = 3.00000;
 	w->l_p = WIN_WIDTH / (2 * tan(w->fov / 2)); // Расстояние до воображаемой стены
 	
-	// Set camera vector
-	w->pl.camera_vector.x = 0;
-	w->pl.camera_vector.y = 1;
-	w->pl.camera_vector.z = 0;
-	w->pl.camera_vector.w = 0;
+	// w->pl.camera_vector.x = 0;
+	// w->pl.camera_vector.y = 1;
+	// w->pl.camera_vector.z = 0;
+	// w->pl.camera_vector.w = 0;
 
-	w->pl.cameraH = 1; // Высота камеры
+	// w->pl.cameraH = 1; // Высота камеры
 	// w->pl.camera_tilt = 0; // Смещение камеры
-	w->pl.pos.x = 1.5; // Позиция игрока
-	w->pl.pos.y = 1.5;
+	// w->pl.pos.x = 1.5; // Позиция игрока
+	// w->pl.pos.y = 1.5;
 	w->hit = 0;
 	w->x = -1;
 
