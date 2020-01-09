@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:33:34 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/06 18:21:58 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/09 16:04:02 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void	ft_print_sectors(t_list *ptr_list)
 		// Get sector values
 		ptr_sector = (t_sector*)ptr_list->content;
 
+		// printf("%d\t%d\n", ptr_sector->vertex_count, ptr_sector->txtr_ceil);
+
 		j = 0;
 		while (j < ptr_sector->vertex_count)
 		{
@@ -91,40 +93,6 @@ void	ft_print_sectors(t_list *ptr_list)
 		}
 
 		// Get next sector
-		ptr_list = ptr_list->next;
-		i++;
-	}
-}
-
-/*
-	void ft_print_lines(t_wolf3d *w)
-	
-	Function that print the vertexes of lines.
-*/
-void	ft_print_lines(t_wolf3d *w)
-{
-	t_list	*ptr_list;
-	t_line	*ptr_line;
-	int		i;
-
-	ptr_list = w->line;
-	i = 0;
-	while (ptr_list)
-	{
-		// Get line values
-		ptr_line = (t_line*)ptr_list->content;
-
-		// Print the vertexes of line (straight line)
-		printf(
-			"LINE #%.2d\tx1: %.2f\ty1: %.2f\tx2: %.2f\ty2: %.2f\n",
-			i,
-			ptr_line->p1.x,
-			ptr_line->p1.y,
-			ptr_line->p2.x,
-			ptr_line->p2.y
-		);
-
-		// Get next line
 		ptr_list = ptr_list->next;
 		i++;
 	}
@@ -148,17 +116,15 @@ int	main(int c, char **v)
 		ft_error("Error: bad file");
 
 	// Get map
-	if (w.type == 1)
-		read_file(w.fd, &w.map);
-	else
-		ft_read_file_nmp(w.fd, &w);
+	//ft_read_file_nmp(w.fd, &w);
 
+	ft_parsing_file_nnmp(w.fd, &w);
+	ft_print_sectors(w.sector); // check sector
 	w.sdl = sdl_init(w.sdl);
 	ft_init_wolf(&w);
+
 	// ft_print_lines(&w); // Print the vertexes of lines
 	// ft_print_sectors(w.sector);
-	// ft_iso_vertexes(&w); // Transform vertexes to isometric projection (for map) [test]
-	// exit(1);
 	ft_load_textures(&w);
 	ft_init_anim(&w);
 	ft_init_view_map(&w);
@@ -169,11 +135,6 @@ int	main(int c, char **v)
 		renderer(&w);
 		ft_handle_events(&w);
 		ft_use_events(&w);
-		// ft_get_player_sector(&w);
-		// printf("PLAYER SECTOR: %d,     PLAYER COORD.: x_%5.2f, y_%5.2f\n", ft_get_player_sector(&w), w.pl.pos.x, w.pl.pos.y);
-		//fpsthink();
-		//printf("PL:\tx:%f\ty:%f\n", w.pl.pos.x, w.pl.pos.y);
-		//sleep(10);
 	}
 	ft_clean_sdl(&w);
 	return (0);

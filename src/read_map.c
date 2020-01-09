@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 15:17:47 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/06 18:27:30 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/09 14:51:25 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void		ft_free_array2(void **array, int count)
 
 	Function that parsing string and return vertex.
 */
-t_vector3		*ft_parse_vertex(char **ptr)
+/*t_vector3		*ft_parse_vertex(char **ptr)
 {
 	t_vector3	*p;
 
@@ -47,15 +47,15 @@ t_vector3		*ft_parse_vertex(char **ptr)
 
 	(*ptr) = ft_strchr((*ptr), '{');
 	(*ptr)++;
-	p->x = (double)atof((*ptr));
+	p->x = (double)ft_atoi((*ptr));
 	(*ptr) = ft_strchr((*ptr), ',');
 	(*ptr)++;
-	p->y = (double)atof((*ptr));
+	p->y = (double)ft_atoi((*ptr));
 	// for transformation
 	p->z = 0;
 	p->w = 0;
 	return(p);
-}
+}*/
 
 /*
 	int ft_get_vertexes_count(char *str)
@@ -63,7 +63,7 @@ t_vector3		*ft_parse_vertex(char **ptr)
 	Function that parsing string and return vertexes
 	count or -1 if map invalid.
 */
-int			ft_get_vertexes_count(char *str)
+/*int			ft_get_vertexes_count(char *str)
 {
 	char			*ptr;
 	int				count[3];
@@ -93,7 +93,7 @@ int			ft_get_vertexes_count(char *str)
 		count[2] != count[0])
 		return (-1);
 	return (count[0]);
-}
+}*/
 
 void	ft_copy_sector(t_wolf3d *w, t_vector3 **vertex, t_list **ptr, int count)
 {
@@ -128,6 +128,16 @@ void	ft_copy_sector(t_wolf3d *w, t_vector3 **vertex, t_list **ptr, int count)
 	// намудрил с указателями
 }
 
+/*
+	void ft_sector_set_neighborhood(t_wolf3d *w)
+
+	Function that search and set neighborhood sectors.
+*/
+void	ft_sector_set_neighborhood(t_wolf3d *w)
+{
+	int	*sectors;
+}
+
 // Set sector
 void	ft_set_sector(t_wolf3d *w, t_vector3 **vertex, int count, double floor, double height, int color)
 {
@@ -149,7 +159,10 @@ void	ft_set_sector(t_wolf3d *w, t_vector3 **vertex, int count, double floor, dou
 	else
 		ft_lstadd(&(w->sector), list_item);
 
-	ft_copy_sector(w, vertex, &w->map_sector, count);
+	// search neighborhood sectors
+	ft_sector_set_neighborhood(w);
+
+	ft_copy_sector(w, vertex, &w->map_sector, count); // for sector vertexes
 	ft_copy_sector(w, vertex, &w->map_sector_top, count);
 }
 
@@ -164,8 +177,6 @@ void		ft_parsing_vertexes(t_wolf3d *w, char *str, double floor, double height, i
 	int				count;
 	unsigned int	i;
 	// temp
-	t_line	temp_line;
-	t_line	*line;
 	t_list	*lst;
 	char	*ptr;
 
@@ -182,33 +193,8 @@ void		ft_parsing_vertexes(t_wolf3d *w, char *str, double floor, double height, i
 		i++;
 	}
 
-	// Set line (temp)
-	temp_line.floor = floor; // standart height
-	temp_line.height = height * (WIN_HEIGHT / 10); // standart height
-	temp_line.color = color;
-	i = 0;
-	while (i + 1 < count)
-	{
-		temp_line.p1.x = vertex[i]->x;
-		temp_line.p1.y = vertex[i]->y;
-		temp_line.p2.x = vertex[i + 1]->x;
-		temp_line.p2.y = vertex[i + 1]->y;
-		ft_set_line(w, line, temp_line, lst);
-		i++;
-	}
-
-	// Finish
-	temp_line.p1.x = vertex[count - 1]->x;
-	temp_line.p1.y = vertex[count - 1]->y;
-	temp_line.p2.x = vertex[0]->x;
-	temp_line.p2.y = vertex[0]->y;
-	
-	ft_set_line(w, line, temp_line, lst);
-
 	// Set sector (new way)
 	ft_set_sector(w, vertex, count, floor, height, color);
-
-	// ft_free_array2((void**)vertex, count); // vertexes in sectors
 }
 
 /*
@@ -218,12 +204,12 @@ void		ft_parsing_vertexes(t_wolf3d *w, char *str, double floor, double height, i
 */
 void		ft_parsing_sector_param(char *str, double *floor, double *height, int *color)
 {
-	*floor = atof(str);
+	*floor = ft_atoi(str);
 	str = ft_strchr(str, ' ');
 	if (str == NULL)
 		ft_error("INCORRECT MAP\n");
 	str++;
-	*height = atof(str);
+	*height = ft_atoi(str);
 	str = ft_strchr(str, ' ');
 	if (str == NULL)
 	{
@@ -275,112 +261,4 @@ void		ft_read_file_nmp(int fd, t_wolf3d *w)
 		free(line);
 	}
 	free(line);
-}
-
-void		read_file(int fd, t_map *map)
-{
-	t_list	*lst;
-	int		lenght;
-
-	lst = NULL;
-	lenght = get_lines(fd, &lst);
-	if (lst == NULL)
-		ft_error("Map is empty");
-	get_map(map, ft_countwords(lst->content, ' '), ft_lstcount(lst));
-	map->s_count = write_map(map, lst);
-	if (map->s_count)
-	{
-		write_sprites(map);
-		map->s_ord = ft_my_malloc(sizeof(int) * map->s_count);
-		map->s_dst = ft_my_malloc(sizeof(double) * map->s_count);
-	}
-}
-
-int			get_lines(int fd, t_list **lst)
-{
-	t_list	*tmp;
-	char	*line;
-	int		len;
-	int		width;
-	int		res;
-
-	len = 0;
-	width = -1;
-	while ((res = get_next_line(fd, &line)) > 0)
-	{
-		width == -1 ? width = ft_countwords(line, ' ') : 0;
-		width != ft_countwords(line, ' ') ? ft_error("Error map") : 0;
-		if (!(tmp = ft_lstnew(line, ft_strlen(line) + 1)))
-			ft_error("MAlloc failed");
-		ft_lstadd(lst, tmp);
-		ft_strdel(&line);
-		len++;
-		free(line);
-	}
-	free(line);
-	res < 0 ? ft_error("Incorrect file!") : 0;
-	ft_lstrev(lst);
-	return (len);
-}
-
-void		get_map(t_map *m, int width, int height)
-{
-	m->m_hei = height;
-	m->m_wid = width;
-	m->map = (int *)ft_my_malloc(sizeof(int) * width * height);
-}
-
-int			write_map(t_map *map, t_list *lst)
-{
-	t_write wr;
-
-	wr.lst = lst;
-	wr.y = -1;
-	wr.s_count = 0;
-	while (++wr.y < map->m_hei)
-	{
-		if (!(wr.s = ft_strsplit(wr.lst->content, ' ')))
-			ft_error("Malloc failed");
-		wr.x = -1;
-		while (++wr.x < map->m_wid)
-		{
-			map->map[wr.y * map->m_wid + wr.x] = ft_atoi(wr.s[wr.x]);
-			map->map[wr.y * map->m_wid + wr.x] > 22 ? \
-			ft_error("map is failed") : 0;
-			if (map->map[wr.y * map->m_wid + wr.x] >= 20 \
-			&& map->map[wr.y * map->m_wid + wr.x] <= 22)
-				wr.s_count++;
-		}
-		ft_2arrclean(&wr.s);
-		wr.lst = wr.lst->next;
-	}
-	ft_cleanmem(&lst);
-	return (wr.s_count);
-}
-
-void		write_sprites(t_map *m)
-{
-	int	x;
-	int y;
-	int spr_num;
-
-	m->sprite = ft_my_malloc(sizeof(t_sprite *) * m->s_count);
-	y = -1;
-	spr_num = 0;
-	while (++y < m->m_wid)
-	{
-		x = -1;
-		while (++x < m->m_hei)
-		{
-			if (m->map[y * m->m_wid + x] >= 20 \
-			&& m->map[y * m->m_wid + x] <= 22)
-			{
-				m->sprite[spr_num] = ft_my_malloc(sizeof(t_sprite) * 1);
-				m->sprite[spr_num]->x = x == m->m_wid ? x - 0.5 : x + 0.5;
-				m->sprite[spr_num]->y = y == m->m_wid ? y - 0.5 : x + 0.5;
-				m->sprite[spr_num]->texture = m->map[y * m->m_wid + x];
-				spr_num++;
-			}
-		}
-	}
 }

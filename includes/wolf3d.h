@@ -36,26 +36,19 @@
 //# include "matrix/fdf.h"
 # include "algebra.h" // math library for matrix transform
 
-// new struct for line
-typedef struct			s_line
-{
-	t_vector3			p1;			// Координаты первой точки
-	t_vector3			p2;			// Координаты второй точки
-	double				height;		// Высота стены
-	double				floor;		// Высота ~ от z = 0
-	int					txtr;		// Номер текстуры
-	int					color;		// Цвет стены (временно)
-}						t_line;
-
 // new struct for sector
 typedef struct			s_sector
 {
+	int					id;
 	t_vector3			**vertex;		// Указатель на массив вершин
 	int					vertex_count;	// Кол-во вершин в секторе
+	int					**neighbors;	// Номера соседних секторов
 	double				height;			// Высота стены
 	double				floor;			// Высота ~ от z = 0
-	int					txtr;			// Номер текстуры сектора (?)
-	int					color;			// Цвет сектора (временно)
+	int					txtr_floor;		// Номер текстуры сектора (?)
+	int					txtr_walls;		// Номер текстуры сектора (?)
+	int					txtr_ceil;		// Номер текстуры сектора (?)
+	int					color;			// Цвет сектора (temp)
 }						t_sector;
 
 typedef struct			s_sort_util	// Структура для спрайтов (?)
@@ -170,8 +163,6 @@ typedef struct			s_time
 
 typedef struct			s_wolf3d
 {
-	// add list with lines
-	t_list				*line;
 	// add list with sector
 	t_list				*sector;
 	// add temp list for map
@@ -209,8 +200,6 @@ typedef struct			s_wolf3d
 
 typedef struct			s_thread_help
 {
-	// add list with lines
-	t_list				*line;
 	// add list with sector
 	t_list				*sector;
 	// spec param
@@ -299,11 +288,6 @@ void					*ft_my_malloc(size_t s);
 int						ft_error(char *code);
 SDL_Surface				*ft_sdl_load_bmp(char *str);
 
-void					read_file(int fd, t_map *map);
-int						get_lines(int fd, t_list **lst);
-void					get_map(t_map *m, int width, int height);
-int						write_map(t_map *map, t_list *lst);
-
 t_sdl					*sdl_init(t_sdl *sdl);
 void					ft_init_wolf(t_wolf3d *w);
 void					ft_we_need_more_init(t_wolf3d *w);
@@ -372,9 +356,6 @@ int						ft_fdf_get_color(int color1, int color2, double f1);
 void					ft_draw_compass(t_wolf3d *w);
 void					ft_draw_compass_static(t_wolf3d *w);
 
-void					ft_set_line(t_wolf3d *w, t_line *line,
-							t_line temp_line, t_list *lst);
-
 void					ft_read_file_nmp(int fd, t_wolf3d *w);
 void					ft_draw_map_new_line(t_wolf3d *w);
 void					ft_draw_map_new_sector(t_wolf3d *w);
@@ -390,5 +371,10 @@ int						ft_get_player_sector(t_wolf3d *w);
 int						ft_check_point(t_vector3 p, t_vector3 p1, t_vector3 p2, t_vector3 p1_pl, t_vector3 p2_pl);
 
 void					ft_sector_list_cast(t_threads *a);
+int						ft_check_point_fov(t_vector3 p, t_vector3 p1, t_vector3 p2, t_vector3 p1_pl, t_vector3 p2_pl);
+
+void					ft_parsing_file_nnmp(int fd, t_wolf3d *w);
+
+void					ft_print_sectors(t_list *ptr_list);
 
 #endif

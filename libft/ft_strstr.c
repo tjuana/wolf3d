@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjuana <tjuana@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 20:01:05 by tjuana            #+#    #+#             */
-/*   Updated: 2019/04/20 18:21:24 by tjuana           ###   ########.fr       */
+/*   Updated: 2020/01/08 18:49:15 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ char	*ft_strstr(const char *hey, const char *ne)
 		}
 		is++;
 	}
-	return (0);
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 16:27:33 by dorange-          #+#    #+#             */
-/*   Updated: 2020/01/06 18:27:11 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/08 15:48:25 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,12 +236,19 @@ void	ft_sector_calculate_vline(t_threads *a, t_sector *sector, double *length_ar
 	while (temp_l != 0.0)
 	{
 
-		/*if (i % 2)
+		if (i % 2)
 		{
 			// This is floor and ceiling
+			a->w.line_height = sector->height * a->w.l_p / (temp_l * (WIN_HEIGHT));
+			a->w.draw_end = a->w.draw_start;
+			a->w.draw_start = ((int)(a->w.pl.cameraH * WIN_HEIGHT) * a->w.l_p / (temp_l * (WIN_HEIGHT)) + WIN_HEIGHT * a->w.pl.camera_vector.z) - a->w.line_height;
+			// check...
+			a->w.draw_end >= WIN_HEIGHT ? a->w.draw_end = WIN_HEIGHT - 1 : 0;
+			a->w.draw_start < 0 ? a->w.draw_start = 0 : 0;
+			ft_sector_draw_vline(a, 0xffffff);
 		}
 		else
-		{*/
+		{
 			// This is wall draw
 			a->w.line_height = sector->height * a->w.l_p / (temp_l * (WIN_HEIGHT));
 			a->w.draw_end = (int)(a->w.pl.cameraH * WIN_HEIGHT) * a->w.l_p / (temp_l * (WIN_HEIGHT)) + WIN_HEIGHT * a->w.pl.camera_vector.z;
@@ -249,7 +256,7 @@ void	ft_sector_calculate_vline(t_threads *a, t_sector *sector, double *length_ar
 			a->w.draw_end >= WIN_HEIGHT ? a->w.draw_end = WIN_HEIGHT - 1 : 0;
 			a->w.draw_start < 0 ? a->w.draw_start = 0 : 0;
 			ft_sector_draw_vline(a, sector->color);
-		/*}*/
+		}
 		temp_l = length_array[++i];
 	}
 }
@@ -275,7 +282,6 @@ void	ft_sector_cast(t_threads *a, t_sector *sector)
 	}
 
 	l = ft_sector_sort_double_array_asc(l, sector->vertex_count);
-	// printf("%f %f %f %f\n", l[0], l[1], l[2], l[3]);
 	ft_sector_calculate_vline(a, sector, l);
 }
 

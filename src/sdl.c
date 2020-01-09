@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/06 16:58:34 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/08 15:40:09 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,80 +47,6 @@ int			ft_init_anim(t_wolf3d *wolf)
 	return (0);
 }
 
-
-
-
-// Set line
-void	ft_set_line(t_wolf3d *w, t_line *line,
-				t_line temp_line, t_list *lst)
-{
-	line = ft_my_malloc(sizeof(t_line));
-	ft_memcpy(line, &temp_line, sizeof(t_line));
-	lst = ft_lstnew(line, sizeof(t_line));
-	if (w->line == NULL)
-		w->line = lst;
-	else
-		ft_lstadd(&(w->line), lst);
-
-	//printf("LINE:\ttxtr:%d\tx1:%f\ty1:%f\tx2:%f\ty2:%f\n", line->txtr, line->p1.x, line->p1.y, line->p2.x, line->p2.y);
-}
-
-static void	ft_create_line(t_wolf3d *w, int i)
-{
-	double	x1;
-	double	y1;
-	t_line	temp_line;
-	t_line	*line;
-	t_list	*lst;
-
-	x1 = i % w->map.m_wid;
-	y1 = i / w->map.m_hei;
-
-	temp_line.height = WIN_HEIGHT;
-	temp_line.txtr = w->map.map[i];
-
-	// Линия 1:
-	temp_line.p1.x = x1;
-	temp_line.p1.y = y1;
-	temp_line.p2.x = x1 + 1;
-	temp_line.p2.y = y1;
-	ft_set_line(w, line, temp_line, lst);
-
-	// Линия 2:
-	temp_line.p1.x = x1;
-	temp_line.p1.y = y1;
-	temp_line.p2.x = x1;
-	temp_line.p2.y = y1 + 1;
-	ft_set_line(w, line, temp_line, lst);
-
-	// Линия 3:
-	temp_line.p1.x = x1 + 1;
-	temp_line.p1.y = y1;
-	temp_line.p2.x = x1 + 1;
-	temp_line.p2.y = y1 + 1;
-	ft_set_line(w, line, temp_line, lst);
-
-	// Линия 4:
-	temp_line.p1.x = x1;
-	temp_line.p1.y = y1 + 1;
-	temp_line.p2.x = x1 + 1;
-	temp_line.p2.y = y1 + 1;
-	ft_set_line(w, line, temp_line, lst);
-}
-
-static void	ft_init_lines(t_wolf3d *w)
-{
-	int		i;
-
-	i = 0;
-	while (i < w->map.m_wid * w->map.m_hei)
-	{
-		if (w->map.map[i] != 0)
-			ft_create_line(w, i);
-		i++;
-	}
-}
-
 void		ft_init_wolf(t_wolf3d *w)
 {
 	// fov и lp
@@ -158,8 +84,6 @@ void		ft_init_wolf(t_wolf3d *w)
 	w->sdl->textures = ft_my_malloc(sizeof(SDL_Surface *) * TEXTURES_NUMBER);
 	w->t.flag = 1;
 	ft_we_need_more_init(w);
-	if (w->type == 1)
-		ft_init_lines(w);
 }
 
 void		ft_we_need_more_init(t_wolf3d *w)
@@ -198,7 +122,6 @@ void		ft_init_multi_wolf(t_threads_help *w, t_wolf3d *head)
 	w->z_buffer = head->z_buffer;
 	w->half_height = head->c.half_height;
 	w->camera_x_cnst = head->c.camera_x_cnst;
-	w->line = head->line;
 	w->sector = head->sector;
 	w->fov = head->fov;
 	w->l_p = head->l_p;

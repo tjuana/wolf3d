@@ -24,7 +24,7 @@
 			"request": "launch",
 			"program": "${workspaceRoot}/wolf3d",
 			//"args": ["${workspaceRoot}/maps/map.txt"],
-			"args": ["${workspaceRoot}/maps/template.nmp", "nmp"],
+			"args": ["${workspaceRoot}/maps/new_template.nnmp", "nmp"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],

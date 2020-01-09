@@ -6,7 +6,7 @@
 #    By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 11:40:58 by tjuana            #+#    #+#              #
-#    Updated: 2020/01/05 16:56:08 by dorange-         ###   ########.fr        #
+#    Updated: 2020/01/09 14:47:55 by dorange-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,8 @@ SRCS_LIST = main.c\
 			vectors_2.c \
 			matrix.c \
 			debug.c \
-			sector.c
+			sector.c \
+			nnmp_parse.c
 
 OBJS_DIRECTORY = objects/
 OBJS_LIST = $(patsubst %.c, %.o, $(SRCS_LIST))

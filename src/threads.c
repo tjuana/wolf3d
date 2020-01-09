@@ -78,6 +78,20 @@ int			ft_check_point(t_vector3 p, t_vector3 p1, t_vector3 p2, t_vector3 p1_pl, t
 	return (0);
 }
 
+int			ft_check_point_fov(t_vector3 p, t_vector3 p1, t_vector3 p2, t_vector3 p1_pl, t_vector3 p2_pl)
+{
+	// Определяем, в верном ли направлении лежит точка
+	double l1;
+	double l2;
+
+	l1 = sqrt(pow((p.x - p1_pl.x), 2) + pow((p.y - p1_pl.y), 2));
+	l2 = sqrt(pow((p.x - p2_pl.x), 2) + pow((p.y - p2_pl.y), 2));
+
+	if (l1 < l2 && l2 - l1 > 0.999999)
+		return (0);
+	return (1);
+}
+
 /*
  * vxs: Vector cross product
  */
@@ -105,135 +119,6 @@ t_vector3		ft_find_intersect(double x1, double y1, double x2, double y2,double x
 	xy.x = ft_math_vxs(ft_math_vxs(x1,y1, x2,y2), (x1)-(x2), ft_math_vxs(x3,y3, x4,y4), (x3)-(x4)) / d;
 	xy.y = ft_math_vxs(ft_math_vxs(x1,y1, x2,y2), (y1)-(y2), ft_math_vxs(x3,y3, x4,y4), (y3)-(y4)) / d;
 	return (xy);
-}
-
-// ray casting (simple math)
-void		ft_new_ray_dir(t_threads *a)
-{
-	t_list	*ptr_list;
-	t_line	*ptr_line;
-	t_line	*own_line;
-	double	l;
-	double	temp_l;
-	double	p_d;
-	t_vector3	p;
-	t_vector3	i_vertex;
-
-	t_vector3	p1_pl;
-	t_vector3	p2_pl;
-
-	ptr_list = a->w.line; // List of lines
-	own_line = NULL;
-
-	/*
-	    NDC:
-				  1.0
-				   |
-				   |
-		-1.0 -----0.0----- 1.0  (cameraX)
-				   |
-				   |
-				 -1.0
-	*/
-	a->w.pl.cameraX = a->t1 * a->w.camera_x_cnst - 1;
-	l = 0; // Расстояние от стены до игрока
-
-	// Вместо dir должен быть некий коэффициент -- fc_dir (направление и отклонение) [туда, куда пустим луч]
-	// Угол смещения -- половина fov, помноженная на отклонение
-	// fc_dir -- вектор камеры
-
-	a->w.fc_dir.x = a->w.pl.camera_vector.x * cos(a->w.pl.cameraX * (a->w.fov / 2)) - a->w.pl.camera_vector.y * sin(a->w.pl.cameraX * (a->w.fov / 2));
-	a->w.fc_dir.y = a->w.pl.camera_vector.y * cos(a->w.pl.cameraX * (a->w.fov / 2)) + a->w.pl.camera_vector.x * sin(a->w.pl.cameraX * (a->w.fov / 2));
-
-	// Необходимо связать это с FOV.
-	while (ptr_list)
-	{
-		ptr_line = (t_line*)ptr_list->content;
-
-		// Проверка, что делитель не 0
-		if (!ft_check_div(
-			a->w.pl.pos.x,
-			a->w.pl.pos.y,
-			(a->w.pl.pos.x + a->w.fc_dir.x),
-			(a->w.pl.pos.y + a->w.fc_dir.y), 
-			ptr_line->p1.x,
-			ptr_line->p1.y,
-			ptr_line->p2.x,
-			ptr_line->p2.y
-		))
-		{
-			ptr_list = ptr_list->next;
-			continue;
-		}
-
-		p = ft_find_intersect(
-			a->w.pl.pos.x,
-			a->w.pl.pos.y,
-			(a->w.pl.pos.x + a->w.fc_dir.x),
-			(a->w.pl.pos.y + a->w.fc_dir.y), 
-			ptr_line->p1.x,
-			ptr_line->p1.y,
-			ptr_line->p2.x,
-			ptr_line->p2.y
-		);
-
-		// Вектор 
-		p1_pl.x = a->w.pl.pos.x;
-		p1_pl.y = a->w.pl.pos.y;
-		p2_pl.x = (a->w.pl.pos.x + a->w.fc_dir.x);
-		p2_pl.y = (a->w.pl.pos.y + a->w.fc_dir.y);
-
-		if (!ft_check_point(p, ptr_line->p1, ptr_line->p2, p1_pl, p2_pl))
-		{
-			ptr_list = ptr_list->next;
-			continue;
-		}
-		
-		// Расстояние от точки пересечения до позиции игрока
-		temp_l = sqrt(pow((p.x - a->w.pl.pos.x), 2) + pow((p.y - a->w.pl.pos.y), 2));
-
-		if (temp_l < l || l == 0)
-		{
-			l = temp_l;
-			own_line = ptr_line;
-			a->w.wall_color = ptr_line->color;
-		}
-
-		// Переход к следующей линии
-		ptr_list = ptr_list->next;
-	}
-
-	// Длина пути до нашей стены
-	//a->w.l = l * (a->w.pl.cameraX + 1);// * atan2(a->w.pl.cameraX, a->w.l_p);
-	a->w.l = l; // * atan2(a->w.pl.cameraX, a->w.l_p);
-
-	// Убираем эффект рыбьего глаза
-	a->w.l *= (a->w.fc_dir.x * a->w.pl.camera_vector.x + a->w.fc_dir.y * a->w.pl.camera_vector.y);
-
-	// Увеличение/уменьшение -- проблема a->w.l_p
-	if (a->w.l != 0 && own_line != NULL)
-		a->w.line_height = own_line->height * a->w.l_p / (a->w.l * (WIN_HEIGHT));
-	else
-	{
-		a->w.line_height = 0;
-	}
-
-	if (own_line != NULL)
-		a->w.texture_num = own_line->txtr; // -1
-	else
-		a->w.texture_num = 0;
-
-	// printf("%f\t%d\t%f\t%f\n", a->w.l, a->w.line_height, own_line->height, a->w.l_p);
-
-	// Переменные:
-	// x1 = a->w.pl.pos.x;
-	// y1 = a->w.pl.pos.y;
-	// x2 = a->w.pl.pos.x + a->w.fc_dir.x; // Учтено
-	// y2 = a->w.pl.pos.y + a->w.fc_dir.y; // Учтено
-	// x3 = ptr_line->p1.x;
-	// y3 = ptr_line->p1.y;
-	// x4 = ptr_line->p2.x;
-	// y4 = ptr_line->p2.y;
 }
 
 void				ft_new_wall_draw_start(t_threads *a)

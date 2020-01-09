@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:24:13 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/05 18:12:25 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/08 15:46:34 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,109 +111,6 @@ void		ft_fill_frame(t_wolf3d *w)
 int			ft_check_line_for_map(t_vector3 p1, t_vector3 p2)
 {
 	return (1);
-}
-
-/*
-	void ft_draw_map_new_line(t_wolf3d *w)
-
-	Function that draw new maps (line).
-*/
-void		ft_draw_map_new_line(t_wolf3d *w)
-{
-	int		x;
-	int		y;
-	int		pos;
-	t_vector3	c1;
-	t_vector3	c2;
-	// for list
-	t_list	*ptr_list;
-	t_line	*ptr_line;
-	int		i;
-
-	ft_fill_frame(w);
-	ptr_list = w->line;
-	i = 0;
-	while (ptr_list)
-	{
-		// Get line values
-		ptr_line = (t_line*)ptr_list->content;
-
-		// Get line coordinates
-		// Scale and transform
-		c1.x = ptr_line->p1.x * 32 - (w->pl.pos.x - 4) * 32 + w->view_map.place.x;
-		c1.y = ptr_line->p1.y * 32 - (w->pl.pos.y - 4) * 32 + w->view_map.place.y;
-		c2.x = ptr_line->p2.x * 32 - (w->pl.pos.x - 4) * 32 + w->view_map.place.x;
-		c2.y = ptr_line->p2.y * 32 - (w->pl.pos.y - 4) * 32 + w->view_map.place.y;
-
-		// Transform points as far as possible (??)
-		if(ft_check_line_for_map(c1, c2))
-			// Draw line
-			ft_fdf_wu(&c1, &c2, w);
-
-		// Get next line
-		ptr_list = ptr_list->next;
-		i++;
-	}
-
-
-	ft_draw_compass(w);
-}
-
-/*
-	[] This is deprecated function.
-	void ft_draw_map_new_sector(t_wolf3d *w)
-
-	Function that draw new maps (sector).
-*/
-void		ft_draw_map_new_sector(t_wolf3d *w)
-{
-	int		x;
-	int		y;
-	int		pos;
-	t_vector3	c1;
-	t_vector3	c2;
-	// for list
-	t_list	*ptr_list;
-	t_sector	*ptr_sector;
-	int		i;
-
-	ft_fill_frame(w);
-	ptr_list = w->sector;
-	while (ptr_list)
-	{
-		// Get line values
-		ptr_sector = (t_sector*)ptr_list->content;
-
-		i = 0;
-		while ((i + 1) < ptr_sector->vertex_count)
-		{
-			// Get line coordinates
-			// Scale and transform
-			c1.x = ptr_sector->vertex[i]->x * 32 - (w->pl.pos.x - 4) * 32 + w->view_map.place.x;
-			c1.y = ptr_sector->vertex[i]->y * 32 - (w->pl.pos.y - 4) * 32 + w->view_map.place.y;
-			c2.x = ptr_sector->vertex[i + 1]->x * 32 - (w->pl.pos.x - 4) * 32 + w->view_map.place.x;
-			c2.y = ptr_sector->vertex[i + 1]->y * 32 - (w->pl.pos.y - 4) * 32 + w->view_map.place.y;
-	
-			if (ft_check_line_for_map(c1, c2))
-				ft_fdf_wu(&c1, &c2, w);
-			i++;
-		}
-
-		// Last coordinates
-		c1.x = ptr_sector->vertex[ptr_sector->vertex_count - 1]->x * 32 - (w->pl.pos.x - 4) * 32 + w->view_map.place.x;
-		c1.y = ptr_sector->vertex[ptr_sector->vertex_count - 1]->y * 32 - (w->pl.pos.y - 4) * 32 + w->view_map.place.y;
-		c2.x = ptr_sector->vertex[0]->x * 32 - (w->pl.pos.x - 4) * 32 + w->view_map.place.x;
-		c2.y = ptr_sector->vertex[0]->y * 32 - (w->pl.pos.y - 4) * 32 + w->view_map.place.y;
-	
-		if (ft_check_line_for_map(c1, c2))
-			ft_fdf_wu(&c1, &c2, w);
-
-		// Get next line
-		ptr_list = ptr_list->next;
-		i++;
-	}
-
-	ft_draw_compass(w);
 }
 
 /*
