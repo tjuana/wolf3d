@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 16:05:19 by dorange-          #+#    #+#             */
-/*   Updated: 2020/01/10 19:01:32 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/10 20:31:42 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,11 @@ int		main(int c, char **v)
 	if ((w.fd = open(v[1], O_RDONLY)) < 0)
 		ft_error("Error: bad file");
 
+	w.sector = NULL;
+	w.sector_status = 0;
 	ft_parser_nnmp(w.fd, &w);
 	ft_print_sectors(w.sector);
+
 	w.sdl = sdl_init(w.sdl);
 	ft_init_wolf(&w);
 

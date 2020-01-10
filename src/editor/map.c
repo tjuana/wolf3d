@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:24:13 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/10 17:58:34 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/10 20:32:01 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,20 +118,34 @@ void		ft_editor_map_draw_walls(t_wolf3d *w, t_sector *ptr_sector)
 		vtx1_n = i;
 		vtx2_n = i + 1;
 		if (vtx2_n == ptr_sector->vertex_count)
-			vtx2_n = 0;
+		{
+			if (w->sector_status == 0)
+				vtx2_n = 0;
+			else
+				break ;
+		}
 
 		// Get line coordinates
 		c1 = ft_editor_map_get_xy_vertex_pos(w, *ptr_sector->vertex[vtx1_n]);
 		c2 = ft_editor_map_get_xy_vertex_pos(w, *ptr_sector->vertex[vtx2_n]);
-		// c1.x = ptr_sector->vertex[vtx1_n]->x * 16 - (w->pl.pos.x - 8) * 16 + w->view_map.place.x;
-		// c1.y = ptr_sector->vertex[vtx1_n]->y * 16 - (w->pl.pos.y - 8) * 16 + w->view_map.place.y;
-		// c2.x = ptr_sector->vertex[vtx2_n]->x * 16 - (w->pl.pos.x - 8) * 16 + w->view_map.place.x;
-		// c2.y = ptr_sector->vertex[vtx2_n]->y * 16 - (w->pl.pos.y - 8) * 16 + w->view_map.place.y;
 
 		if (ft_editor_check_line_for_map(c1, c2))
 			ft_fdf_wu(&c1, &c2, w);
 
 		i++;
+	}
+
+	i = 0;
+	while (i < ptr_sector->vertex_count)
+	{
+		c1 = ft_editor_map_get_xy_vertex_pos(w, *ptr_sector->vertex[i]);
+		ft_editor_draw_point(w, c1, 0xffff00);
+		i++;
+		/*c1 = ft_editor_map_get_xy_vertex_pos(w, *ptr_sector->vertex[vtx1_n]);
+		c2 = ft_editor_map_get_xy_vertex_pos(w, *ptr_sector->vertex[vtx2_n]);
+
+		if (ft_editor_check_line_for_map(c1, c2))
+			ft_fdf_wu(&c1, &c2, w);*/
 	}
 }
 

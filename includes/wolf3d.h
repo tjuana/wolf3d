@@ -217,6 +217,7 @@ typedef struct			s_wolf3d
 	int					type;
 
 	t_vector3			mouse_vertex;
+	int					sector_status; // set or no
 
 }						t_wolf3d;
 
@@ -442,5 +443,8 @@ void			ft_editor_mouse_move(t_wolf3d *w, SDL_Event e);
 
 void			ft_editor_draw_point(t_wolf3d *data, t_vector3 v, int color);
 void			ft_editor_draw_mouse_vertex(t_wolf3d *w);
+
+int				ft_editor_check_mouse_vertex_pos(t_wolf3d *w, int x, int y);
+void			ft_editor_mouse_click(t_wolf3d *w, SDL_Event e);
 
 #endif

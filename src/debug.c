@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 16:49:37 by dorange-          #+#    #+#             */
-/*   Updated: 2020/01/10 14:09:43 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/10 20:22:57 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_print_sectors(t_list *ptr_list)
 	int			j;
 
 	i = 0;
-	while (ptr_list)
+	while (ptr_list != NULL)
 	{
 		// Get sector values
 		ptr_sector = (t_sector*)ptr_list->content;
