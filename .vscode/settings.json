@@ -5,6 +5,8 @@
 		"cmath": "c",
 		"type_traits": "c",
 		"algebra.h": "c",
-		"parser.h": "c"
+		"parser.h": "c",
+		"sdl_thread.h": "c",
+		"stdlib.h": "c"
 	}
 }

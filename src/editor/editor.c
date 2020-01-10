@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 16:05:19 by dorange-          #+#    #+#             */
-/*   Updated: 2020/01/10 17:06:00 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/10 19:01:32 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int		main(int c, char **v)
 	while (w.sdl->running)
 	{
 		ft_editor_renderer(&w);
-		ft_handle_events(&w);
-		ft_use_events(&w);
+		ft_editor_handle_events(&w);
+		ft_editor_use_events(&w);
 	}
 	ft_clean_sdl(&w);
 	return (0);

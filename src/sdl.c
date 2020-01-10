@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:40:14 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/09 20:32:57 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/10 19:28:44 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int			ft_init_anim(t_wolf3d *wolf)
 
 void		ft_init_wolf(t_wolf3d *w)
 {
+	w->mouse_vertex = (t_vector3){0, 0, 0, 0};
 	// fov и lp
 	w->fov = 1.5708; // 90 градусов
 	//w->fov = 3.00000;

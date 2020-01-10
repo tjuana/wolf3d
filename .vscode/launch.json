@@ -31,6 +31,20 @@
 			"externalConsole": false,
 			"MIMode": "lldb",
 			//"preLaunchTask": "gcc build active file"
+		},
+		{
+			"name": "debug editor",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceRoot}/map_editor",
+			//"args": ["${workspaceRoot}/maps/map.txt"],
+			"args": ["${workspaceRoot}/maps/new_template.nnmp", "nmp"],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}",
+			"environment": [],
+			"externalConsole": false,
+			"MIMode": "lldb",
+			//"preLaunchTask": "gcc build active file"
 		}
 	]
 }

@@ -6,7 +6,7 @@
 #    By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 11:40:58 by tjuana            #+#    #+#              #
-#    Updated: 2020/01/10 17:04:41 by dorange-         ###   ########.fr        #
+#    Updated: 2020/01/10 19:31:23 by dorange-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,7 +91,7 @@ MAIN_OBJS = $(addprefix $(MAIN_OBJS_DIRECTORY), $(MAIN_OBJS_LIST))
 
 
 EDITOR_SRCS_DIRECTORY = ./src/editor/
-EDITOR_SRCS_LIST = editor.c render.c
+EDITOR_SRCS_LIST = editor.c render.c map.c events.c mouse.c draw.c
 
 EDITOR_OBJS_DIRECTORY = ./obj_editor/
 EDITOR_OBJS_LIST = $(patsubst %.c, %.o, $(EDITOR_SRCS_LIST))
@@ -145,7 +145,7 @@ $(MAIN_OBJS_DIRECTORY)%.o : $(MAIN_SRCS_DIRECTORY)%.c $(HEADERS)
 
 
 
-$(EDITOR_NAME): $(LIBFT) $(EDITOR_OBJS_DIRECTORY) $(EDITOR_OBJS)
+$(EDITOR_NAME): $(LIBFT) $(EDITOR_OBJS_DIRECTORY) $(EDITOR_OBJS) $(OBJS)
 	$(foreach p,$(SDL_LIBS),$(if $(wildcard $(p)),,$(info $(p) does not exist!) $(MAKE) sdl))
 	@echo $(EDITOR_OBJS) $(OBJS)
 	@$(CC) $(FLAGS) $(LIBRARIES) $(INCLUDES) $(EDITOR_OBJS) $(OBJS) $(PARSER_OBJS) -o $(EDITOR_NAME)

@@ -17,6 +17,10 @@
 # define C_G 0x0000FF00
 # define C_B 0x000000FF
 
+# define E_GRID_L 32 // GRID LENGTH (SCALE)
+# define E_GRID_V_D 6 // VERTEX DIAMETER
+# define E_GRID_V_D_D 4 // VERTEX DRAW DIAMETER
+
 # include "SDL2/SDL.h"
 # include "SDL2/SDL_thread.h"
 # include <pthread.h>
@@ -211,6 +215,8 @@ typedef struct			s_wolf3d
 	Uint32				color;
 
 	int					type;
+
+	t_vector3			mouse_vertex;
 
 }						t_wolf3d;
 
@@ -419,5 +425,22 @@ int				ft_parser_get_param(char *line, char *needly);
 */
 
 void			ft_editor_renderer(t_wolf3d *wolf);
+
+void			ft_editor_fill_frame(t_wolf3d *w);
+int				ft_editor_check_line_for_map(t_vector3 p1, t_vector3 p2);
+double			ft_editor_get_angle(double sin, double cos);
+void			ft_editor_map_transform_vertexes(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr_sector_origin, double diff);
+void			ft_editor_map_draw_walls(t_wolf3d *w, t_sector *ptr_sector);
+void			ft_editor_map_draw_walls_height(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr_sector_top);
+void			ft_editor_draw_walls_for_map(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr_sector_top, t_sector *ptr_sector_origin);
+void			ft_editor_draw_map_new_sector_iso(t_wolf3d *w);
+
+void			ft_editor_handle_events(t_wolf3d *w);
+void			ft_editor_use_events(t_wolf3d *w);
+
+void			ft_editor_mouse_move(t_wolf3d *w, SDL_Event e);
+
+void			ft_editor_draw_point(t_wolf3d *data, t_vector3 v, int color);
+void			ft_editor_draw_mouse_vertex(t_wolf3d *w);
 
 #endif
