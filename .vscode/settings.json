@@ -3,6 +3,8 @@
 		"wolf3d.h": "c",
 		"complex": "c",
 		"cmath": "c",
-		"type_traits": "c"
+		"type_traits": "c",
+		"algebra.h": "c",
+		"parser.h": "c"
 	}
 }

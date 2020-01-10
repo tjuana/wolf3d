@@ -389,8 +389,29 @@ int						ft_check_point(t_vector3 p, t_vector3 p1, t_vector3 p2, t_vector3 p1_pl
 void					ft_sector_list_cast(t_threads *a);
 int						ft_check_point_fov(t_vector3 p, t_vector3 p1, t_vector3 p2, t_vector3 p1_pl, t_vector3 p2_pl);
 
-void					ft_parsing_file_nnmp(int fd, t_wolf3d *w);
-
 void					ft_print_sectors(t_list *ptr_list);
+
+/*
+**	Parser functions
+*/
+int				ft_parser_get_vertexes_count(char *str);
+t_vector3		ft_parser_nnmp_get_vertex(char **ptr, char *ptr_finish);
+t_vector3		*ft_parser_nnmp_vertex(char **ptr);
+
+void			ft_parser_nnmp_player(t_wolf3d *w, char **line);
+void			ft_parser_nnmp_sprite(t_wolf3d *w, char **line);
+void			ft_parser_nnmp_enemy(t_wolf3d *w, char **line);
+void			ft_parser_nnmp(int fd, t_wolf3d *w);
+
+void			ft_parser_nnmp_sector_neighborhood(t_wolf3d *w, char **line, \
+					t_sector *sector);
+void			ft_parser_nnmp_sector_vertexes(t_wolf3d *w, char **line, \
+					t_sector *sector);
+void			ft_parser_nnmp_sector_param(t_wolf3d *w, char **line, \
+					t_sector *sector);
+void			ft_parser_nnmp_sector(t_wolf3d *w, char **line);
+
+char			*ft_parser_search_param(char *line, char *needly);
+int				ft_parser_get_param(char *line, char *needly);
 
 #endif
