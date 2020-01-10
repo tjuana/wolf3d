@@ -81,11 +81,10 @@ void UnloadData(t_player *player)
     NumSectors = 0;
 }
 
-static SDL_Surface* surface = NULL;
 /* vline: Draw a vertical line on screen, with a different color pixel in top & bottom */
-static void vline(int x, int y1,int y2, int top,int middle,int bottom)
+static void vline(int x, int y1,int y2, int top,int middle,int bottom, SDL_Surface* surface)
 {
-    int *pix = (int*) surface->pixels;
+    int *pix = (int*)surface->pixels;
     y1 = clamp(y1, 0, H-1);
     y2 = clamp(y2, 0, H-1);
     if(y2 == y1)
@@ -128,7 +127,7 @@ void MovePlayer(float dx, float dy, t_player *player)
     player->anglecos = cosf(player->angle);
 }
 
-void DrawScreen(t_player *player)
+void DrawScreen(t_player *player, SDL_Surface *surface)
 {
     /* Acquire the x,y coordinates of the two endpoints (vertices) of this edge of the sector */
     float vx1;
@@ -281,9 +280,9 @@ void DrawScreen(t_player *player)
                 yb = (x - x1) * (y2b-y1b) / (x2-x1) + y1b;
                 cyb = clamp(yb, ytop[x],ybottom[x]); // bottom
                 /* Render ceiling: everything above this sector's ceiling height. */
-                vline(x, ytop[x], cya-1, 0xffffff ,0x222222,0xff0000);//ceiling colors
+                vline(x, ytop[x], cya-1, 0xffffff ,0x222222,0xff0000, surface);//ceiling colors
                 /* Render floor: everything below this sector's floor height. */
-                vline(x, cyb+1, ybottom[x], 0x00ff00,0x0000AA,0x0000FF);//floor colors
+                vline(x, cyb+1, ybottom[x], 0x00ff00,0x0000AA,0x0000FF, surface);//floor colors
                 /* Is there another sector behind this edge? */
                 if(neighbor >= 0)
                 {
@@ -294,17 +293,17 @@ void DrawScreen(t_player *player)
                     cnyb = clamp(nyb, ytop[x],ybottom[x]);
                     /* If our ceiling is higher than their ceiling, render upper wall */
                     unsigned r1 = 0xff0000 * (255-z), r2 = 0x00ff00 * (31-z/8);//wall colors
-                    vline(x, cya, cnya-1, 0, x==x1||x==x2 ? 0 : r1, 0); // Between our and their ceiling
+                    vline(x, cya, cnya-1, 0, x==x1||x==x2 ? 0 : r1, 0, surface); // Between our and their ceiling
                     ytop[x] = clamp(max(cya, cnya), ytop[x], H-1);   // Shrink the remaining window below these ceilings
                     /* If our floor is lower than their floor, render bottom wall */
-                    vline(x, cnyb+1, cyb, 0, x==x1||x==x2 ? 0 : r2, 0); // Between their and our floor
+                    vline(x, cnyb+1, cyb, 0, x==x1||x==x2 ? 0 : r2, 0, surface); // Between their and our floor
                     ybottom[x] = clamp(min(cyb, cnyb), 0, ybottom[x]); // Shrink the remaining window above these floors
                 }
                 else
                 {
                     /* There's no neighbor. Render wall from top (cya = ceiling level) to bottom (cyb = floor level). */
                     unsigned r = 0x0000ff * (255-z);
-                    vline(x, cya, cyb, 0, x==x1||x==x2 ? 0 : r, 0);
+                    vline(x, cya, cyb, 0, x==x1||x==x2 ? 0 : r, 0, surface);
                 }
             }
             /* Schedule the neighboring sector for rendering within the window formed by this wall. */
@@ -325,7 +324,12 @@ int main(int ac, char **ag)
     t_player player;
     t_others ot;
     t_sector_ops op;
+    t_wolf3d w;
+    SDL_Texture *texture = NULL;
+    SDL_Renderer *renderer = NULL;
+    SDL_Surface* surface = NULL;
 
+    w.weapon_texture = SDL_LoadBMP("Textures/pistol.bmp");
     if (ac < 2 || ac > 2)
     {
         printf("map error");
@@ -333,6 +337,7 @@ int main(int ac, char **ag)
     }
     se.quit = 0;
     LoadData(ag[1], &player);//load map and init typedef t_player data
+    ft_init_anim(&w);//gun
     SDL_Window* window = NULL;
     if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
     {
@@ -341,6 +346,7 @@ int main(int ac, char **ag)
     else
     {
         window = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, W, H, SDL_WINDOW_SHOWN );
+
         if( window == NULL )
         {
             printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
@@ -349,6 +355,8 @@ int main(int ac, char **ag)
             {
             surface = SDL_GetWindowSurface(window);
             SDL_UpdateWindowSurface( window );
+            renderer = SDL_CreateRenderer(window,-1, SDL_RENDERER_ACCELERATED );
+            SDL_SetRenderDrawColor( renderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_ShowCursor(SDL_DISABLE);//NOT SHOW MOUSE CURSOR
             se.wsad[0] = 0;
             se.wsad[1] = 0;
@@ -361,7 +369,24 @@ int main(int ac, char **ag)
             ms.yaw = 0;
             while (!se.quit)
             {
-                DrawScreen(&player);
+
+                //texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+                //SDL_FreeSurface(surface);
+                //Clear screen
+                //SDL_RenderClear(renderer);
+                //Render texture to screen
+                //SDL_RenderCopy(renderer, texture, NULL, NULL );
+                //Update screen
+                //for( int i = 0; i < H; i += 1 )
+               // {
+                //    SDL_RenderDrawPoint( renderer, W / 2, i );
+                //}
+                //SDL_SetRenderDrawColor( renderer, 0xFF, 0xFF, 0x00, 0xFF );
+                //SDL_RenderPresent(renderer);
+                DrawScreen(&player, surface);
+                ft_animation_play(&w);
+                ft_draw_animation(&w, surface);
                 SDL_UpdateWindowSurface( window );
                 /* Vertical collision detection */
                 op.eyeheight = se.ducking ? DuckHeight : EyeHeight;

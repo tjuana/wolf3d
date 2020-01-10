@@ -9,8 +9,8 @@
 #ifndef DOOM_W_PRENDER_H
 #define DOOM_W_PRENDER_H
 /* Define window size */
-#define W 800
-#define H 600
+#define W 1600
+#define H 900
 /* Define various vision related constants */
 #define EyeHeight  6    // Camera height from floor when standing
 #define DuckHeight 2.5  // And when crouching
@@ -95,6 +95,31 @@ typedef struct s_others
     float move_vec[2];
     int moving;
 } t_others;
+
+typedef struct			s_rect
+{
+    t_xy 				size;
+    t_xy				cd;
+}						t_rect;
+
+typedef struct			s_anime
+{
+    int					start_am;
+    int					frame;
+    t_rect				pframe;
+    t_xy				place;
+    int					frames;
+}						t_anime;
+
+typedef struct s_w
+{
+    t_anime anim;
+    int *tex_col;
+    SDL_Surface *weapon_texture;
+    int color;
+}   t_wolf3d;
+
+
 double min(double a, double b);
 double max(double a, double b);
 float clamp(double a, double mi, double ma);
@@ -113,6 +138,11 @@ void mouse_movement(t_mouse *ms, t_player *player);
 void vectors_vel_dir(t_player *player, t_subevents *se, t_others *ot);
 void sectors_ops(t_sector_ops *op, t_player *player, t_others *ot, t_subevents *se);
 void jumps(t_subevents *se, t_player *player, t_sector_ops *op, t_others *ot);
+
+//==================================
+int			ft_init_anim(t_wolf3d *wolf);
+void		ft_draw_animation(t_wolf3d *w, SDL_Surface *surface);
+void		ft_animation_play(t_wolf3d *w);
 
 #endif //DOOM_W_PRENDER_H
 

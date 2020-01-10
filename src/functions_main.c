@@ -13,19 +13,19 @@ int sub_events(t_subevents *se, t_player *player)
         se->wsad[2] = se->ev.type == SDL_KEYDOWN;
     if (se->ev.key.keysym.sym == 'd')
         se->wsad[3] = se->ev.type == SDL_KEYDOWN;
-    if (se->ev.key.keysym.sym == 'q')
+    if (se->ev.key.keysym.sym == SDLK_ESCAPE)//quit
     {
         UnloadData(player);
         SDL_Quit();
         return (0);
     }
-    if (se->ev.key.keysym.sym == ' ')
+    if (se->ev.key.keysym.sym == ' ')//jump
         if (se->ground)
         {
             player->velocity.z += 0.5;
             se->falling = 1;
         }
-    if (se->ev.key.keysym.sym == SDLK_LCTRL)
+    if (se->ev.key.keysym.sym == SDLK_LCTRL)//crouch
     {
         se->ducking = se->ev.type == SDL_KEYDOWN;
         se->falling = 1;
@@ -66,7 +66,7 @@ void mouse_movement(t_mouse *ms, t_player *player)
     player->yaw = ms->yaw - player->velocity.z * 0.5f;
 }
 
-void vectors_vel_dir(t_player *player, t_subevents *se, t_others *ot)
+void vectors_vel_dir(t_player *player, t_subevents *se, t_others *ot)//for flying
 {
 
     ot->move_vec[0] = 0.f;//direction in x
@@ -99,7 +99,7 @@ void vectors_vel_dir(t_player *player, t_subevents *se, t_others *ot)
         ot->moving = 1;
 }
 
-void sectors_ops(t_sector_ops *op, t_player *player, t_others *ot, t_subevents *se)
+void sectors_ops(t_sector_ops *op, t_player *player, t_others *ot, t_subevents *se)//operations with sectors
 {
     if (ot->moving)
     {

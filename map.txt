@@ -1,4 +1,7 @@
-vertex	0	0 6 28
+
+vertex	0	0
+vertex  0   6
+vertex  0   28
 vertex	2	1 17.5
 vertex	5	4 6 18 21
 vertex	6.5	9 11 13 13.5 17.5
