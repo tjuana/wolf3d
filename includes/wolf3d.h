@@ -414,4 +414,10 @@ void			ft_parser_nnmp_sector(t_wolf3d *w, char **line);
 char			*ft_parser_search_param(char *line, char *needly);
 int				ft_parser_get_param(char *line, char *needly);
 
+/*
+**	Editor functions
+*/
+
+void			ft_editor_renderer(t_wolf3d *wolf);
+
 #endif

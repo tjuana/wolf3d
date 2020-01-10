@@ -6,11 +6,12 @@
 #    By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 11:40:58 by tjuana            #+#    #+#              #
-#    Updated: 2020/01/10 15:25:32 by dorange-         ###   ########.fr        #
+#    Updated: 2020/01/10 17:04:41 by dorange-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = wolf3d
+EDITOR_NAME = map_editor
 
 FLAGS = -g -O3 
 CC = gcc
@@ -46,8 +47,12 @@ LIB_LIST =	libSDL2.a\
 PARSER_DIRECTORY = ./src/parser/
 PARSER_LIST = parser_func.c parser_nnmp_sector.c parser_nnmp.c parser_vertex.c
 
+PARSER_OBJS_DIRECTORY = ./obj_parser/
+PARSER_OBJS_LIST = $(patsubst %.c, %.o, $(PARSER_LIST))
+PARSER_OBJS = $(addprefix $(PARSER_OBJS_DIRECTORY), $(PARSER_OBJS_LIST))
+
 SRCS_DIRECTORY = ./src/
-SRCS_LIST = main.c\
+SRCS_LIST = \
 			help.c\
 			read_map.c\
 			sdl.c\
@@ -70,13 +75,29 @@ SRCS_LIST = main.c\
 			debug.c \
 			sector.c
 
-PARSER_OBJS_DIRECTORY = ./obj/
-PARSER_OBJS_LIST = $(patsubst %.c, %.o, $(PARSER_LIST))
-PARSER_OBJS = $(addprefix $(PARSER_OBJS_DIRECTORY), $(PARSER_OBJS_LIST))
-
 OBJS_DIRECTORY = ./objects/
 OBJS_LIST = $(patsubst %.c, %.o, $(SRCS_LIST))
 OBJS = $(addprefix $(OBJS_DIRECTORY), $(OBJS_LIST))
+
+
+
+MAIN_SRCS_DIRECTORY = ./src/
+MAIN_SRCS_LIST = main.c
+
+MAIN_OBJS_DIRECTORY = ./obj_main/
+MAIN_OBJS_LIST = $(patsubst %.c, %.o, $(MAIN_SRCS_LIST))
+MAIN_OBJS = $(addprefix $(MAIN_OBJS_DIRECTORY), $(MAIN_OBJS_LIST))
+
+
+
+EDITOR_SRCS_DIRECTORY = ./src/editor/
+EDITOR_SRCS_LIST = editor.c render.c
+
+EDITOR_OBJS_DIRECTORY = ./obj_editor/
+EDITOR_OBJS_LIST = $(patsubst %.c, %.o, $(EDITOR_SRCS_LIST))
+EDITOR_OBJS = $(addprefix $(EDITOR_OBJS_DIRECTORY), $(EDITOR_OBJS_LIST))
+
+
 
 SDL_LIBS = $(addprefix $(DIRECTORY)/lib/, $(LIB_LIST))
 
@@ -90,11 +111,11 @@ RESET = \033[0m
 
 .PHONY: all clean fclean re
 
-all: $(NAME)
+all: $(NAME) $(EDITOR_NAME)
 
-$(NAME): $(LIBFT) $(OBJS_DIRECTORY) $(PARSER_OBJS_DIRECTORY) $(OBJS) $(PARSER_OBJS)
+$(NAME): $(LIBFT) $(OBJS_DIRECTORY) $(PARSER_OBJS_DIRECTORY) $(MAIN_OBJS_DIRECTORY) $(OBJS) $(PARSER_OBJS) $(MAIN_OBJS)
 	$(foreach p,$(SDL_LIBS),$(if $(wildcard $(p)),,$(info $(p) does not exist!) $(MAKE) sdl))
-	@$(CC) $(FLAGS) $(LIBRARIES) $(INCLUDES) $(OBJS) $(PARSER_OBJS) -o $(NAME)
+	@$(CC) $(FLAGS) $(LIBRARIES) $(INCLUDES) $(OBJS) $(MAIN_OBJS) $(PARSER_OBJS) -o $(NAME)
 	@echo "\n$(NAME): $(GREEN)object files were created$(RESET)"
 	@echo "$(NAME): $(GREEN)$(NAME) was created$(RESET)"
 
@@ -113,6 +134,33 @@ $(PARSER_OBJS_DIRECTORY):
 $(PARSER_OBJS_DIRECTORY)%.o : $(PARSER_DIRECTORY)%.c $(HEADERS)
 	@$(CC) $(FLAGS) -c $(INCLUDES) $< -o $@
 	@echo "$(GREEN).$(RESET)\c"
+
+$(MAIN_OBJS_DIRECTORY):
+	@mkdir -p $(MAIN_OBJS_DIRECTORY) 2>/dev/null || echo "" > /dev/null
+	@echo "$(NAME): $(GREEN)$(MAIN_OBJS_DIRECTORY) was created$(RESET)"
+
+$(MAIN_OBJS_DIRECTORY)%.o : $(MAIN_SRCS_DIRECTORY)%.c $(HEADERS)
+	@$(CC) $(FLAGS) -c $(INCLUDES) $< -o $@
+	@echo "$(GREEN).$(RESET)\c"
+
+
+
+$(EDITOR_NAME): $(LIBFT) $(EDITOR_OBJS_DIRECTORY) $(EDITOR_OBJS)
+	$(foreach p,$(SDL_LIBS),$(if $(wildcard $(p)),,$(info $(p) does not exist!) $(MAKE) sdl))
+	@echo $(EDITOR_OBJS) $(OBJS)
+	@$(CC) $(FLAGS) $(LIBRARIES) $(INCLUDES) $(EDITOR_OBJS) $(OBJS) $(PARSER_OBJS) -o $(EDITOR_NAME)
+	@echo "\n$(EDITOR_NAME): $(GREEN)object files were created$(RESET)"
+	@echo "$(EDITOR_NAME): $(GREEN)$(EDITOR_NAME) was created$(RESET)"
+
+$(EDITOR_OBJS_DIRECTORY):
+	@mkdir -p $(EDITOR_OBJS_DIRECTORY) 2>/dev/null || echo "" > /dev/null
+	@echo "$(EDITOR_NAME): $(GREEN)$(EDITOR_OBJS_DIRECTORY) was created$(RESET)"
+
+$(EDITOR_OBJS_DIRECTORY)%.o : $(EDITOR_SRCS_DIRECTORY)%.c $(HEADERS)
+	@$(CC) $(FLAGS) -c $(INCLUDES) $< -o $@
+	@echo "$(GREEN).$(RESET)\c"
+
+
 
 sdl:
 	@echo "sad"

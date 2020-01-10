@@ -3,6 +3,9 @@ SDL2/build/
 bin/
 lib/
 share/
+obj_parser/
+obj_editor/
+map_editor
 
 # Prerequisites
 *.d
