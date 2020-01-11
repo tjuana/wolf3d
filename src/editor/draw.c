@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 19:26:48 by dorange-          #+#    #+#             */
-/*   Updated: 2020/01/10 20:13:06 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/11 11:59:27 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	ft_editor_draw_point(t_wolf3d *data, t_vector3 v, int color)
 	int	i;
 	int	j;
 
-	// printf("%d %d\n", (int)v.x, (int)v.y);
+	if (v.x < 0 || v.x >= WIN_WIDTH || v.y < 0 || v.y >= WIN_HEIGHT)
+		return ;
 	i = (int)v.x - E_GRID_V_D_D;
 	while (i < (int)v.x + E_GRID_V_D_D)
 	{

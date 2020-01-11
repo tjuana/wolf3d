@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 14:21:54 by dorange-          #+#    #+#             */
-/*   Updated: 2020/01/10 14:39:40 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/11 11:21:57 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	ft_parser_nnmp_sector_param(t_wolf3d *w, char **line, \
 	sector->txtr_floor = ft_parser_get_param(*line, " txtr_floor:");
 	sector->txtr_walls = ft_parser_get_param(*line, " txtr_walls:");
 	sector->txtr_ceil = ft_parser_get_param(*line, " txtr_ceil:");
+	sector->status = 1;
 }
 
 /*

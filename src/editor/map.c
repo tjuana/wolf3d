@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:24:13 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/10 20:32:01 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/11 11:23:16 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void		ft_editor_map_draw_walls(t_wolf3d *w, t_sector *ptr_sector)
 		vtx2_n = i + 1;
 		if (vtx2_n == ptr_sector->vertex_count)
 		{
-			if (w->sector_status == 0)
+			if (ptr_sector->status == 1)
 				vtx2_n = 0;
 			else
 				break ;

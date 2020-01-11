@@ -52,7 +52,8 @@ typedef struct			s_sector
 	int					txtr_floor;		// Номер текстуры сектора (?)
 	int					txtr_walls;		// Номер текстуры сектора (?)
 	int					txtr_ceil;		// Номер текстуры сектора (?)
-	int					color;			// Цвет сектора (temp)
+	int					color;			// Цвет сектора (for map editor)
+	int					status;			// 0: broken line; 1: polygon
 }						t_sector;
 
 typedef struct			s_sort_util	// Структура для спрайтов (?)
@@ -217,7 +218,8 @@ typedef struct			s_wolf3d
 	int					type;
 
 	t_vector3			mouse_vertex;
-	int					sector_status; // set or no
+	t_vector3			mouse_pos;
+	int					sector_status; // 0: nothing; 1: set new sector
 
 }						t_wolf3d;
 
@@ -446,5 +448,9 @@ void			ft_editor_draw_mouse_vertex(t_wolf3d *w);
 
 int				ft_editor_check_mouse_vertex_pos(t_wolf3d *w, int x, int y);
 void			ft_editor_mouse_click(t_wolf3d *w, SDL_Event e);
+
+void			ft_editor_sector_draw_line_to_vertex(t_wolf3d *w);
+
+t_vector3		ft_editor_map_get_xy_vertex_pos(t_wolf3d *w, t_vector3 v);
 
 #endif

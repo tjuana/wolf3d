@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 16:34:19 by dorange-          #+#    #+#             */
-/*   Updated: 2020/01/10 19:31:13 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/11 12:28:43 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,10 @@ void	ft_editor_renderer(t_wolf3d *wolf)
 	SDL_SetRenderDrawColor(wolf->sdl->renderer, 0x00, 0x00, 0x00, 0xff);
 	SDL_RenderClear(wolf->sdl->renderer);
 	ft_editor_draw_line(wolf);
+	if (wolf->sector_status == 1)
+	{
+		ft_editor_sector_draw_line_to_vertex(wolf);
+	}
 	ft_editor_draw_map_new_sector_iso(wolf);
 	ft_editor_draw_mouse_vertex(wolf);
 	SDL_UpdateTexture(wolf->sdl->text, 0, wolf->sdl->pixels, WIN_WIDTH * 4);
