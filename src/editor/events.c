@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 18:58:22 by dorange-          #+#    #+#             */
-/*   Updated: 2020/01/10 20:38:23 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/11 14:08:35 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,14 @@ void			ft_editor_handle_events(t_wolf3d *w)
 			e.key.keysym.scancode == SDL_SCANCODE_R ? w->arr[6] = 1 : 0;
 			e.key.keysym.scancode == SDL_SCANCODE_F ? w->arr[7] = 1 : 0;
 			e.key.keysym.scancode == SDL_SCANCODE_T ? w->arr[8] = 1 : 0;
-			e.key.keysym.scancode == SDL_SCANCODE_G ? w->arr[9] = 1 : 0;
+			if (w->status != 1)
+				e.key.keysym.scancode == SDL_SCANCODE_G ? w->arr[9] = 1 : 0;
+			else if (w->status == 1 && e.key.repeat == 0)
+			{
+				e.key.keysym.scancode == SDL_SCANCODE_G ? w->arr[9] = 1 : 0;
+			}
+			else
+				e.key.keysym.scancode == SDL_SCANCODE_G ? w->arr[9] = 0 : 0;
 		}
 		if (e.type == SDL_KEYUP)
 		{
@@ -116,6 +123,16 @@ static void		ft_editor_bottom_camera_rotation(t_wolf3d *w)
 	w->pl.camera_vector.z = camera_tilt;
 }
 
+void			ft_editor_delete_last_vertex_event(t_wolf3d *w)
+{
+	// Гарантируем, что функция исполнится один раз
+	w->arr[9] = 0;
+
+	ft_editor_delete_last_vertex(w);
+	printf("===\n");
+	ft_print_sectors(w->sector);
+}
+
 /*
 **	ft_editor_use_events(t_wolf3d *w) | debug
 **	Function to...
@@ -148,5 +165,8 @@ void			ft_editor_use_events(t_wolf3d *w)
 	w->arr[6] == 1 ? ft_editor_top_rotation(w) : 0;
 	w->arr[7] == 1 ? ft_editor_bottom_rotation(w) : 0;
 	w->arr[8] == 1 ? ft_editor_top_camera_rotation(w) : 0;
-	w->arr[9] == 1 ? ft_editor_bottom_camera_rotation(w) : 0;
+	if (w->status != 1)
+		w->arr[9] == 1 ? ft_editor_bottom_camera_rotation(w) : 0;
+	else if (w->status == 1)
+		w->arr[9] == 1 ? ft_editor_delete_last_vertex_event(w) : 0;
 }

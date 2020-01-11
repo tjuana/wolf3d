@@ -220,6 +220,7 @@ typedef struct			s_wolf3d
 	t_vector3			mouse_vertex;
 	t_vector3			mouse_pos;
 	int					sector_status; // 0: nothing; 1: set new sector
+	int					status; // game status: 0: error; 1: map editor; 2: game
 
 }						t_wolf3d;
 
@@ -452,5 +453,7 @@ void			ft_editor_mouse_click(t_wolf3d *w, SDL_Event e);
 void			ft_editor_sector_draw_line_to_vertex(t_wolf3d *w);
 
 t_vector3		ft_editor_map_get_xy_vertex_pos(t_wolf3d *w, t_vector3 v);
+
+void			ft_editor_delete_last_vertex(t_wolf3d *w);
 
 #endif

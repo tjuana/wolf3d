@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 16:05:19 by dorange-          #+#    #+#             */
-/*   Updated: 2020/01/11 12:31:23 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/11 12:46:06 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int		main(int c, char **v)
 	w.sector = NULL;
 	w.sector_status = 0;
 	w.mouse_pos = (t_vector3){0, 0, 0, 0};
+	w.status = 1;
 	ft_parser_nnmp(w.fd, &w);
 	ft_print_sectors(w.sector);
 

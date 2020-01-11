@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 16:49:37 by dorange-          #+#    #+#             */
-/*   Updated: 2020/01/10 20:22:57 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/11 13:38:42 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,12 @@ void	ft_print_sectors(t_list *ptr_list)
 		{
 			// Print the vertexes of sector
 			printf(
-				"SECTOR #%.2d\tVERTEX #%.2d\tx: %6.2f\ty: %6.2f\n",
+				"SECTOR #%.2d   VERTEX #%.2d   x: %6.2f   y: %6.2f   status: %d\n",
 				i,
 				j,
 				ptr_sector->vertex[j]->x,
-				ptr_sector->vertex[j]->y
+				ptr_sector->vertex[j]->y,
+				(int)ptr_sector->status
 			);
 			j++;
 		}

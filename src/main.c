@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 13:33:34 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/10 15:21:44 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/11 12:45:59 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	main(int c, char **v)
 	ft_print_sectors(w.sector); // check sector
 	w.sdl = sdl_init(w.sdl);
 	ft_init_wolf(&w);
+
+	w.status = 2;
 
 	// ft_print_lines(&w); // Print the vertexes of lines
 	// ft_print_sectors(w.sector);
