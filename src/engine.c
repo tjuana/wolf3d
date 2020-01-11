@@ -137,15 +137,6 @@ void MovePlayer(float dx, float dy, t_player *pl)
 
 void DrawScreen(t_player *pl, SDL_Surface *surface)
 {
-	/* Acquire the x,y coordinates of the two endpoints (vertices) of this edge of the sector */
-
-	/* Rotate them around the player's view */
-	/*float tx1 = 0;
-	float tz1 = 0;
-	float tx2 = 0;
-	float tz2 = 0;
-	t_xy i1 = {0,0};
-	t_xy i2 = {0,0};*/
 	int neighbor;
 	/* Render the wall. */
 	int beginx;
@@ -177,11 +168,6 @@ void DrawScreen(t_player *pl, SDL_Surface *surface)
         /* Render each wall of this sector that is facing towards player. */
         for(unsigned s = 0; s < sect->npoints; ++s)
         {
-			// Acquire the x,y coordinates of the two endpoints (vertices) of this edge of the sector
-			/*v_start.x = sect->vertex[s + 0].x - pl->where.x;
-			v_start.y = sect->vertex[s + 0].y - pl->where.y;
-			v_end.x = sect->vertex[s + 1].x - pl->where.x;
-			v_end.y = sect->vertex[s + 1].y - pl->where.y;*/
 			if (engine_cross(pl, now.sectorno, s) == 0)
 				continue;
 			/* Acquire the floor and ceiling heights, relative to where the player's view is */
