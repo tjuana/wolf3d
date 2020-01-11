@@ -1,0 +1,13 @@
+{
+	"files.associations": {
+		"wolf3d.h": "c",
+		"sdl_thread.h": "c",
+		"player.h": "c",
+		"events.h": "c",
+		"engine.h": "c",
+		"string.h": "c",
+		"algorithm": "c",
+		"chrono": "c",
+		"limits": "c"
+	}
+}

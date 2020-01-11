@@ -1,7 +1,7 @@
 //
 // Created by Nymphadora Shelly on 19/12/2019.
 //
-#include "prender.h"
+#include "wolf3d.h"
 
 int sub_events(t_subevents *se, t_player *player)
 {
@@ -12,7 +12,7 @@ int sub_events(t_subevents *se, t_player *player)
     if (se->ev.key.keysym.sym == 'a')
         se->wsad[2] = se->ev.type == SDL_KEYDOWN;
     if (se->ev.key.keysym.sym == 'd')
-        se->wsad[3] = se->ev.type == SDL_KEYDOWN;
+        se->wsad[3] = (se->ev.type == SDL_KEYDOWN);
     if (se->ev.key.keysym.sym == SDLK_ESCAPE)//quit
     {
         UnloadData(player);
@@ -60,9 +60,11 @@ int events(t_subevents *se, t_player *player)//inside of this function is sub_ev
 
 void mouse_movement(t_mouse *ms, t_player *player)
 {
+	SDL_SetRelativeMouseMode(1);
     SDL_GetRelativeMouseState(&ms->x, &ms->y);
     player->angle += ms->x * 0.03f;//mouse left-right
-    ms->yaw = clamp(ms->yaw - ms->y * 0.05f, -5, 5);//mouse up-down
+    ms->yaw = clamp(ms->yaw + ms->y * 0.05f, -5, 5);
+	//ms->yaw = clamp(ms->yaw - ms->y * 0.05f, -5, 5);//mouse up-down
     player->yaw = ms->yaw - player->velocity.z * 0.5f;
 }
 
