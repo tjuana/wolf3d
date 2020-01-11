@@ -138,15 +138,14 @@ void MovePlayer(float dx, float dy, t_player *pl)
 void DrawScreen(t_player *pl, SDL_Surface *surface)
 {
 	/* Acquire the x,y coordinates of the two endpoints (vertices) of this edge of the sector */
-	t_xy	v_start;//float vx1;    float vy1;
-	t_xy	v_end;//float vx2;    float vy2;
+
 	/* Rotate them around the player's view */
-	float tx1;
-	float tz1;
-	float tx2;
-	float tz2;
-	t_xy i1;
-	t_xy i2;
+	/*float tx1 = 0;
+	float tz1 = 0;
+	float tx2 = 0;
+	float tz2 = 0;
+	t_xy i1 = {0,0};
+	t_xy i2 = {0,0};*/
 	int neighbor;
 	/* Render the wall. */
 	int beginx;
@@ -179,28 +178,12 @@ void DrawScreen(t_player *pl, SDL_Surface *surface)
         for(unsigned s = 0; s < sect->npoints; ++s)
         {
 			// Acquire the x,y coordinates of the two endpoints (vertices) of this edge of the sector
-			v_start.x = sect->vertex[s + 0].x - pl->where.x;
+			/*v_start.x = sect->vertex[s + 0].x - pl->where.x;
 			v_start.y = sect->vertex[s + 0].y - pl->where.y;
 			v_end.x = sect->vertex[s + 1].x - pl->where.x;
-			v_end.y = sect->vertex[s + 1].y - pl->where.y;
-			engine_cross(pl, &v_start, &v_end);
-			// Rotate them around the player's view
-			tx1 = v_start.x * pl->anglesin - v_start.y * pl->anglecos;
-			tz1 = v_start.x * pl->anglecos + v_start.y * pl->anglesin;
-			tx2 = v_end.x * pl->anglesin - v_end.y * pl->anglecos;
-			tz2 = v_end.x * pl->anglecos + v_end.y * pl->anglesin;
-			// Is the wall at least partially in front of the player?
-			if(tz1 <= 0 && tz2 <= 0) continue;
-			// If it's partially behind the player, clip it against player's view frustrum
-			if(tz1 <= 0 || tz2 <= 0)
-			{
-				// Find an intersection between the wall and the approximate edges of player's view
-				i1 = Intersect(tx1, tz1, tx2, tz2, -pl->nearside, pl->nearz, -pl->farside, pl->farz);
-				i2 = Intersect(tx1, tz1, tx2, tz2, pl->nearside, pl->nearz, pl->farside, pl->farz);
-				if(tz1 < pl->nearz) { if(i1.y > 0) { tx1 = i1.x; tz1 = i1.y; } else { tx1 = i2.x; tz1 = i2.y; } }
-				if(tz2 < pl->nearz) { if(i1.y > 0) { tx2 = i1.x; tz2 = i1.y; } else { tx2 = i2.x; tz2 = i2.y; } }
-			}
-			printf(" t1.x==%f t1.y==%f t2.x==%f t2.y==%f \n", tx1, tz1, tx2, tz2);
+			v_end.y = sect->vertex[s + 1].y - pl->where.y;*/
+			if (engine_cross(pl, now.sectorno, s) == 0)
+				continue;
 			/* Acquire the floor and ceiling heights, relative to where the player's view is */
 			pl->ceil.yceil = sect->ceil - pl->where.z;
 			pl->floor.yfloor = sect->floor - pl->where.z;
@@ -212,10 +195,10 @@ void DrawScreen(t_player *pl, SDL_Surface *surface)
 				pl->floor.nyfloor = pl->sectors[neighbor].floor - pl->where.z;
 			}
 			/* Project ceiling & floor heights into screen coordinates (Y coordinate) */
-			engine_scale(pl, tz1, tz2);
+			engine_scale(pl, pl->t1.y, pl->t2.y);
 			/* Do perspective transformation */
-			pl->x1 = WIN_W / 2 - (int)(tx1 * pl->scale_1.x);
-			pl->x2 = WIN_W / 2 - (int)(tx2 * pl->scale_2.x);
+			pl->x1 = WIN_W / 2 - (int)(pl->t1.x * pl->scale_1.x);
+			pl->x2 = WIN_W / 2 - (int)(pl->t2.x * pl->scale_2.x);
 			if(pl->x1 >= pl->x2 || pl->x2 < now.sx1 || pl->x1 > now.sx2) continue; // Only render if it's visible
 			/* Render the wall. */
 			beginx = max(pl->x1, now.sx1);
@@ -223,7 +206,7 @@ void DrawScreen(t_player *pl, SDL_Surface *surface)
 			for(x = beginx; x <= endx; ++x)
 			{
 				/* Calculate the Z coordinate for this point. (Only used for lighting.) */
-				z = ((x - pl->x1) * (tz2 - tz1) / (pl->x2 - pl->x1) + tz1) * 8;
+				z = ((x - pl->x1) * (pl->t2.y - pl->t1.y) / (pl->x2 - pl->x1) + pl->t1.y) * 8;
 				/* Acquire the Y coordinates for our ceiling & floor for this X coordinate. Clamp them. */
 				pl->floor.ya = (x - pl->x1) * (pl->ceil.y2a - pl->ceil.y1a) / (pl->x2 - pl->x1) + pl->ceil.y1a;
 				pl->ceil.cya = clamp(pl->floor.ya, ytop[x],ybottom[x]); // top

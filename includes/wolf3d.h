@@ -47,7 +47,7 @@ float		Yaw(float y, float z, t_player *player);
 /*			engine.c			*/
 
 /*			engine_exp.c			*/
-int			engine_cross(t_player *pl, t_xy *v_start, t_xy *v_end);
+int			engine_cross(t_player *pl, int sec_n, unsigned s);
 void		engine_scale(t_player *pl, float tz1, float tz2);
 
 /*			functions_main.c			*/
