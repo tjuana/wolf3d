@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 19:06:08 by dorange-          #+#    #+#             */
-/*   Updated: 2020/01/11 16:02:36 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/11 17:49:01 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ void	ft_editor_mouse_move(t_wolf3d *w, SDL_Event e)
 	SDL_GetMouseState(&x, &y);
 	w->mouse_pos = (t_vector3){x, y, 0, 0};
 	if (ft_editor_check_mouse_vertex_pos(w, x, y))
+	{
 		w->mouse_vertex = (t_vector3){(20 + (x + E_GRID_V_D - 20) / E_GRID_L * E_GRID_L), (20 + (y + E_GRID_V_D - 20) / E_GRID_L * E_GRID_L), 0, 1};
+		w->mouse_pos = w->mouse_vertex;
+	}
 	else
 		w->mouse_vertex = (t_vector3){0, 0, 0, 0};
 }
@@ -147,33 +150,82 @@ int		ft_editor_map_check_area(t_wolf3d *w)
 	t_vector3	temp_vector;
 	t_sector	*sector;
 	double		d;
+	t_vector3	temp_vertex_1;
+	t_vector3	temp_vertex_2;
+	t_vector3	temp_vertex_3;
+	t_vector3	check_vector;	// для проверки (по часовой / против часовой)
+
+	t_vector3	i; // intersect point
 
 	if (w->sector == NULL)
-		return (0);
+		return (1);
 	sector = w->sector->content;
+	if (sector->status == 1)
+		return (1);
 	if (sector->vertex_count < 4)
-		return (0);
-	vector = (t_vector3){
-		w->mouse_pos.x - sector->vertex[sector->vertex_count - 1]->x,
-		w->mouse_pos.y - sector->vertex[sector->vertex_count - 1]->y,
+		return (1);
+
+	temp_vertex_1 = ft_editor_map_get_xy_vertex_pos(w, *sector->vertex[0]);
+	temp_vertex_2 = ft_editor_map_get_xy_vertex_pos(w, *sector->vertex[1]);
+	check_vector = (t_vector3){
+		temp_vertex_2.x - temp_vertex_1.x,
+		temp_vertex_2.y - temp_vertex_1.y,
 		0, 0
 	};
+
+	// first check
+	temp_vertex_1 = ft_editor_map_get_xy_vertex_pos(w, *sector->vertex[sector->vertex_count - 1]);
+	vector = (t_vector3){
+		w->mouse_pos.x - temp_vertex_1.x,
+		w->mouse_pos.y - temp_vertex_1.y,
+		0, 0
+	};
+	temp_vertex_2 = ft_editor_map_get_xy_vertex_pos(w, *sector->vertex[sector->vertex_count - 2]);
 	temp_vector = (t_vector3){
-		sector->vertex[sector->vertex_count - 1]->x - sector->vertex[sector->vertex_count - 2]->x,
-		sector->vertex[sector->vertex_count - 1]->y - sector->vertex[sector->vertex_count - 2]->y,
+		temp_vertex_1.x - temp_vertex_2.x,
+		temp_vertex_1.y - temp_vertex_2.y,
 		0, 0
 	};
 	d = vector.x * temp_vector.y - temp_vector.x * vector.y;
+	// if ((check_vector.x > 0.0 && check_vector.y >= 0) || (check_vector.x < 0.0 && check_vector.y < 0))
+	// 	d *= (-1);
 	if (d < 0.0)
 		return (0);
+
+
+
+	// check 2
+	temp_vertex_2 = ft_editor_map_get_xy_vertex_pos(w, *sector->vertex[0]);
+	temp_vector = (t_vector3){
+		temp_vertex_1.x - temp_vertex_2.x,
+		temp_vertex_1.y - temp_vertex_2.y,
+		0, 0
+	};
+	d = vector.x * temp_vector.y - temp_vector.x * vector.y;
+	// if ((check_vector.x > 0.0 && check_vector.y >= 0) || (check_vector.x < 0.0 && check_vector.y < 0))
+	// {
+	// 	printf("%d\t%d\n", (int)check_vector.x, (int)check_vector.y);
+	// 	d *= (-1);
+	// }
+	if (d < 0.0)
+		return (0);
+
+
+
+	// check 3 (intersect)
+	temp_vertex_1 = ft_editor_map_get_xy_vertex_pos(w, *sector->vertex[1]);
+	temp_vertex_3 = ft_editor_map_get_xy_vertex_pos(w, *sector->vertex[sector->vertex_count - 1]);
+	i = ft_find_intersect(
+		temp_vertex_1.x, temp_vertex_1.y, \
+		temp_vertex_2.x, temp_vertex_2.y, \
+		temp_vertex_3.x, temp_vertex_3.y, \
+		w->mouse_pos.x, w->mouse_pos.y
+	);
+
+	if(ft_check_point_in_line_segment(i, temp_vertex_3, w->mouse_pos))
+		return (0);
+
 	return (1);
-
-	// в matrix-библиотеку можно добавить косое произведение векторов (x1y2 - x2y1)
-	// temp_vector = ft_vec3_cross_product(vector, temp_vector);
-
-
-	// sector->vertex[0]
-	// sector->vertex[sector->vertex_count - 1]
 }
 
 void	ft_editor_sector_draw_line_to_vertex(t_wolf3d *w)
@@ -215,7 +267,7 @@ void	ft_editor_mouse_click(t_wolf3d *w, SDL_Event e)
 	x = 0;
 	y = 0;
 	SDL_GetMouseState(&x, &y);
-	if (ft_editor_check_mouse_vertex_pos(w, x, y))
+	if (ft_editor_check_mouse_vertex_pos(w, x, y) && ft_editor_map_check_area(w))
 	{
 		if (w->sector_status == 0)
 		{

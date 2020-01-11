@@ -456,4 +456,6 @@ t_vector3		ft_editor_map_get_xy_vertex_pos(t_wolf3d *w, t_vector3 v);
 
 void			ft_editor_delete_last_vertex(t_wolf3d *w);
 
+int				ft_editor_map_check_area(t_wolf3d *w);
+
 #endif

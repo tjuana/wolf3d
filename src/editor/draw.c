@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 19:26:48 by dorange-          #+#    #+#             */
-/*   Updated: 2020/01/11 11:59:27 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/11 17:32:19 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,15 @@ void	ft_editor_draw_point(t_wolf3d *data, t_vector3 v, int color)
 void	ft_editor_draw_mouse_vertex(t_wolf3d *w)
 {
 	if (w->mouse_vertex.w == 1)
-		ft_editor_draw_point(w, w->mouse_vertex, 0xff0000);
+	{
+		if (w->sector_status == 1)
+		{
+			if (ft_editor_map_check_area(w))
+				ft_editor_draw_point(w, w->mouse_vertex, 0xff0000);
+			// else
+			//	ft_editor_draw_point(w, w->mouse_vertex, 0xCCCCCC);
+		}
+		else
+			ft_editor_draw_point(w, w->mouse_vertex, 0xff0000);
+	}
 }
