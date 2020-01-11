@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:24:13 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/11 11:23:16 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/11 20:19:36 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,21 +82,6 @@ void		ft_editor_map_transform_vertexes(t_wolf3d *w, t_sector *ptr_sector, t_sect
 
 		i++;
 	}
-}
-
-t_vector3	ft_editor_map_get_xy_vertex_pos(t_wolf3d *w, t_vector3 v)
-{
-	int			grid_l;
-	t_vector3	indent;
-
-	grid_l = 32;
-	indent = (t_vector3){20, 20, 0, 0};
-
-	return ((t_vector3){
-		v.x * grid_l + indent.x,
-		v.y * grid_l + indent.y,
-		0, 0
-	});
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 19:06:08 by dorange-          #+#    #+#             */
-/*   Updated: 2020/01/11 17:49:01 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/11 20:27:57 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,13 +156,22 @@ int		ft_editor_map_check_area(t_wolf3d *w)
 	t_vector3	check_vector;	// для проверки (по часовой / против часовой)
 
 	t_vector3	i; // intersect point
+	
+
+	printf("1   aaa!\n");
+
 
 	if (w->sector == NULL)
 		return (1);
+	if (ft_sector_check_sector(w)) // check sector intersect
+		return (0);
+
+	printf("2   aaa!\n");
+
 	sector = w->sector->content;
 	if (sector->status == 1)
 		return (1);
-	if (sector->vertex_count < 4)
+	if (sector->vertex_count < 3)
 		return (1);
 
 	temp_vertex_1 = ft_editor_map_get_xy_vertex_pos(w, *sector->vertex[0]);
@@ -228,6 +237,7 @@ int		ft_editor_map_check_area(t_wolf3d *w)
 	return (1);
 }
 
+// ?!
 void	ft_editor_sector_draw_line_to_vertex(t_wolf3d *w)
 {
 	t_sector	*sector;
@@ -241,11 +251,10 @@ void	ft_editor_sector_draw_line_to_vertex(t_wolf3d *w)
 	sector = w->sector->content;
 	c = ft_editor_map_get_xy_vertex_pos(w, *sector->vertex[sector->vertex_count - 1]);
 
-	if (sector->vertex_count > 3)
+	if (sector->vertex_count > 2)
 	{
 		if (!ft_editor_map_check_area(w))
 			return ; // t_vector3
-		// check angle (??!)
 	}
 
 	if (w->mouse_vertex.w == 1)

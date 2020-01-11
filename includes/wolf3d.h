@@ -458,4 +458,8 @@ void			ft_editor_delete_last_vertex(t_wolf3d *w);
 
 int				ft_editor_map_check_area(t_wolf3d *w);
 
+int				ft_sector_check_sector(t_wolf3d *w);
+int				ft_sector_check_cross(t_wolf3d *w, t_sector *ptr_sector, t_vector3 v);
+// int				ft_sector_check_cross(t_wolf3d *w);
+
 #endif

@@ -6,11 +6,26 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 16:27:33 by dorange-          #+#    #+#             */
-/*   Updated: 2020/01/08 15:48:25 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/11 20:36:48 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
+
+t_vector3	ft_editor_map_get_xy_vertex_pos(t_wolf3d *w, t_vector3 v)
+{
+	int			grid_l;
+	t_vector3	indent;
+
+	grid_l = 32;
+	indent = (t_vector3){20, 20, 0, 0};
+
+	return ((t_vector3){
+		v.x * grid_l + indent.x,
+		v.y * grid_l + indent.y,
+		0, 0
+	});
+}
 
 /*
 	void ft_check_walls_vertex_cross(t_wolf3d *w, t_sector *ptr_sector)
@@ -18,7 +33,7 @@
 	I don't know how to name this function correctly, but
 	this is function that search number of intersections with a sector.
 */
-int		ft_check_walls_vertex_cross(t_wolf3d *w, t_sector *ptr_sector)
+int		ft_check_walls_vertex_cross(t_wolf3d *w, t_sector *ptr_sector, t_vector3 v)
 {
 	int				i;
 	int				vtx1_n; // vertex number
@@ -39,8 +54,8 @@ int		ft_check_walls_vertex_cross(t_wolf3d *w, t_sector *ptr_sector)
 		if (!ft_check_div(
 			0.0,
 			0.0,
-			w->pl.pos.x,
-			w->pl.pos.y,
+			v.x,
+			v.y,
 			ptr_sector->vertex[vtx1_n]->x,
 			ptr_sector->vertex[vtx1_n]->y,
 			ptr_sector->vertex[vtx2_n]->x,
@@ -54,8 +69,8 @@ int		ft_check_walls_vertex_cross(t_wolf3d *w, t_sector *ptr_sector)
 		p = ft_find_intersect(
 			0.0,
 			0.0,
-			w->pl.pos.x,
-			w->pl.pos.y,
+			v.x,
+			v.y,
 			ptr_sector->vertex[vtx1_n]->x,
 			ptr_sector->vertex[vtx1_n]->y,
 			ptr_sector->vertex[vtx2_n]->x,
@@ -64,25 +79,124 @@ int		ft_check_walls_vertex_cross(t_wolf3d *w, t_sector *ptr_sector)
 
 		if (
 			ft_check_point_in_line_segment(p, *ptr_sector->vertex[vtx1_n], *ptr_sector->vertex[vtx2_n]) &&
-			ft_check_point_in_line_segment(p, (t_vector3){0.0, 0.0, 0.0, 0.0}, w->pl.pos)
+			ft_check_point_in_line_segment(p, (t_vector3){0.0, 0.0, 0.0, 0.0}, v)
 			//!ft_check_point_in_line_segment(p, *ptr_sector->vertex[0], w->pl.pos)
 		)
 		{
-			// printf("P%02d: x_%5.2f, y_%5.2f | ", count + 1, p.x, p.y);
 			count++;
 		}
-
-		// printf("X%02d: x_%5.2f, y_%5.2f | ", count + 1, p.x, p.y);
-
 
 		i++;
 	}
 
-	// printf("%d\n", count);
+	if (count % 2 == 0)
+		return (0);
+	return (1);
+}
+
+int		ft_sector_check_cross(t_wolf3d *w, t_sector *ptr_sector, t_vector3 v)
+{
+	int				i;
+	int				vtx1_n; // vertex number
+	int				vtx2_n;
+	t_vector3		p;
+	int				count;
+
+	t_vector3		vertex3;
+	t_vector3		vertex4;
+
+	i = 0;
+	count = 0;
+	while (i < ptr_sector->vertex_count)
+	{
+		// printf("CHECK -%d\n", i);
+		vtx1_n = i;
+		vtx2_n = i + 1;
+		if (vtx2_n == ptr_sector->vertex_count)
+			vtx2_n = 0;
+
+		vertex3 = ft_editor_map_get_xy_vertex_pos(w, *ptr_sector->vertex[vtx1_n]);
+		vertex4 = ft_editor_map_get_xy_vertex_pos(w, *ptr_sector->vertex[vtx2_n]);
+
+		// vertex3 = (t_vector3){0, 0, 0, 0};
+		// vertex4 = (t_vector3){0, 0, 0, 0};
+
+		printf("%f   %f   %f   %f   %f   %f   %f   %f\n", 0.0, 0.0, v.x, v.y, vertex3.x, vertex3.y, vertex4.x, vertex4.y);
+
+		if (!ft_check_div(
+			0.0,
+			0.0,
+			v.x,
+			v.y,
+			vertex3.x,
+			vertex3.y,
+			vertex4.x,
+			vertex4.y
+		))
+		{
+			// count++;
+			i++;
+			continue;
+		}
+		
+		p = ft_find_intersect(
+			0.0,
+			0.0,
+			v.x,
+			v.y,
+			vertex3.x,
+			vertex3.y,
+			vertex4.x,
+			vertex4.y
+		);
+
+		if (
+			ft_check_point_in_line_segment(p, vertex3, vertex4) &&
+			ft_check_point_in_line_segment(p, (t_vector3){0.0, 0.0, 0.0, 0.0}, v)
+			//!ft_check_point_in_line_segment(p, *ptr_sector->vertex[0], w->pl.pos)
+		)
+		{
+			count++;
+		}
+
+		i++;
+	}
+
+	printf("count: %d\n", count);
 
 	if (count % 2 == 0)
 		return (0);
 	return (1);
+}
+
+int		ft_sector_check_sector(t_wolf3d *w)
+{
+	t_list		*ptr_list;
+	t_sector	*ptr_sector;
+	int			i;
+
+	// printf("check...\n");
+	ptr_list = w->sector;
+	i = 0;
+	while (ptr_list)
+	{
+		ptr_sector = ptr_list->content;
+
+		if (ptr_sector->status == 0)
+		{
+			ptr_list = ptr_list->next;
+			i++;
+			continue ;
+		}
+		printf("CHECK SECTOR #%d\n", i);
+
+		if (ft_sector_check_cross(w, ptr_sector, w->mouse_pos))
+			return (i + 1);
+
+		ptr_list = ptr_list->next;
+		i++;
+	}
+	return (0);
 }
 
 int		ft_get_player_sector(t_wolf3d *w)
@@ -98,7 +212,7 @@ int		ft_get_player_sector(t_wolf3d *w)
 		// printf("CHECK %d\n", i);
 		ptr_sector = ptr_list->content;
 
-		if (ft_check_walls_vertex_cross(w, ptr_sector))
+		if (ft_check_walls_vertex_cross(w, ptr_sector, w->pl.pos))
 			return (i + 1);
 
 		ptr_list = ptr_list->next;
