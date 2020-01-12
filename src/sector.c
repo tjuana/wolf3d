@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 16:27:33 by dorange-          #+#    #+#             */
-/*   Updated: 2020/01/11 20:36:48 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/12 11:36:11 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,13 @@ int		ft_check_walls_vertex_cross(t_wolf3d *w, t_sector *ptr_sector, t_vector3 v)
 	return (1);
 }
 
+int		ft_editor_sector_compare_vertexes(t_vector3 v1, t_vector3 v2)
+{
+	if ((int)v1.x == (int)v2.x && (int)v1.y == (int)v2.y && (int)v1.z == (int)v2.z)
+		return (1);
+	return (0);
+}
+
 int		ft_sector_check_cross(t_wolf3d *w, t_sector *ptr_sector, t_vector3 v)
 {
 	int				i;
@@ -104,12 +111,17 @@ int		ft_sector_check_cross(t_wolf3d *w, t_sector *ptr_sector, t_vector3 v)
 
 	t_vector3		vertex3;
 	t_vector3		vertex4;
+	t_vector3		vertex5;
+
+	t_sector		*sector;
+
+	int				m;
 
 	i = 0;
 	count = 0;
+	m = 0;
 	while (i < ptr_sector->vertex_count)
 	{
-		// printf("CHECK -%d\n", i);
 		vtx1_n = i;
 		vtx2_n = i + 1;
 		if (vtx2_n == ptr_sector->vertex_count)
@@ -118,10 +130,32 @@ int		ft_sector_check_cross(t_wolf3d *w, t_sector *ptr_sector, t_vector3 v)
 		vertex3 = ft_editor_map_get_xy_vertex_pos(w, *ptr_sector->vertex[vtx1_n]);
 		vertex4 = ft_editor_map_get_xy_vertex_pos(w, *ptr_sector->vertex[vtx2_n]);
 
-		// vertex3 = (t_vector3){0, 0, 0, 0};
-		// vertex4 = (t_vector3){0, 0, 0, 0};
+		if (ft_editor_sector_compare_vertexes(v, vertex3) || ft_editor_sector_compare_vertexes(v, vertex4))
+		{
+			// sector = (t_sector*)(w->sector->content);
+			// if (sector->status == 0)
+			// {
+			// 	// Проверяем, не лежит ли прямая внутри сектора
+			// 	vertex5 = (t_vector3){
+			// 		(sector->vertex[sector->vertex_count - 1]->x + v.x) / 2, \
+			// 		(sector->vertex[sector->vertex_count - 1]->y + v.y) / 2, \
+			// 		0, 0
+			// 	};
+			// 	// Скорее всего, нужно добавить рекурсию.
+			// 	// > ввести для ft_sector_check_cross разные returns:
+			// 	// 0: нет пересечений, 1: точка внутри сектора, 2: есть точка на линии
 
-		printf("%f   %f   %f   %f   %f   %f   %f   %f\n", 0.0, 0.0, v.x, v.y, vertex3.x, vertex3.y, vertex4.x, vertex4.y);
+			// 	return (1);
+			// }
+			// else
+				return (0);
+		}
+
+		if (ft_check_point_in_line_segment(v, vertex3, vertex4))
+			return (2);
+
+		// debug
+		// printf("%f   %f   %f   %f   %f   %f   %f   %f\n", 0.0, 0.0, v.x, v.y, vertex3.x, vertex3.y, vertex4.x, vertex4.y);
 
 		if (!ft_check_div(
 			0.0,
@@ -162,7 +196,7 @@ int		ft_sector_check_cross(t_wolf3d *w, t_sector *ptr_sector, t_vector3 v)
 		i++;
 	}
 
-	printf("count: %d\n", count);
+	// printf("count: %d\n", count);
 
 	if (count % 2 == 0)
 		return (0);
@@ -188,7 +222,7 @@ int		ft_sector_check_sector(t_wolf3d *w)
 			i++;
 			continue ;
 		}
-		printf("CHECK SECTOR #%d\n", i);
+		// printf("CHECK SECTOR #%d\n", i);
 
 		if (ft_sector_check_cross(w, ptr_sector, w->mouse_pos))
 			return (i + 1);

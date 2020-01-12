@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 19:06:08 by dorange-          #+#    #+#             */
-/*   Updated: 2020/01/11 20:27:57 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/12 11:37:23 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,13 +137,6 @@ void	ft_editor_sector_create(t_wolf3d *w)
 		ft_lstadd(&(w->sector), list_item);
 }
 
-int		ft_editor_sector_compare_vertexes(t_vector3 v1, t_vector3 v2)
-{
-	if ((int)v1.x == (int)v2.x && (int)v1.y == (int)v2.y && (int)v1.z == (int)v2.z)
-		return (1);
-	return (0);
-}
-
 int		ft_editor_map_check_area(t_wolf3d *w)
 {
 	t_vector3	vector;
@@ -156,17 +149,11 @@ int		ft_editor_map_check_area(t_wolf3d *w)
 	t_vector3	check_vector;	// для проверки (по часовой / против часовой)
 
 	t_vector3	i; // intersect point
-	
-
-	printf("1   aaa!\n");
-
 
 	if (w->sector == NULL)
 		return (1);
 	if (ft_sector_check_sector(w)) // check sector intersect
 		return (0);
-
-	printf("2   aaa!\n");
 
 	sector = w->sector->content;
 	if (sector->status == 1)

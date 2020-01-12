@@ -6,7 +6,7 @@
 /*   By: dorange- <dorange-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:24:13 by tjuana            #+#    #+#             */
-/*   Updated: 2020/01/11 20:19:36 by dorange-         ###   ########.fr       */
+/*   Updated: 2020/01/12 11:52:34 by dorange-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,10 @@ void		ft_editor_map_draw_walls(t_wolf3d *w, t_sector *ptr_sector)
 	int				vtx2_n;
 
 	i = 0;
+	if (ptr_sector->status == 0)
+		ptr_sector->color = 0x7b68ee;
+	else
+		ptr_sector->color = 0xf8f32b;
 	while (i < ptr_sector->vertex_count)
 	{
 		vtx1_n = i;
@@ -115,7 +119,7 @@ void		ft_editor_map_draw_walls(t_wolf3d *w, t_sector *ptr_sector)
 		c2 = ft_editor_map_get_xy_vertex_pos(w, *ptr_sector->vertex[vtx2_n]);
 
 		if (ft_editor_check_line_for_map(c1, c2))
-			ft_fdf_wu(&c1, &c2, w);
+			ft_fdf_wu_color(&c1, &c2, w, ptr_sector->color);
 
 		i++;
 	}
@@ -124,7 +128,7 @@ void		ft_editor_map_draw_walls(t_wolf3d *w, t_sector *ptr_sector)
 	while (i < ptr_sector->vertex_count)
 	{
 		c1 = ft_editor_map_get_xy_vertex_pos(w, *ptr_sector->vertex[i]);
-		ft_editor_draw_point(w, c1, 0xffff00);
+		ft_editor_draw_point(w, c1, ptr_sector->color);
 		i++;
 		/*c1 = ft_editor_map_get_xy_vertex_pos(w, *ptr_sector->vertex[vtx1_n]);
 		c2 = ft_editor_map_get_xy_vertex_pos(w, *ptr_sector->vertex[vtx2_n]);
@@ -160,51 +164,11 @@ void		ft_editor_map_draw_walls_height(t_wolf3d *w, t_sector *ptr_sector, t_secto
 	}
 }
 
-/*
-	void ft_editor_draw_walls_for_map(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr_sector_origin)
-
-	New function that draw walls for map.
-*/
-void		ft_editor_draw_walls_for_map(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr_sector_top, t_sector *ptr_sector_origin)
+void		ft_editor_draw_map_2d(t_wolf3d *w, t_list *sector)
 {
-	int				i;
-	t_vector3		c1;
-	t_vector3		c2;
-	double			angle;
-	t_matrix_4x4	temp_matrix;
-
-	ft_editor_map_draw_walls(w, ptr_sector);
-}
-
-/*
-	void ft_draw_map_new_sector(t_wolf3d *w)
-
-	Function that draw new maps (sector).
-*/
-void		ft_editor_draw_map_new_sector_iso(t_wolf3d *w)
-{
-	t_list			*ptr_list;
-	t_list			*ptr_list_top;
-	t_list			*ptr_list_origin;
-	t_sector		*ptr_sector;
-	t_sector		*ptr_sector_top;
-	t_sector		*ptr_sector_origin;
-
-	// ft_editor_fill_frame(w);
-	ptr_list = w->sector;
-	ptr_list_top = w->map_sector_top;
-	ptr_list_origin = w->sector;
-	while (ptr_list)
+	if (sector)
 	{
-		// Get line values
-		ptr_sector = (t_sector*)ptr_list->content;
-		ptr_sector_origin = (t_sector*)ptr_list_origin->content;
-		ptr_sector_top = (t_sector*)ptr_list_top->content;
-
-		ft_editor_draw_walls_for_map(w, ptr_sector, ptr_sector_top, ptr_sector_origin);
-
-		ptr_list = ptr_list->next;
-		ptr_list_top = ptr_list_top->next;
-		ptr_list_origin = ptr_list_origin->next;
+		ft_editor_draw_map_2d(w, sector->next);
+		ft_editor_map_draw_walls(w, (t_sector*)sector->content);
 	}
 }

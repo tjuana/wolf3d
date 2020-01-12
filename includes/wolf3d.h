@@ -436,8 +436,7 @@ double			ft_editor_get_angle(double sin, double cos);
 void			ft_editor_map_transform_vertexes(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr_sector_origin, double diff);
 void			ft_editor_map_draw_walls(t_wolf3d *w, t_sector *ptr_sector);
 void			ft_editor_map_draw_walls_height(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr_sector_top);
-void			ft_editor_draw_walls_for_map(t_wolf3d *w, t_sector *ptr_sector, t_sector *ptr_sector_top, t_sector *ptr_sector_origin);
-void			ft_editor_draw_map_new_sector_iso(t_wolf3d *w);
+void			ft_editor_draw_map_2d(t_wolf3d *w, t_list *sector);
 
 void			ft_editor_handle_events(t_wolf3d *w);
 void			ft_editor_use_events(t_wolf3d *w);
@@ -460,6 +459,7 @@ int				ft_editor_map_check_area(t_wolf3d *w);
 
 int				ft_sector_check_sector(t_wolf3d *w);
 int				ft_sector_check_cross(t_wolf3d *w, t_sector *ptr_sector, t_vector3 v);
-// int				ft_sector_check_cross(t_wolf3d *w);
+
+int				ft_editor_sector_compare_vertexes(t_vector3 v1, t_vector3 v2);
 
 #endif
